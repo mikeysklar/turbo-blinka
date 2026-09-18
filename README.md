@@ -109,6 +109,7 @@ Every run prints a checksum. It must match across backends.
 | `fastpath/fill_kernel.py` | `_fill_area` pixel loop on flat buffers. |
 | `fastpath/tilegrid_fast.py` | Monkeypatch that installs the kernel. Falls back if unsupported. |
 | `fastpath/cy/fill_kernel.py` | Same kernel with Cython types. |
+| `turbo-blinka.html` | Summary page: charts, tables, port work. |
 | `RESULTS.md` | Every measured number. |
 | `analyze-results.md` | `turbo analyze` output over Blinka and Learn guides. |
 | `logs/` | Raw output per host per run. |

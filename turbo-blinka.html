@@ -1,0 +1,262 @@
+<title>Turbo on Blinka</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#f4f6f5; --surface:#fcfcfb; --ink:#0f1513; --ink2:#4b5552; --muted:#858d89;
+  --rule:#d9dfdc; --accent:#b3173f; --zero:#2a78d6; --pi5:#eb6834; --pick:#e6f2ec; --code:#eaeeec;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0e1211; --surface:#1a1a19; --ink:#f4f7f5; --ink2:#c0c8c4; --muted:#858d89;
+    --rule:#2c3432; --accent:#f0708f; --zero:#3987e5; --pi5:#d95926; --pick:#17302a; --code:#202725;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0e1211; --surface:#1a1a19; --ink:#f4f7f5; --ink2:#c0c8c4; --muted:#858d89;
+  --rule:#2c3432; --accent:#f0708f; --zero:#3987e5; --pi5:#d95926; --pick:#17302a; --code:#202725;
+}
+body{background:var(--ground);color:var(--ink);font:400 15px/1.5 "IBM Plex Sans",system-ui,sans-serif;padding-inline:16px}
+main{max-width:940px;margin:0 auto;padding-block:36px 64px;display:flex;flex-direction:column;gap:44px}
+header h1{font:600 40px/1.05 "IBM Plex Sans Condensed","Arial Narrow",sans-serif;margin:0;letter-spacing:-.01em}
+header p{margin:8px 0 0;color:var(--ink2)}
+header .meta{font:400 12.5px/1.6 "IBM Plex Mono",ui-monospace,monospace;color:var(--muted);margin-top:10px}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section{display:flex;flex-direction:column;gap:12px}
+h2{font:600 23px/1.15 "IBM Plex Sans Condensed","Arial Narrow",sans-serif;margin:0;padding-top:12px;border-top:2px solid var(--ink);text-wrap:balance}
+h2+p{margin:0;color:var(--ink2)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--surface)}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:500 11.5px/1.3 "IBM Plex Sans",sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-bottom:1px solid var(--ink2);white-space:nowrap}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.n b{font-weight:500}
+td.g{color:var(--ink2)}
+tr.pick td{background:var(--pick)}
+tr.proj td{color:var(--muted);font-style:italic}
+code,pre{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px}
+code{background:var(--code);padding:1px 4px;border-radius:3px}
+pre{background:var(--code);padding:14px 16px;margin:0;border-radius:4px;line-height:1.55}
+.chart{background:var(--surface);border:1px solid var(--rule);padding:12px 8px 4px;position:relative}
+.chart svg{display:block;width:100%;min-width:620px;height:auto}
+.legend{display:flex;gap:18px;font-size:13px;color:var(--ink2);padding:0 8px 6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--ground);font:400 12px/1.4 "IBM Plex Mono",monospace;padding:5px 8px;border-radius:3px;white-space:nowrap;transform:translate(-50%,-130%)}
+svg text{font-family:"IBM Plex Sans",sans-serif}
+svg .num{font-family:"IBM Plex Mono",monospace}
+</style>
+
+<main>
+<header>
+  <h1>Turbo on Blinka</h1>
+  <p>Choosing the backend that runs turbo code on a Raspberry Pi.</p>
+  <div class="meta">Pi Zero 2 W · Pi 5 · Pi OS 64-bit · CPython 3.13.5 · Blinka 9.2.0 · Blinka_Displayio 2.3.2 · 2026-09-18<br>
+  Source, logs, utilities: <a href="https://github.com/mikeysklar/turbo-blinka">github.com/mikeysklar/turbo-blinka</a></div>
+</header>
+
+<section>
+  <h2>Backend choice</h2>
+  <p>Blinka runs on CPython, so native .mpy is out. Three replacements.</p>
+  <div class="scroll"><table>
+    <tr><th>Backend</th><th>Change to turbo source</th><th class="n">Speedup, Zero 2 W / Pi 5</th><th class="n">Startup per run, Zero 2 W</th><th>Ships as</th><th>Role</th></tr>
+    <tr class="pick"><td><b>Cython</b></td><td>Decorator and signature lines</td><td class="n">218x / 119x</td><td class="n">0 s</td><td>Prebuilt wheel</td><td><b>Ship this</b></td></tr>
+    <tr><td><b>Numba</b></td><td>None</td><td class="n">152x / 75x</td><td class="n">4.7 to 8.8 s</td><td>pip, 204 MB</td><td>Dev option, no build step</td></tr>
+    <tr><td><b>numpy</b></td><td>Full rewrite, new API</td><td class="n">11x / 14x</td><td class="n">0.7 s</td><td>Already installed</td><td>Whole-buffer ops only</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>Mandelbrot, all backends</h2>
+  <p>Turbo's own viper benchmark, 160x120. Log scale, lower is faster.</p>
+  <div class="scroll"><div class="chart" id="c1"></div></div>
+  <div class="scroll"><table id="t1"></table></div>
+</section>
+
+<section>
+  <h2>Where the mandelbrot speedup comes from</h2>
+  <p>Each row is one change. Gain is against the row above.</p>
+  <div class="scroll"><table id="s1"></table></div>
+</section>
+
+<section>
+  <h2>displayio full-screen refresh</h2>
+  <p>240x240, 16-bit, headless. Output byte-identical in every row.</p>
+  <div class="scroll"><div class="chart" id="c2"></div></div>
+  <div class="scroll"><table id="t2"></table></div>
+</section>
+
+<section>
+  <h2>Where the refresh speedup comes from</h2>
+  <p>Each row is one change to <code>TileGrid._fill_area</code>.</p>
+  <div class="scroll"><table id="s2"></table></div>
+</section>
+
+<section>
+  <h2>One-time and per-run costs</h2>
+  <p>What each backend costs before the first fast frame.</p>
+  <div class="scroll"><table>
+    <tr><th>Cost</th><th>When</th><th class="n">Zero 2 W</th><th class="n">Pi 5</th></tr>
+    <tr><td>Cython build, typed kernel</td><td>Once, or never with wheels</td><td class="n">70 s</td><td class="n">9 s</td></tr>
+    <tr><td>Cython at run time</td><td>Every run</td><td class="n">0 s</td><td class="n">0 s</td></tr>
+    <tr><td><code>pip install numba</code></td><td>Once</td><td class="n">55 s</td><td class="n">9 s</td></tr>
+    <tr><td>Numba on disk</td><td>Once</td><td class="n">204 MB</td><td class="n">204 MB</td></tr>
+    <tr><td><code>import numba</code></td><td>Every run</td><td class="n">2.3 to 4.7 s</td><td class="n">0.25 s</td></tr>
+    <tr><td>Numba first-call JIT</td><td>Every run</td><td class="n">2.4 to 4.1 s</td><td class="n">0.28 s</td></tr>
+    <tr><td><code>import numpy</code></td><td>Every run</td><td class="n">0.66 s</td><td class="n">0.06 s</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>Pis against the turbo boards</h2>
+  <p>Same mandelbrot. Interpreted against interpreted, compiled against compiled.</p>
+  <div class="scroll"><table>
+    <tr><th>Target</th><th class="n">Interpreted ms</th><th class="n">Compiled ms</th><th>Compiled with</th><th class="n">Gain</th></tr>
+    <tr><td>Metro RP2040</td><td class="n">8 296</td><td class="n">384</td><td>@viper</td><td class="n">22x</td></tr>
+    <tr><td>Metro RP2350</td><td class="n">4 547</td><td class="n">261</td><td>@viper</td><td class="n">17x</td></tr>
+    <tr><td>EK-RA8D1, Cortex-M85</td><td class="n">1 567</td><td class="n">47</td><td>@viper</td><td class="n">33x</td></tr>
+    <tr class="pick"><td>Pi Zero 2 W</td><td class="n">1 308</td><td class="n">6.0</td><td>Cython</td><td class="n">218x</td></tr>
+    <tr class="pick"><td>Pi 5</td><td class="n">142.5</td><td class="n">1.2</td><td>Cython</td><td class="n">119x</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>What carries over from turbo</h2>
+  <p>Piece by piece, from the microcontroller toolchain.</p>
+  <div class="scroll"><table>
+    <tr><th>Piece</th><th>On Blinka</th></tr>
+    <tr><td><code>@turbo</code>, <code>@turbo.viper</code> source</td><td>Runs unchanged. Function bodies untouched.</td></tr>
+    <tr><td><code>turbo analyze</code></td><td>Works unchanged. Reads plain Python.</td></tr>
+    <tr><td><code>_turbo_bench()</code> checksum rule</td><td>Works unchanged. Same checksum as the boards.</td></tr>
+    <tr><td>Shim <code>turbo.py</code></td><td>Needs <code>ptr8</code>, <code>ptr16</code>, <code>ptr32</code>, <code>uint</code> defined.</td></tr>
+    <tr><td><code>turbo build</code></td><td>Needs a Cython backend in place of mpy-cross.</td></tr>
+    <tr><td><code>turbo bench</code></td><td>Needs ssh in place of the serial REPL.</td></tr>
+    <tr><td>Native .mpy, arch directories, <code>pack</code></td><td>Do not apply. CPython cannot load .mpy.</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>Port work</h2>
+  <p>What the port needs. Sizes are estimates.</p>
+  <div class="scroll"><table>
+    <tr><th>Task</th><th>Where</th><th>Size</th></tr>
+    <tr><td>CPython shim with viper type names</td><td>turbo</td><td>Small</td></tr>
+    <tr><td>Cython backend: rewrite signature, declare int locals from the AST</td><td>turbo-cli</td><td>Medium</td></tr>
+    <tr><td>aarch64 and armv7 wheels in CI</td><td>turbo-cli</td><td>Medium</td></tr>
+    <tr><td>Bench over ssh</td><td>turbo-cli</td><td>Small</td></tr>
+    <tr><td><code>_fill_area</code> flat-buffer fast path, plain Python, 2.9x alone</td><td>Blinka_Displayio</td><td>Medium</td></tr>
+    <tr><td>Fast path coverage: ColorConverter, 16-bit bitmaps, vectorio, mono displays</td><td>Blinka_Displayio</td><td>Medium</td></tr>
+    <tr><td>Remove the double composite</td><td>Blinka_Displayio</td><td>Small</td></tr>
+    <tr><td><code>bitmaptools</code> kernels, not measured yet</td><td>Blinka_Displayio</td><td>Medium</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>Found in Blinka_Displayio</h2>
+  <p>Two things the benchmark turned up in 2.3.2.</p>
+  <div class="scroll"><table>
+    <tr><th>Finding</th><th>Where</th><th>Effect</th></tr>
+    <tr><td>Full-screen change is composited and sent twice. The C version only reads the bitmap's dirty area; the port appends it.</td><td><code>displayio/_tilegrid.py:449-470</code></td><td>2x on every full refresh</td></tr>
+    <tr><td>Background thread loops on <code>sleep(0.0)</code></td><td><code>displayio/__init__.py:41-49</code></td><td>1.5% on Zero 2 W, none on Pi 5</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>Reproduce</h2>
+  <p>Every run prints a checksum that must match.</p>
+<div class="scroll"><pre>git clone https://github.com/mikeysklar/turbo-blinka &amp;&amp; cd turbo-blinka
+python3 bench/run_bench.py bench/src/pixels.py                  # before
+python3 bench/run_bench.py --shim numba bench/src/pixels.py     # numba
+python3 bench/displayio_refresh.py                              # stock refresh
+(cd fastpath/cy &amp;&amp; cythonize -i -3 fill_kernel.py)
+python3 bench/displayio_refresh.py --fast cython                # fast path</pre></div>
+</section>
+</main>
+
+<script>
+const fmt = v => v >= 1000 ? Math.round(v).toLocaleString("en-US").replace(/,/g, " ") : v >= 10 ? String(Math.round(v * 10) / 10) : Number.isInteger(v) ? v.toFixed(1) : String(Math.round(v * 100) / 100);
+const gain = g => g >= 10 ? Math.round(g) + "x" : g.toFixed(g < 1 ? 2 : 1) + "x";
+
+const mandel = [
+  {name: "CPython, float source", how: "Plain Python", z: 564, p: 72.7},
+  {name: "CPython, fixed-point source", how: "Turbo's viper source, interpreted", z: 1308, p: 142.5, base: true},
+  {name: "numpy, one row per call", how: "Rewrite, same API", z: 1581, p: 158.9},
+  {name: "Cython, untyped", how: "Compile unmodified source", z: 962, p: 104.2},
+  {name: "numpy, whole frame", how: "Rewrite, new API", z: 115, p: 10.5},
+  {name: "Numba", how: "Shim maps @turbo.viper to njit", z: 8.6, p: 1.9},
+  {name: "Cython, typed", how: "Signature rewritten, body unchanged", z: 6.0, p: 1.2, pick: true},
+  {name: "C, gcc -O2", how: "Hand-written ceiling", z: 4.81, p: 1.053}
+];
+const refresh = [
+  {name: "Stock 2.3.2", how: "Per-pixel objects and method calls", z: 3560, p: 325.7, base: true},
+  {name: "Fast path, plain Python", how: "Flat buffers, palette lookup table", z: 1241, p: 121.8},
+  {name: "Fast path, Numba", how: "Same kernel through njit", z: 34.1, p: 4.6},
+  {name: "Fast path, Cython", how: "Same kernel, typed and compiled", z: 26.8, p: 3.5, pick: true}
+];
+const mandelSteps = [
+  {step: "Float source, interpreted", z: 564, p: 72.7},
+  {step: "Rewrite to fixed point for viper", z: 1308, p: 142.5},
+  {step: "Compile with Cython, no types", z: 962, p: 104.2},
+  {step: "Type the signature and int locals", z: 6.0, p: 1.2},
+  {step: "Hand-written C, the ceiling", z: 4.81, p: 1.053}
+];
+const refreshSteps = [
+  {step: "Stock _fill_area", z: 3560, p: 325.7},
+  {step: "Hoist lookups, flat buffers, palette table", z: 1241, p: 121.8},
+  {step: "Compile the kernel with Cython", z: 26.8, p: 3.5},
+  {step: "Remove the double composite (projected, not measured)", z: 13.4, p: 1.75, proj: true}
+];
+
+function table(id, rows) {
+  const base = rows.find(r => r.base);
+  let h = "<tr><th>Variant</th><th>How</th><th class='n'>Zero 2 W ms</th><th class='n'>vs baseline</th><th class='n'>Pi 5 ms</th><th class='n'>vs baseline</th></tr>";
+  for (const r of rows) h += `<tr${r.pick ? " class='pick'" : ""}><td>${r.name}</td><td class='g'>${r.how}</td><td class='n'><b>${fmt(r.z)}</b></td><td class='n'>${gain(base.z / r.z)}</td><td class='n'><b>${fmt(r.p)}</b></td><td class='n'>${gain(base.p / r.p)}</td></tr>`;
+  document.getElementById(id).innerHTML = h;
+}
+function steps(id, rows) {
+  let h = "<tr><th>Change</th><th class='n'>Zero 2 W ms</th><th class='n'>Gain</th><th class='n'>Pi 5 ms</th><th class='n'>Gain</th></tr>";
+  rows.forEach((r, i) => {
+    const q = rows[i - 1];
+    h += `<tr${r.proj ? " class='proj'" : ""}><td>${r.step}</td><td class='n'><b>${r.proj ? "~" : ""}${fmt(r.z)}</b></td><td class='n'>${q ? gain(q.z / r.z) : ""}</td><td class='n'><b>${r.proj ? "~" : ""}${fmt(r.p)}</b></td><td class='n'>${q ? gain(q.p / r.p) : ""}</td></tr>`;
+  });
+  document.getElementById(id).innerHTML = h;
+}
+
+function chart(id, rows) {
+  const W = 900, L = 232, R = 28, rowH = 52, top = 8, H = top + rows.length * rowH + 34;
+  const lo = Math.log10(0.7), hi = Math.log10(6000);
+  const x = v => L + (Math.log10(v) - lo) / (hi - lo) * (W - L - R);
+  const base = rows.find(r => r.base);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Dot plot, milliseconds on a log scale">`;
+  for (const t of [1, 10, 100, 1000]) {
+    s += `<line x1="${x(t)}" x2="${x(t)}" y1="${top}" y2="${H - 30}" stroke="var(--rule)" stroke-width="1"/>`;
+    s += `<text class="num" x="${x(t)}" y="${H - 12}" text-anchor="middle" font-size="12" fill="var(--muted)">${t >= 1000 ? "1 000" : t} ms</text>`;
+  }
+  rows.forEach((r, i) => {
+    const y = top + i * rowH + rowH / 2;
+    s += `<text x="${L - 14}" y="${y + 4}" text-anchor="end" font-size="13.5" font-weight="${r.pick ? 600 : 400}" fill="var(--ink)">${r.name}</text>`;
+    s += `<line x1="${x(r.p)}" x2="${x(r.z)}" y1="${y}" y2="${y}" stroke="var(--rule)" stroke-width="2"/>`;
+    for (const [k, col, host, dy] of [["z", "var(--zero)", "Pi Zero 2 W", -11], ["p", "var(--pi5)", "Pi 5", 20]]) {
+      const v = r[k], g = base[k] / v;
+      s += `<text class="num" x="${x(v)}" y="${y + dy}" text-anchor="middle" font-size="11" fill="var(--ink2)">${r.base ? "baseline" : gain(g)}</text>`;
+      s += `<circle cx="${x(v)}" cy="${y}" r="6" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;
+      s += `<circle class="hit" cx="${x(v)}" cy="${y}" r="15" fill="transparent" data-t="${host} · ${r.name}: ${fmt(v)} ms, ${gain(g)}"/>`;
+    }
+  });
+  s += "</svg>";
+  const el = document.getElementById(id);
+  el.innerHTML = `<div class="legend"><span><i style="background:var(--zero)"></i>Pi Zero 2 W</span><span><i style="background:var(--pi5)"></i>Pi 5</span><span>Labels: speedup against the baseline row</span></div>` + s + `<div class="tip" hidden></div>`;
+  const tip = el.querySelector(".tip");
+  el.querySelectorAll(".hit").forEach(c => {
+    c.addEventListener("pointerenter", () => {
+      const b = c.getBoundingClientRect(), e = el.getBoundingClientRect();
+      tip.textContent = c.dataset.t; tip.hidden = false;
+      tip.style.left = Math.min(Math.max(b.left + b.width / 2 - e.left, 150), e.width - 150) + "px";
+      tip.style.top = (b.top - e.top) + "px";
+    });
+    c.addEventListener("pointerleave", () => { tip.hidden = true; });
+  });
+}
+
+chart("c1", mandel); table("t1", mandel); steps("s1", mandelSteps);
+chart("c2", refresh); table("t2", refresh); steps("s2", refreshSteps);
+</script>
