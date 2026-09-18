@@ -1,0 +1,13 @@
+| scene | pixels composited | median ms | min ms | max ms | ms per 1k px | fps |
+|---|---|---|---|---|---|---|
+| full screen, bitmap fill | 115622 | 3560.1 | 3552.7 | 3592.1 | 30.79 | 0.3 |
+| move 32x32 sprite 8 px | 1285 | 42.6 | 42.5 | 42.8 | 33.18 | 23.5 |
+| 20 bitmaptools.draw_line, then refresh | 115211 | 3593.7 | 3593.2 | 3596.4 | 31.19 | 0.3 |
+# output sha256 d39c3852b738
+# second run: same bench with --no-background (displayio auto-refresh thread stopped)
+| scene | pixels composited | median ms | min ms | max ms | ms per 1k px | fps |
+|---|---|---|---|---|---|---|
+| full screen, bitmap fill | 115622 | 3505.3 | 3504.0 | 3537.7 | 30.32 | 0.3 |
+| move 32x32 sprite 8 px | 1285 | 41.6 | 41.6 | 41.7 | 32.38 | 24.0 |
+| 20 bitmaptools.draw_line, then refresh | 115211 | 3543.1 | 3537.7 | 3543.7 | 30.75 | 0.3 |
+# output sha256 d39c3852b738

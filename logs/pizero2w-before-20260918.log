@@ -1,0 +1,5 @@
+# before, Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 2026-09-18 15:41
+| module | import s | median ms | min ms | max ms | value |
+|---|---|---|---|---|---|
+| mandel_float | 0.02 | 565.8 | 565.7 | 566.3 | 407790 |
+| pixels | 0.00 | 1310.9 | 1294.8 | 1327.9 | 407644 |

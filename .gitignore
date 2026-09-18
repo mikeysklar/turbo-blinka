@@ -1,0 +1,7 @@
+repos/
+__pycache__/
+*.so
+build/
+fastpath/cy/*.c
+bench/**/*.c
+!bench/mandel_ref.c

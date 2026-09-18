@@ -1,0 +1,8 @@
+# after, cython 3.3.0, Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 2026-09-18 15:47
+| module | import s | median ms | min ms | max ms | value |
+|---|---|---|---|---|---|
+| src/mandel_float | 0.00 | 564.1 | 563.9 | 564.5 | 407790 |
+| src/pixels | 0.00 | 1307.8 | 1303.8 | 1313.8 | 407644 |
+| cy_plain/pixels | 0.01 | 962.1 | 957.2 | 963.0 | 407644 |
+| cy_typed/pixels | 0.00 | 6.0 | 6.0 | 6.1 | 407644 |
+C -O2 best of 8: 4.811 ms, value 407644

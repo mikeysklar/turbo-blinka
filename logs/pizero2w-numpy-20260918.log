@@ -1,0 +1,6 @@
+# numpy 2.2.4
+# after, numpy, Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 2026-09-18 16:05
+| module | import s | first call ms | median ms | min ms | max ms | value |
+|---|---|---|---|---|---|---|
+| numpy/pixels_np_row | 0.66 | 1610.8 | 1581.2 | 1580.0 | 1583.0 | 407644 |
+| numpy/pixels_np_frame | 0.00 | 119.4 | 115.0 | 114.5 | 115.6 | 407644 |

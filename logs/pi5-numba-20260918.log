@@ -1,0 +1,6 @@
+# pip install numba 9 s
+# import numba 0.67.0: 0.25 s
+# after, numba, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 2026-09-18 15:59
+| module | import s | first call ms | median ms | min ms | max ms | value |
+|---|---|---|---|---|---|---|
+| src/pixels | 0.00 | 284.3 | 1.9 | 1.9 | 1.9 | 407644 |

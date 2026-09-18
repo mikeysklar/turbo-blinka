@@ -1,0 +1,10 @@
+# import numba 0.67.0: 4.72 s
+# after, numba, Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 2026-09-18 15:58
+| module | import s | first call ms | median ms | min ms | max ms | value |
+|---|---|---|---|---|---|---|
+| src/pixels | 0.30 | 4149.7 | 8.6 | 8.6 | 8.6 | 407644 |
+# import numba 0.67.0: 2.31 s
+# after, numba, second run (warm disk cache), Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 2026-09-18 15:59
+| module | import s | first call ms | median ms | min ms | max ms | value |
+|---|---|---|---|---|---|---|
+| src/pixels | 0.02 | 2366.6 | 8.6 | 8.6 | 8.7 | 407644 |

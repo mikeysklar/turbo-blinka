@@ -1,0 +1,15 @@
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      135    0.367    0.003    0.655    0.005 {built-in method time.sleep}
+   117248    0.109    0.000    0.139    0.000 /home/pi/env/lib/python3.13/site-packages/displayio/_palette.py:104(_get_color)
+   117248    0.059    0.000    0.059    0.000 /home/pi/env/lib/python3.13/site-packages/displayio/_bitmap.py:135(_get_pixel)
+   234524    0.036    0.000    0.036    0.000 {built-in method builtins.isinstance}
+   117248    0.030    0.000    0.030    0.000 {built-in method _struct.pack_into}
+   117256    0.029    0.000    0.029    0.000 {method 'cast' of 'memoryview' objects}
+   117279    0.016    0.000    0.016    0.000 {built-in method builtins.len}
+   117248    0.014    0.000    0.014    0.000 <string>:18(__eq__)
+        7    0.005    0.001    0.009    0.001 /home/pi/env/lib/python3.13/site-packages/displayio/_tilegrid.py:231(_fill_area)
+        4    0.001    0.000    0.663    0.166 /home/pi/env/lib/python3.13/site-packages/displayio/_group.py:159(_fill_area)
+        4    0.001    0.000    0.668    0.167 /home/pi/env/lib/python3.13/site-packages/busdisplay/__init__.py:334(_refresh_area)
+       24    0.000    0.000    0.000    0.000 {method 'update' of '_hashlib.HASH' objects}
+
+

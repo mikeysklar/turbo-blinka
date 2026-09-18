@@ -1,0 +1,10 @@
+# cy_plain build 3.352977003 s
+# cy_typed build 8.807763203 s
+# after, cython 3.3.0, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 2026-09-18 15:57
+| module | import s | median ms | min ms | max ms | value |
+|---|---|---|---|---|---|
+| src/mandel_float | 0.00 | 72.7 | 72.7 | 72.9 | 407790 |
+| src/pixels | 0.00 | 142.5 | 141.2 | 144.1 | 407644 |
+| cy_plain/pixels | 0.00 | 104.2 | 104.2 | 104.3 | 407644 |
+| cy_typed/pixels | 0.00 | 1.2 | 1.2 | 1.2 | 407644 |
+C -O2 best of 8: 1.053 ms, value 407644
