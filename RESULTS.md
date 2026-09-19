@@ -155,9 +155,41 @@ Small areas are now bounded by the Python per-call setup and the palette table
 build, not the pixels. Cython build of the kernel: 74 s on the Zero 2 W.
 Numba startup as in the mandelbrot table (4.6 s import on the Zero 2 W here).
 
-With the double-composite fixed as well, a Zero 2 W would composite a 240x240
-frame in about 13 ms. At that point the SPI transfer (115 200 bytes) is the
-limit, not Python.
+## 2026-09-18: double composite fixed
+
+`patches/blinka-displayio-double-composite.patch`, 9 lines in
+`TileGrid._get_refresh_areas`: read the bitmap's dirty area into a local list,
+like the C version, instead of appending it to the display's list. Measured by
+running the same bench against a patched copy of the installed package
+(`PYTHONPATH`), installed package untouched. Logs:
+`logs/*-displayio-doublefix-20260918.log`.
+
+Full-screen refresh, 240x240, milliseconds (fps):
+
+| | Pi Zero 2 W | vs stock | Pi 5 | vs stock |
+|---|---|---|---|---|
+| Stock 2.3.2 | 3 595 (0.3) | 1.0x | 325.7 (3.1) | 1.0x |
+| Patch only | 1 796 (0.6) | 2.0x | 162.7 (6.1) | 2.0x |
+| Cython fast path only | 27.2 (37) | 132x | 3.5 (287) | 93x |
+| Patch + Cython fast path | 13.7 (73) | 262x | 1.8 (568) | 181x |
+
+Pixels composited per full refresh go from 115 622 to 57 811. The last pixel
+payload on the bus is identical with and without the patch (sha256
+`78b6f072aa84`, 115 200 bytes). Moving a sprite is unchanged (42.4 ms stock,
+1.0 ms fast path on the Zero 2 W): that path never consulted the bitmap.
+
+Partial change check, two pixels set in a 32x32 sprite placed at (50,60):
+
+| | Areas redrawn for the sprite |
+|---|---|
+| Stock | `(0,0)-(32,32)` and `(50,60)-(82,92)` |
+| Patched | `(50,60)-(82,92)` |
+
+Stock also redraws the bitmap's own untransformed rectangle, which is the wrong
+place on screen whenever the TileGrid is not at the origin.
+
+At 13.7 ms the compositing is no longer the limit on a Zero 2 W. Sending
+115 200 bytes over SPI at 24 MHz takes about 38 ms.
 
 ## Other runs
 

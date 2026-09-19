@@ -80,14 +80,14 @@ svg .num{font-family:"IBM Plex Mono",monospace}
 
 <section>
   <h2>displayio full-screen refresh</h2>
-  <p>240x240, 16-bit, headless. Output byte-identical in every row.</p>
+  <p>240x240, 16-bit, headless. Final frame identical in every row.</p>
   <div class="scroll"><div class="chart" id="c2"></div></div>
   <div class="scroll"><table id="t2"></table></div>
 </section>
 
 <section>
   <h2>Where the refresh speedup comes from</h2>
-  <p>Each row is one change to <code>TileGrid._fill_area</code>.</p>
+  <p>Each row is one change to Blinka_Displayio. All measured.</p>
   <div class="scroll"><table id="s2"></table></div>
 </section>
 
@@ -145,7 +145,7 @@ svg .num{font-family:"IBM Plex Mono",monospace}
     <tr><td>Bench over ssh</td><td>turbo-cli</td><td>Small</td></tr>
     <tr><td><code>_fill_area</code> flat-buffer fast path, plain Python, 2.9x alone</td><td>Blinka_Displayio</td><td>Medium</td></tr>
     <tr><td>Fast path coverage: ColorConverter, 16-bit bitmaps, vectorio, mono displays</td><td>Blinka_Displayio</td><td>Medium</td></tr>
-    <tr><td>Remove the double composite</td><td>Blinka_Displayio</td><td>Small</td></tr>
+    <tr><td>Remove the double composite, patch in the repo, 2.0x measured</td><td>Blinka_Displayio</td><td>Done, needs a PR</td></tr>
     <tr><td><code>bitmaptools</code> kernels, not measured yet</td><td>Blinka_Displayio</td><td>Medium</td></tr>
   </table></div>
 </section>
@@ -155,7 +155,7 @@ svg .num{font-family:"IBM Plex Mono",monospace}
   <p>Two things the benchmark turned up in 2.3.2.</p>
   <div class="scroll"><table>
     <tr><th>Finding</th><th>Where</th><th>Effect</th></tr>
-    <tr><td>Full-screen change is composited and sent twice. The C version only reads the bitmap's dirty area; the port appends it.</td><td><code>displayio/_tilegrid.py:449-470</code></td><td>2x on every full refresh</td></tr>
+    <tr><td>Full-screen change is composited and sent twice. The C version only reads the bitmap's dirty area; the port appends it.</td><td><code>displayio/_tilegrid.py:449-470</code></td><td>2.0x measured on every bitmap change. Patch in the repo.</td></tr>
     <tr><td>Background thread loops on <code>sleep(0.0)</code></td><td><code>displayio/__init__.py:41-49</code></td><td>1.5% on Zero 2 W, none on Pi 5</td></tr>
   </table></div>
 </section>
@@ -190,7 +190,8 @@ const refresh = [
   {name: "Stock 2.3.2", how: "Per-pixel objects and method calls", z: 3560, p: 325.7, base: true},
   {name: "Fast path, plain Python", how: "Flat buffers, palette lookup table", z: 1241, p: 121.8},
   {name: "Fast path, Numba", how: "Same kernel through njit", z: 34.1, p: 4.6},
-  {name: "Fast path, Cython", how: "Same kernel, typed and compiled", z: 26.8, p: 3.5, pick: true}
+  {name: "Fast path, Cython", how: "Same kernel, typed and compiled", z: 26.8, p: 3.5},
+  {name: "Fast path, Cython + patch", how: "Double composite removed", z: 13.7, p: 1.8, pick: true}
 ];
 const mandelSteps = [
   {step: "Float source, interpreted", z: 564, p: 72.7},
@@ -203,7 +204,7 @@ const refreshSteps = [
   {step: "Stock _fill_area", z: 3560, p: 325.7},
   {step: "Hoist lookups, flat buffers, palette table", z: 1241, p: 121.8},
   {step: "Compile the kernel with Cython", z: 26.8, p: 3.5},
-  {step: "Remove the double composite (projected, not measured)", z: 13.4, p: 1.75, proj: true}
+  {step: "Remove the double composite, 9-line patch", z: 13.7, p: 1.8}
 ];
 
 function table(id, rows) {

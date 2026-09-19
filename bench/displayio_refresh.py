@@ -28,6 +28,7 @@ class NullBus(fourwire.FourWire):
 
     def __init__(self):  # pylint: disable=super-init-not-called
         self.sent = 0
+        self.last = b""
         self.digest = hashlib.sha256()
 
     def reset(self):
@@ -45,6 +46,8 @@ class NullBus(fourwire.FourWire):
     def _send(self, _type, _cs, data):
         self.sent += len(data)
         self.digest.update(data)
+        if len(data) > 4:  # pixel payload, not a window command
+            self.last = bytes(data)
 
 
 def host():
@@ -147,6 +150,9 @@ def main():
               % (name, sent_px, med, min(times), max(times),
                  med / max(sent_px, 1) * 1e3, 1e3 / med))
     print("# output sha256 %s" % bus.digest.hexdigest()[:12])
+    print("# last pixel payload sha256 %s (%d bytes), displayio from %s"
+          % (hashlib.sha256(bus.last).hexdigest()[:12], len(bus.last),
+             os.path.dirname(displayio.__file__)))
     if a.fast:
         print("# _fill_area calls: %s" % tilegrid_fast.stats)
 

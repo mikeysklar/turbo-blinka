@@ -25,6 +25,7 @@ Pi Zero 2 W and Pi 5, Pi OS 64-bit, Python 3.13.5. Milliseconds. Full data in [R
 | Fast path, Python | 1241 | 121.8 |
 | Fast path, Numba | 34.1 | 4.6 |
 | Fast path, Cython | 26.8 | 3.5 |
+| Fast path, Cython + double composite patch | 13.7 | 1.8 |
 
 Output is byte-identical to stock in every row.
 
@@ -93,6 +94,14 @@ python3 bench/displayio_refresh.py --fast numba
 python3 bench/displayio_refresh.py --fast cython
 ```
 
+Double composite patch, tested against a copy so pip's install stays untouched:
+
+```
+mkdir patched && cp -r $(python3 -c 'import displayio,os;print(os.path.dirname(displayio.__file__))') patched/
+(cd patched && patch -p1 < ../patches/blinka-displayio-double-composite.patch)
+PYTHONPATH=patched python3 bench/displayio_refresh.py --fast cython
+```
+
 Every run prints a checksum. It must match across backends.
 
 ## Files
@@ -109,6 +118,7 @@ Every run prints a checksum. It must match across backends.
 | `fastpath/fill_kernel.py` | `_fill_area` pixel loop on flat buffers. |
 | `fastpath/tilegrid_fast.py` | Monkeypatch that installs the kernel. Falls back if unsupported. |
 | `fastpath/cy/fill_kernel.py` | Same kernel with Cython types. |
+| `patches/` | Blinka_Displayio fix: full refresh was drawn twice. |
 | `turbo-blinka.html` | Summary page: charts, tables, port work. |
 | `RESULTS.md` | Every measured number. |
 | `analyze-results.md` | `turbo analyze` output over Blinka and Learn guides. |

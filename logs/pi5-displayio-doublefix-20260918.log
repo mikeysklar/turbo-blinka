@@ -1,0 +1,32 @@
+## displayio: stock, flags: 
+# displayio refresh, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 16-bit, background thread running, 2026-09-18 17:37
+| scene | pixels composited | median ms | min ms | max ms | ms per 1k px | fps |
+| full screen, bitmap fill | 115622 | 325.7 | 325.1 | 328.5 | 2.82 | 3.1 |
+| move 32x32 sprite 8 px | 1285 | 3.9 | 3.9 | 3.9 | 3.05 | 255.1 |
+| 20 bitmaptools.draw_line, then refresh | 115211 | 327.9 | 327.8 | 328.0 | 2.85 | 3.0 |
+# output sha256 d39c3852b738
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/env/lib/python3.13/site-packages/displayio
+## displayio: stock, flags: --fast cython
+# displayio refresh, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 16-bit, background thread running, 2026-09-18 17:37
+| scene | pixels composited | median ms | min ms | max ms | ms per 1k px | fps |
+| full screen, bitmap fill | 115622 | 3.5 | 3.4 | 3.9 | 0.03 | 286.7 |
+| move 32x32 sprite 8 px | 1285 | 0.1 | 0.1 | 0.1 | 0.08 | 9561.0 |
+| 20 bitmaptools.draw_line, then refresh | 115211 | 3.5 | 3.5 | 3.5 | 0.03 | 288.4 |
+# output sha256 d39c3852b738
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/env/lib/python3.13/site-packages/displayio
+## displayio: patched, flags: 
+# displayio refresh, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 16-bit, background thread running, 2026-09-18 17:37
+| scene | pixels composited | median ms | min ms | max ms | ms per 1k px | fps |
+| full screen, bitmap fill | 57811 | 162.7 | 162.4 | 164.0 | 2.81 | 6.1 |
+| move 32x32 sprite 8 px | 1285 | 3.9 | 3.9 | 3.9 | 3.05 | 255.0 |
+| 20 bitmaptools.draw_line, then refresh | 57605 | 164.1 | 163.9 | 164.8 | 2.85 | 6.1 |
+# output sha256 736800b1ef6c
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/blinka-turbo/patched/displayio
+## displayio: patched, flags: --fast cython
+# displayio refresh, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 16-bit, background thread running, 2026-09-18 17:37
+| scene | pixels composited | median ms | min ms | max ms | ms per 1k px | fps |
+| full screen, bitmap fill | 57811 | 1.8 | 1.8 | 2.0 | 0.03 | 567.9 |
+| move 32x32 sprite 8 px | 1285 | 0.1 | 0.1 | 0.1 | 0.08 | 9750.9 |
+| 20 bitmaptools.draw_line, then refresh | 57605 | 1.7 | 1.7 | 1.7 | 0.03 | 574.5 |
+# output sha256 736800b1ef6c
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/blinka-turbo/patched/displayio
