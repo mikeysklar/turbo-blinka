@@ -4,6 +4,26 @@ Target repo: `adafruit/Adafruit_Blinka_Displayio`. One PR open at a time, next
 one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 16-bit, from `RESULTS.md`.
 
+## Short list
+
+- **PR 1:** Draw bitmap changes once ([#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178), open). Displayio. 2.0x
+- **PR 2:** Plain-Python fast pixel loop. Displayio. 2.9x
+- **PR 3a:** Fast path for ColorConverter. Displayio. ~3x
+- **PR 3b:** Fast path for OnDiskBitmap. Displayio. ~2x
+- **PR 3c:** Fast path for vectorio shapes. Displayio. ~3x
+- **PR 3d:** Fast path for mono displays. Displayio. ~3x
+- **PR 4a:** Compiled kernel package with wheels. New repo. 46x together with 4b
+- **PR 4b:** Use compiled kernel if installed. Displayio. 46x together with 4a
+- **PR 5:** Faster bitmaptools drawing functions. Displayio. ~50 to 100x
+- Cython backend for `turbo build`. turbo-cli. 119x to 218x
+- Run `turbo bench` over ssh. turbo-cli
+- CPython shim with viper types. turbo
+- **Maybe:** check `<` versus `<=`, line 441. Displayio
+
+`~` means not measured yet. Displayio is `adafruit/Adafruit_Blinka_Displayio`.
+
+## Detail
+
 | PR | What | Gain | State | Git repo |
 |---|---|---|---|---|
 | 1 | Double composite fix, all in `TileGrid._get_refresh_areas` | 2.0x | Open 2026-09-19: [#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178) | `adafruit/Adafruit_Blinka_Displayio` |
