@@ -114,11 +114,15 @@ Every run prints a checksum. It must match across backends.
 | `bench/numpy_backend/` | numpy rewrites, per row and whole frame. |
 | `bench/mandel_ref.c` | C version. The ceiling. |
 | `bench/displayio_refresh.py` | Headless `display.refresh()` timing. No display needed. |
+| `bench/pitft_demo.py` | Same timing on a real PiTFT 3.5". `--seconds` for filming. |
 | `bench/life.py` | Conway kernel from the RGBMatrix Learn guide. |
 | `fastpath/fill_kernel.py` | `_fill_area` pixel loop on flat buffers. |
 | `fastpath/tilegrid_fast.py` | Monkeypatch that installs the kernel. Falls back if unsupported. |
 | `fastpath/cy/fill_kernel.py` | Same kernel with Cython types. |
 | [`patches/`](patches/blinka-displayio-double-composite.patch) | Blinka_Displayio fix: full refresh was drawn twice. |
+| `pr-plan.md` | Upstream PRs, one at a time. PR 1 is open. |
+| `pr1-body.md`, `pr1-body-v2.md` | PR 1 description, long and short. |
+| `split-video-title-mp4.md` | How the side-by-side video was cut. |
 | `turbo-blinka.html` | Summary page: charts, tables, port work. |
 | `RESULTS.md` | Every measured number. |
 | `analyze-results.md` | `turbo analyze` output over Blinka and Learn guides. |

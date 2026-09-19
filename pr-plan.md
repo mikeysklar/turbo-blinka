@@ -6,7 +6,7 @@ one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 
 | PR | What | Gain | State | Git repo |
 |---|---|---|---|---|
-| 1 | Double composite fix, all in `TileGrid._get_refresh_areas` | 2.0x | Patch written and measured | `adafruit/Adafruit_Blinka_Displayio` |
+| 1 | Double composite fix, all in `TileGrid._get_refresh_areas` | 2.0x | Open 2026-09-19: [#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178) | `adafruit/Adafruit_Blinka_Displayio` |
 | 2 | `_fill_area` fast path, plain Python, no dependencies | 2.9x | Written as a monkeypatch, needs moving into the file | `adafruit/Adafruit_Blinka_Displayio` |
 | 3 | Widen the fast path, one case per PR | | Not started | `adafruit/Adafruit_Blinka_Displayio` |
 | 4a | Compiled kernel package with aarch64 and armv7 wheels | 46x | Kernel written, package and wheels not started | New repo, not created yet (working name `adafruit-blinka-displayio-turbo`) |

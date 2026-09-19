@@ -191,6 +191,35 @@ place on screen whenever the TileGrid is not at the origin.
 At 13.7 ms the compositing is no longer the limit on a Zero 2 W. Sending
 115 200 bytes over SPI at 24 MHz takes about 38 ms.
 
+## 2026-09-19: real display, PiTFT Plus 3.5" on the Pi 5
+
+Adafruit product 2441, HX8357D, 480x320, SPI0 at 24 MHz, DC on GPIO25.
+`bench/pitft_demo.py`. Times are `display.refresh()` including the SPI transfer.
+Log: `logs/pi5-pitft35-20260919.log`.
+
+| | Full-screen fill ms | fps | Move 48x48 sprite ms |
+|---|---|---|---|
+| Stock 2.3.2 | 1 157 | 0.9 | 11.2 |
+| Double composite patch | 577 | 1.7 | 11.2 |
+| Cython fast path | 261 | 3.8 | 2.7 |
+| Patch + Cython fast path | 131 | 7.7 | 2.7 |
+
+Same 2.0x from the patch as the headless bench. With both, the 131 ms is mostly
+the wire: 307 200 bytes at 24 MHz is 102 ms.
+
+[Side-by-side video](https://drive.google.com/file/d/14NT4r2asXWckTx3YOvZuRicXdUTdyauY/view),
+stock on the left, patched on the right, 10 seconds each: 9 full-screen fills
+against 18. How it was cut: `split-video-title-mp4.md`.
+
+Upstream PR for the patch:
+[adafruit/Adafruit_Blinka_Displayio#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178).
+
+Setup notes for a Pi 5:
+
+- SPI is off on a fresh Pi OS image: `sudo raspi-config nonint do_spi 0`.
+- Do not pass `chip_select=board.CE0` to `FourWire`. spidev owns CE0 and lgpio
+  fails with "GPIO busy". Leave it out and the kernel toggles CE0 per transfer.
+
 ## Other runs
 
 | Date | Host | What | Result |

@@ -5,3 +5,4 @@ build/
 fastpath/cy/*.c
 bench/**/*.c
 !bench/mandel_ref.c
+media/
