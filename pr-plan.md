@@ -50,12 +50,15 @@ The "about" numbers are 1 796 / 2.9 and 162.7 / 2.7.
 
 ## Before any PR
 
-- [ ] Run PR 1 on a real display. Everything so far is headless with a null bus.
-      One ST7789 240x240 on the Zero 2 W is enough.
-- [ ] Fork `adafruit/Adafruit_Blinka_Displayio` to `mikeysklar`.
-- [ ] `pip install pre-commit && pre-commit install` in the fork. Hooks: black,
-      reuse, pylint.
-- [ ] The repo has no `tests/` directory. `bench/displayio_refresh.py` is the
+- [x] Run PR 1 on a real display. Done 2026-09-19: PiTFT Plus 3.5" (2441) on the
+      Pi 5, `bench/pitft_demo.py`.
+- [x] Fork `adafruit/Adafruit_Blinka_Displayio` to `mikeysklar`. Branch
+      `single-composite`.
+- [x] Lint. The repo's pinned hooks (black 23.3.0, pylint 2.17.4, reuse) do not
+      install under `pre-commit` on Python 3.12 or later. Run `black==23.3.0`
+      directly and compare pylint output before and after. CI runs the real
+      hooks: all 8 passed on #178.
+- [x] The repo has no `tests/` directory. `bench/displayio_refresh.py` is the
       regression check: the last pixel payload hash must not change.
 
 ## PR 1: draw each bitmap change once
@@ -63,9 +66,10 @@ The "about" numbers are 1 796 / 2.9 and 162.7 / 2.7.
 Smallest possible PR. No new files, no new dependencies, no behavior change on
 screen.
 
-- File: `displayio/_tilegrid.py`, `TileGrid._get_refresh_areas`, 9 lines.
+- File: `displayio/_tilegrid.py`, `TileGrid._get_refresh_areas`, 7 lines added,
+  4 removed. Upstream commit `299c87a`.
 - Patch: `patches/blinka-displayio-double-composite.patch`, applies to main
-  (69909dc).
+  (69909dc). Same code as upstream, the comment wording differs.
 - What it does: reads the bitmap's dirty area into a local list. Today it is
   appended to the display's list and then the TileGrid appends its own copy, so
   the same pixels are drawn and sent twice.
@@ -83,10 +87,15 @@ python3 ../turbo-blinka/bench/displayio_refresh.py
 
 Evidence for the PR body:
 
-| Full-screen refresh | Zero 2 W ms | Pi 5 ms | Pixels composited |
-|---|---|---|---|
-| main | 3 595 | 325.7 | 115 622 |
-| this PR | 1 796 | 162.7 | 57 811 |
+| Full-screen refresh, ms | main | this PR |
+|---|---|---|
+| Pi 5, PiTFT 3.5" over SPI, 480x320 | 1 147 | 573 |
+| Pi 5, no display, 240x240 | 325.7 | 164.3 |
+| Pi Zero 2 W, no display, 240x240 | 3 595 | 1 796 |
+
+Pixels composited per 240x240 refresh: 115 622, then 57 811. The Pi 5 rows use
+the exact upstream file. The Zero 2 W row used the first version of the patch:
+same code, different comment.
 
 | Two pixels set in a 32x32 sprite at (50,60) | Rectangles redrawn |
 |---|---|
@@ -95,9 +104,18 @@ Evidence for the PR body:
 
 Last pixel payload identical, sha256 `78b6f072aa84`.
 
-Risk: low. One thing to check first: the unchanged background was also fully
-redrawn on the second refresh after display creation. Probably a separate
-startup redraw. Confirm it is not caused by this change before opening.
+Risk: low. Cleared before opening:
+
+- The unchanged background is fully redrawn on the second refresh after display
+  creation. Stock does the same, so it is existing behaviour, not this change.
+- Sprite sheet (set a pixel, switch tile), hidden TileGrid and no-change cases:
+  same pixel data as stock, one area instead of two.
+- An independent review matched the new code to `TileGrid.c:662-675` and found
+  the pattern nowhere else. E-paper goes through the same function.
+- Dropping `refresh_area != tail` also removes a value comparison that could
+  skip a change when two areas had the same coordinates.
+
+Left out on purpose: line 441 uses `<` where C uses `<=`. Separate look.
 
 ## PR 2: fast path in `_fill_area`, plain Python
 
