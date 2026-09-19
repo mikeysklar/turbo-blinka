@@ -3,17 +3,17 @@
 <style>
 :root{
   --ground:#f4f6f5; --surface:#fcfcfb; --ink:#0f1513; --ink2:#4b5552; --muted:#858d89;
-  --rule:#d9dfdc; --accent:#b3173f; --zero:#2a78d6; --pi5:#eb6834; --pick:#e6f2ec; --code:#eaeeec;
+  --rule:#d9dfdc; --accent:#b3173f; --zero:#2a78d6; --pi5:#eb6834; --pick:#e6f2ec; --code:#eaeeec; --good:#0a6b3a; --bad:#a3262f;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --ground:#0e1211; --surface:#1a1a19; --ink:#f4f7f5; --ink2:#c0c8c4; --muted:#858d89;
-    --rule:#2c3432; --accent:#f0708f; --zero:#3987e5; --pi5:#d95926; --pick:#17302a; --code:#202725;
+    --rule:#2c3432; --accent:#f0708f; --zero:#3987e5; --pi5:#d95926; --pick:#17302a; --code:#202725; --good:#6fd39b; --bad:#f08a8f;
   }
 }
 :root[data-theme="dark"]{
   --ground:#0e1211; --surface:#1a1a19; --ink:#f4f7f5; --ink2:#c0c8c4; --muted:#858d89;
-  --rule:#2c3432; --accent:#f0708f; --zero:#3987e5; --pi5:#d95926; --pick:#17302a; --code:#202725;
+  --rule:#2c3432; --accent:#f0708f; --zero:#3987e5; --pi5:#d95926; --pick:#17302a; --code:#202725; --good:#6fd39b; --bad:#f08a8f;
 }
 body{background:var(--ground);color:var(--ink);font:400 15px/1.5 "IBM Plex Sans",system-ui,sans-serif;padding-inline:16px}
 main{max-width:940px;margin:0 auto;padding-block:36px 64px;display:flex;flex-direction:column;gap:44px}
@@ -34,6 +34,8 @@ td.n b{font-weight:500}
 td.g{color:var(--ink2)}
 tr.pick td{background:var(--pick)}
 tr.proj td{color:var(--muted);font-style:italic}
+pre .add{color:var(--good)}
+pre .del{color:var(--bad)}
 code,pre{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px}
 code{background:var(--code);padding:1px 4px;border-radius:3px}
 pre{background:var(--code);padding:14px 16px;margin:0;border-radius:4px;line-height:1.55}
@@ -145,7 +147,7 @@ svg .num{font-family:"IBM Plex Mono",monospace}
     <tr><td>Bench over ssh</td><td>turbo-cli</td><td>Small</td></tr>
     <tr><td><code>_fill_area</code> flat-buffer fast path, plain Python, 2.9x alone</td><td>Blinka_Displayio</td><td>Medium</td></tr>
     <tr><td>Fast path coverage: ColorConverter, 16-bit bitmaps, vectorio, mono displays</td><td>Blinka_Displayio</td><td>Medium</td></tr>
-    <tr><td>Remove the double composite, patch in the repo, 2.0x measured</td><td>Blinka_Displayio</td><td>Done, needs a PR</td></tr>
+    <tr><td>Remove the double composite, <a href="https://github.com/mikeysklar/turbo-blinka/blob/main/patches/blinka-displayio-double-composite.patch">patch</a>, 2.0x measured</td><td>Blinka_Displayio</td><td>Done, needs a PR</td></tr>
     <tr><td><code>bitmaptools</code> kernels, not measured yet</td><td>Blinka_Displayio</td><td>Medium</td></tr>
   </table></div>
 </section>
@@ -155,9 +157,50 @@ svg .num{font-family:"IBM Plex Mono",monospace}
   <p>Two things the benchmark turned up in 2.3.2.</p>
   <div class="scroll"><table>
     <tr><th>Finding</th><th>Where</th><th>Effect</th></tr>
-    <tr><td>Full-screen change is composited and sent twice. The C version only reads the bitmap's dirty area; the port appends it.</td><td><code>displayio/_tilegrid.py:449-470</code></td><td>2.0x measured on every bitmap change. Patch in the repo.</td></tr>
+    <tr><td>Full-screen change is composited and sent twice. The C version only reads the bitmap's dirty area; the port appends it.</td><td><code>displayio/_tilegrid.py:449-470</code></td><td>2.0x measured on every bitmap change. <a href="https://github.com/mikeysklar/turbo-blinka/blob/main/patches/blinka-displayio-double-composite.patch">Patch</a>.</td></tr>
     <tr><td>Background thread loops on <code>sleep(0.0)</code></td><td><code>displayio/__init__.py:41-49</code></td><td>1.5% on Zero 2 W, none on Pi 5</td></tr>
   </table></div>
+</section>
+
+<section>
+  <h2>The patch</h2>
+  <p>Read the bitmap's dirty area, as the C version does.</p>
+  <div class="scroll"><pre>diff --git a/displayio/_tilegrid.py b/displayio/_tilegrid.py
+index 56ed53f..e8ea041 100644
+--- a/displayio/_tilegrid.py
++++ b/displayio/_tilegrid.py
+@@ -446,12 +446,16 @@ class TileGrid:
+             self._needs_refresh = False
+             return
+ 
+<span class="del">-        tail = areas[-1] if areas else None</span>
+         # If we have an in-memory bitmap, then check it for modifications
+         if isinstance(self._bitmap, Bitmap):
+<span class="del">-            self._bitmap._get_refresh_areas(areas)  # pylint: disable=protected-access</span>
+<span class="del">-            refresh_area = areas[-1] if areas else None</span>
+<span class="del">-            if refresh_area != tail:</span>
+<span class="add">+            # Only read the bitmap&#x27;s dirty area, like the C implementation. Adding it</span>
+<span class="add">+            # to the display&#x27;s list as well makes every change get drawn twice.</span>
+<span class="add">+            bitmap_areas = []</span>
+<span class="add">+            self._bitmap._get_refresh_areas(  # pylint: disable=protected-access</span>
+<span class="add">+                bitmap_areas</span>
+<span class="add">+            )</span>
+<span class="add">+            if bitmap_areas:</span>
+<span class="add">+                refresh_area = bitmap_areas[-1]</span>
+                 # Special case a TileGrid that shows a full bitmap and use its
+                 # dirty area. Copy it to ours so we can transform it.
+                 if self._tiles_in_bitmap == 1:</pre></div>
+  <div class="scroll"><table>
+    <tr><th>Two pixels set in a 32x32 sprite at (50,60)</th><th>Rectangles redrawn</th></tr>
+    <tr><td>Stock 2.3.2</td><td><code>(0,0)-(32,32)</code> and <code>(50,60)-(82,92)</code></td></tr>
+    <tr class="pick"><td>Patched</td><td><code>(50,60)-(82,92)</code></td></tr>
+  </table></div>
+  <div class="scroll"><table>
+    <tr><th>Full-screen refresh</th><th class="n">Zero 2 W ms</th><th class="n">Pi 5 ms</th><th class="n">Pixels composited</th></tr>
+    <tr><td>Stock 2.3.2</td><td class="n">3 595</td><td class="n">325.7</td><td class="n">115 622</td></tr>
+    <tr class="pick"><td>Patched</td><td class="n">1 796</td><td class="n">162.7</td><td class="n">57 811</td></tr>
+  </table></div>
+  <p><a href="https://github.com/mikeysklar/turbo-blinka/blob/main/patches/blinka-displayio-double-composite.patch">patches/blinka-displayio-double-composite.patch</a></p>
 </section>
 
 <section>
