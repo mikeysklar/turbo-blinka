@@ -1,0 +1,24 @@
+== stock
+# ili9341 320x240, displayio from /home/pi/env/lib/python3.13/site-packages/displayio, fast path off, SPI 24000000 Hz
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 320x240 | 4871.2 | 0.2 |
+| move 48x48 sprite 10 px | 94.2 | 10.6 |
+== pr1
+# ili9341 320x240, displayio from /home/pi/blinka-turbo/pr1/displayio, fast path off, SPI 24000000 Hz
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 320x240 | 2459.6 | 0.4 |
+| move 48x48 sprite 10 px | 94.6 | 10.6 |
+== pr2
+# ili9341 320x240, displayio from /home/pi/blinka-turbo/pr2/displayio, fast path off, SPI 24000000 Hz
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 320x240 | 889.0 | 1.1 |
+| move 48x48 sprite 10 px | 36.5 | 27.4 |
+20 scenes: pr4 == pr1 (20)
+| full screen, bitmap fill | 57811 | 13.7 | 13.4 | 15.6 | 0.24 | 72.8 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/blinka-turbo/pr4/displayio
+| full-screen fill, 320x240 | 75.6 | 13.2 |
+| move 48x48 sprite 10 px | 4.7 | 211.9 |
+90 full-screen fills in 10 s

@@ -287,6 +287,40 @@ palette, microseconds:
 Not run on the Zero 2 W yet. Video: stock on top, PR 1 + PR 2 on the bottom,
 [Drive](https://drive.google.com/file/d/16KWFTQvOk2QP8yC4XHw4lfDtFrJ-eeeQ/view).
 
+## 2026-09-20: compiled loop on real displays, both Pis
+
+`fastpath/cy/fill_pixels.py`: the #179 `_fill_pixels`, same arguments, typed
+locals, built with `cythonize -i -3`. Picked up by a 4-line try-import hook in a
+copy of `_tilegrid.py` (what PR 4b would be). Zero 2 W: PiTFT Plus 2.8" (2423),
+ILI9341, 320x240. Pi 5: PiTFT Plus 3.5" (2441), HX8357D, 480x320. SPI 24 MHz.
+`bench/pitft_demo.py`, median of 6 fills and 20 moves.
+
+| Full-screen fill, ms | Zero 2 W, 2.8" | Pi 5, 3.5" |
+|---|---|---|
+| Stock 2.3.2 | 4 871 | 1 149 |
+| PR 1 | 2 460 (2.0x) | 572 (2.0x) |
+| PR 1 + PR 2 | 889 (5.5x) | 297 (3.9x) |
+| PR 1 + PR 2 + compiled loop | 75.6 (64x) | 130.6 (8.8x) |
+
+| Move 48x48 sprite 10 px, ms | Zero 2 W, 2.8" | Pi 5, 3.5" |
+|---|---|---|
+| Stock 2.3.2 | 94.2 | 11.2 |
+| PR 1 | 94.6 | 11.2 |
+| PR 1 + PR 2 | 36.5 | 6.1 |
+| PR 1 + PR 2 + compiled loop | 4.7 | 2.8 |
+
+| With the compiled loop | Zero 2 W | Pi 5 |
+|---|---|---|
+| Full-screen fills in 10 s | 90 | 75 (stock: 9) |
+| No display, 240x240, ms | 13.7 | 1.8 |
+| 20 scenes, bytes sent | identical to PR 1 | identical to PR 1 |
+| Build time, s | 75 | 10 |
+
+Last pixel payload sha256 `78b6f072aa84` on both. The Zero beats the Pi 5 with
+the compiled loop because its screen has half the pixels: what is left is SPI.
+PR 1 does not change the sprite move: moving a TileGrid dirties no bitmap.
+Log: `logs/pizero2w-pitft28-20260920.log`.
+
 ## Other runs
 
 | Date | Host | What | Result |

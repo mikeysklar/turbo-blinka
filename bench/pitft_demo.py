@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Real-display check on an Adafruit PiTFT Plus 3.5" (product 2441, HX8357D,
-480x320, SPI0 CE0, DC on GPIO25).
+"""Real-display check on an Adafruit PiTFT Plus, SPI0 CE0, DC on GPIO25:
+3.5" (product 2441, HX8357D, 480x320) or 2.8" (product 2423, ILI9341, 320x240).
 
-    python3 pitft_demo.py [--fills 6] [--moves 40] [--fast cython]
+    python3 pitft_demo.py [--display ili9341] [--fills 6] [--moves 40] [--fast cython]
 
 Full-screen colour fills, then a sprite walking across the screen. Prints the
 time of every display.refresh(), SPI transfer included. Run it against stock
@@ -17,13 +17,14 @@ import time
 import board
 import displayio
 import fourwire
-from adafruit_hx8357 import HX8357
 
+DISPLAYS = {"hx8357": (480, 320), "ili9341": (320, 240)}
 COLORS = (0xE0103A, 0x1565D8, 0x12A150, 0xF2B400, 0x8A2BE2, 0x101010)
 
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--display", choices=sorted(DISPLAYS), default="hx8357")
     ap.add_argument("--fills", type=int, default=6)
     ap.add_argument("--moves", type=int, default=40)
     ap.add_argument("--baud", type=int, default=24_000_000)
@@ -31,6 +32,7 @@ def main():
     ap.add_argument("--seconds", type=float,
                     help="for filming: 2 s black, then fills for this long, no sprite pass")
     a = ap.parse_args()
+    width, height = DISPLAYS[a.display]
 
     if a.fast:
         here = os.path.dirname(os.path.abspath(__file__))
@@ -47,24 +49,29 @@ def main():
     # no chip_select: spidev owns CE0 and toggles it per transfer. Claiming it as
     # a GPIO as well fails with "GPIO busy" on a Pi 5.
     bus = fourwire.FourWire(board.SPI(), command=board.D25, baudrate=a.baud)
-    display = HX8357(bus, width=480, height=320, auto_refresh=False)
+    if a.display == "ili9341":
+        from adafruit_ili9341 import ILI9341 as driver
+    else:
+        from adafruit_hx8357 import HX8357 as driver
+    display = driver(bus, width=width, height=height, auto_refresh=False)
 
     palette = displayio.Palette(len(COLORS) + 1)
     for i, c in enumerate(COLORS):
         palette[i] = c
     palette[len(COLORS)] = 0xFFFFFF
-    background = displayio.Bitmap(480, 320, len(COLORS) + 1)
+    background = displayio.Bitmap(width, height, len(COLORS) + 1)
     sprite_bmp = displayio.Bitmap(48, 48, len(COLORS) + 1)
     sprite_bmp.fill(len(COLORS))
-    sprite = displayio.TileGrid(sprite_bmp, pixel_shader=palette, x=0, y=136)
+    sprite = displayio.TileGrid(sprite_bmp, pixel_shader=palette, x=0, y=(height - 48) // 2)
     group = displayio.Group()
     group.append(displayio.TileGrid(background, pixel_shader=palette))
     group.append(sprite)
     display.root_group = group
     display.refresh()
 
-    print("# displayio from %s, fast path %s, SPI %d Hz"
-          % (os.path.dirname(displayio.__file__), a.fast or "off", a.baud))
+    print("# %s %dx%d, displayio from %s, fast path %s, SPI %d Hz"
+          % (a.display, width, height, os.path.dirname(displayio.__file__),
+             a.fast or "off", a.baud))
     if a.seconds:
         background.fill(len(COLORS) - 1)  # near-black: the sync mark between clips
         display.refresh()
@@ -88,13 +95,13 @@ def main():
         print("fill %d: %.0f ms" % (n, fills[-1]))
     moves = []
     for n in range(a.moves):
-        sprite.x = (n + 1) * 10
+        sprite.x = (n + 1) * 10 % (width - 48)
         t0 = time.perf_counter()
         display.refresh()
         moves.append((time.perf_counter() - t0) * 1e3)
     print("| scene | median ms | fps |")
     print("|---|---|---|")
-    for name, t in (("full-screen fill, 480x320", fills), ("move 48x48 sprite 10 px", moves)):
+    for name, t in (("full-screen fill, %dx%d" % (width, height), fills), ("move 48x48 sprite 10 px", moves)):
         med = statistics.median(t)
         print("| %s | %.1f | %.1f |" % (name, med, 1e3 / med))
 

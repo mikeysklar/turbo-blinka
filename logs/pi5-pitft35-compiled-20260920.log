@@ -1,0 +1,13 @@
+== pr2
+# hx8357 480x320, displayio from /home/pi/blinka-turbo/pr2/displayio, fast path off, SPI 24000000 Hz
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 480x320 | 297.8 | 3.4 |
+| move 48x48 sprite 10 px | 6.0 | 165.8 |
+== pr4:cy4
+# hx8357 480x320, displayio from /home/pi/blinka-turbo/pr4/displayio, fast path off, SPI 24000000 Hz
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 480x320 | 130.6 | 7.7 |
+| move 48x48 sprite 10 px | 2.9 | 340.3 |
+75 full-screen fills in 10 s
