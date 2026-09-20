@@ -125,14 +125,16 @@ Every run prints a checksum. It must match across backends.
 | `bench/mandel_ref.c` | C version. The ceiling. |
 | `bench/displayio_refresh.py` | Headless `display.refresh()` timing. No display needed. |
 | `bench/displayio_scenes.py` | 20 scenes, stock against fast path, bytes must match. |
-| `bench/pitft_demo.py` | Same timing on a real PiTFT 3.5". `--seconds` for filming. |
+| `bench/pitft_demo.py` | Same timing on a real PiTFT, 3.5" or 2.8". `--seconds` for filming. |
+| `bench/displayio_small_area.py` | Refresh time for small changed areas, 1x1 to 240x240. |
 | `bench/life.py` | Conway kernel from the RGBMatrix Learn guide. |
 | `fastpath/fill_kernel.py` | `_fill_area` pixel loop on flat buffers. |
 | `fastpath/tilegrid_fast.py` | Monkeypatch that installs the kernel. Falls back if unsupported. |
 | `fastpath/cy/fill_kernel.py` | Same kernel with Cython types. |
+| `fastpath/cy/fill_pixels.py` | PR 2's `_fill_pixels` with Cython types. Same arguments. |
 | [`patches/`](patches/blinka-displayio-double-composite.patch) | Blinka_Displayio fix: full refresh was drawn twice. |
 | [`zero2w-howto.md`](zero2w-howto.md) | Zero 2 W, 3 to 97 fills in 10 s: commands and changes. |
-| `pr-plan.md` | Upstream PRs, one at a time. PR 1 is open. |
+| `pr-plan.md` | Upstream PRs. PR 1 is open (#178), PR 2 is a draft (#179). |
 | `pr1-body.md`, `pr1-body-v2.md` | PR 1 description, long and short. |
 | `split-video-title-mp4.md` | How the side-by-side video was cut. |
 | `turbo-blinka.html` | Summary page: charts, tables, port work. |
