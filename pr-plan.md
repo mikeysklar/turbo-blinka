@@ -8,10 +8,6 @@ one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 
 - **PR 1:** Draw bitmap changes once ([#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178), open). Displayio. 2.0x
 - **PR 2:** Plain-Python fast pixel loop ([#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), draft). Displayio. 2.9x
-- **PR 3a:** Fast path for ColorConverter. Displayio. ~3x
-- **PR 3b:** Fast path for OnDiskBitmap. Displayio. ~2x
-- **PR 3c:** Fast path for vectorio shapes. Displayio. ~3x
-- **PR 3d:** Fast path for mono displays. Displayio. ~3x
 - **PR 4a:** Compiled kernel package with wheels. New repo. 46x together with 4b
 - **PR 4b:** Use compiled kernel if installed. Displayio. 46x together with 4a
 - **PR 5:** Faster bitmaptools drawing functions. Displayio. ~50 to 100x
@@ -28,7 +24,6 @@ one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 |---|---|---|---|---|
 | 1 | Double composite fix, all in `TileGrid._get_refresh_areas` | 2.0x | Open 2026-09-19: [#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178) | `adafruit/Adafruit_Blinka_Displayio` |
 | 2 | `_fill_area` fast path, plain Python, no dependencies | 2.9x | Draft 2026-09-20: [#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), builds on #178 | `adafruit/Adafruit_Blinka_Displayio` |
-| 3 | Widen the fast path, one case per PR | | Not started | `adafruit/Adafruit_Blinka_Displayio` |
 | 4a | Compiled kernel package with aarch64 and armv7 wheels | 46x | Kernel written, package and wheels not started | New repo, not created yet (working name `adafruit-blinka-displayio-turbo`) |
 | 4b | `try: import` hook that picks up the compiled kernel | | Not started | `adafruit/Adafruit_Blinka_Displayio` |
 | 5 | `bitmaptools` kernels | | Not measured yet | `adafruit/Adafruit_Blinka_Displayio` |
@@ -150,17 +145,12 @@ Risk: medium. The setup code is shared with the existing loop, not copied. If
 reviewers want it smaller, split off "build the palette table once per call" as
 its own PR first. That split has not been measured.
 
-## PR 3: widen the fast path
+## PR 3: dropped
 
-One PR per case, each with its own bench scene and hash check. Order by how
-common the case is:
-
-1. `ColorConverter` shader with a 16-bit bitmap (imageload, camera frames).
-2. `OnDiskBitmap`.
-3. `vectorio` shapes (`_vectorshape.py` has its own copy of the loop).
-4. Displays under 16-bit: mono OLED, e-ink.
-
-Nothing here is written or measured.
+Dropped 2026-09-20. Widening the plain-Python fast path to `ColorConverter`,
+`OnDiskBitmap`, `vectorio` and displays under 16-bit was never measured. Each
+case changes the shared pixel loop and needs its own test scenes, for a gain
+that does not add to the 3.8x. PR 4 is next.
 
 ## PR 4a and 4b: optional compiled kernel
 
