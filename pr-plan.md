@@ -4,17 +4,21 @@ Target repo: `adafruit/Adafruit_Blinka_Displayio`. One PR open at a time, next
 one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 16-bit, from `RESULTS.md`.
 
+Rule, 2026-09-20: what goes upstream is plain Python. No compiler, no new
+dependency, so it runs on every platform Blinka runs on, minimal Linux builds
+included. Compiled code comes last and only if Adafruit asks for it.
+
 ## Short list
 
 - **PR 1:** Draw bitmap changes once ([#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178), open). Displayio. 2.0x
 - **PR 2:** Plain-Python fast pixel loop ([#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), draft). Displayio. 2.9x
-- **PR 4a:** Compiled kernel package with wheels. New repo. 46x together with 4b
-- **PR 4b:** Use compiled kernel if installed. Displayio. 46x together with 4a
-- **PR 5:** Faster bitmaptools drawing functions. Displayio. ~50 to 100x
-- Cython backend for `turbo build`. turbo-cli. 119x to 218x
+- **PR 5:** Faster bitmaptools drawing functions, plain Python. Displayio. Not measured
+- **Maybe:** check `<` versus `<=`, line 441. Displayio
+- Cython backend for `turbo build` (done 2026-09-20, `--target cpython`). turbo-cli. 119x
 - Run `turbo bench` over ssh. turbo-cli
 - CPython shim with viper types. turbo
-- **Maybe:** check `<` versus `<=`, line 441. Displayio
+- **Last, only if Adafruit asks. PR 4a:** Compiled loop as a package. New repo. 64x on a Zero 2 W display
+- **Last, only if Adafruit asks. PR 4b:** Use the compiled loop if installed. Displayio
 
 `~` means not measured yet. Displayio is `adafruit/Adafruit_Blinka_Displayio`.
 
@@ -24,11 +28,12 @@ one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 |---|---|---|---|---|
 | 1 | Double composite fix, all in `TileGrid._get_refresh_areas` | 2.0x | Open 2026-09-19: [#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178) | `adafruit/Adafruit_Blinka_Displayio` |
 | 2 | `_fill_area` fast path, plain Python, no dependencies | 2.9x | Draft 2026-09-20: [#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), builds on #178 | `adafruit/Adafruit_Blinka_Displayio` |
-| 4a | Compiled kernel package with aarch64 and armv7 wheels | 46x | Kernel written, package and wheels not started | New repo, not created yet (working name `adafruit-blinka-displayio-turbo`) |
-| 4b | `try: import` hook that picks up the compiled kernel | | Not started | `adafruit/Adafruit_Blinka_Displayio` |
-| 5 | `bitmaptools` kernels | | Not measured yet | `adafruit/Adafruit_Blinka_Displayio` |
-| | Cython backend for `turbo build`, bench over ssh | | Not started | `mikeysklar/turbo-cli` |
+| 5 | `bitmaptools`, plain Python | | Not measured yet | `adafruit/Adafruit_Blinka_Displayio` |
+| | Cython backend for `turbo build` | 119x on mandelbrot | Done 2026-09-20: `turbo build --target cpython` | `mikeysklar/turbo-cli` |
+| | `turbo bench` over ssh | | Not started | `mikeysklar/turbo-cli` |
 | | CPython shim: define `ptr8`, `ptr16`, `ptr32`, `uint` | | Working copy in `bench/run_bench.py` | `mikeysklar/turbo` |
+| 4a, last | Compiled loop as a package | 64x Zero 2 W, 8.8x Pi 5, on a display | Only if Adafruit asks. Loop written and measured: `fastpath/cy/fill_pixels.py` | New repo, not created |
+| 4b, last | `try: import` hook that picks up the compiled loop | | Only if Adafruit asks. Tested in copies on both Pis | `adafruit/Adafruit_Blinka_Displayio` |
 
 Patch, kernels, benches and logs for all of these: `mikeysklar/turbo-blinka`.
 
@@ -39,7 +44,7 @@ Measured full-screen refresh, milliseconds:
 | Stock 2.3.2 | 3 565 | 326.9 | 1 149 |
 | PR 1 | 1 786 | 163.1 | 572 |
 | PR 1 + PR 2 | 622 | 61.2 | 300 |
-| PR 1 + PR 2 + PR 4 | 13.7 | 1.8 | 131 |
+| PR 1 + PR 2 + compiled loop, not planned upstream | 13.7 | 1.8 | 131 |
 
 All measured. PR 1 + PR 2 is 5.7x on the Zero 2 W with no compiler and no new
 dependency.
@@ -150,38 +155,43 @@ its own PR first. That split has not been measured.
 Dropped 2026-09-20. Widening the plain-Python fast path to `ColorConverter`,
 `OnDiskBitmap`, `vectorio` and displays under 16-bit was never measured. Each
 case changes the shared pixel loop and needs its own test scenes, for a gain
-that does not add to the 3.8x. PR 4 is next.
+that does not add to the 3.8x. Stays dropped unless someone asks.
 
-## PR 4a and 4b: optional compiled kernel
+## PR 5: `bitmaptools`, plain Python
 
-This is where Cython arrives. Blinka_Displayio itself stays pure Python.
-
-- 4a: new small package, working name `adafruit-blinka-displayio-turbo`, holding
-  only the compiled `_fill_kernel`. Wheels for aarch64 and armv7 so nobody
-  builds on a Zero (74 s there).
-- 4b, the PR to Blinka_Displayio, is a few lines:
-
-```python
-try:
-    from blinka_displayio_turbo import fill_kernel as _fill_kernel
-except ImportError:
-    pass  # keep the Python kernel defined above
-```
-
-- Source: `fastpath/cy/fill_kernel.py`. Same body as the Python kernel, typed
-  signature only.
-
-Needs a decision before starting: where the package lives and who publishes the
-wheels. Ask before PR 2 merges so PR 2 can shape the kernel signature for it.
-
-## PR 5: `bitmaptools`
-
-Not measured yet. Measure first, then decide. `draw_line`, `draw_circle`,
-`blit`, `rotozoom`, `fill_region`, `boundary_fill` are all per-pixel Python
-loops. Same recipe as PR 2 then PR 4.
+Next upstream candidate. Not measured yet: measure first, then decide.
+`draw_line`, `draw_circle`, `blit`, `rotozoom`, `fill_region`, `boundary_fill`
+are all per-pixel Python loops. Same recipe as PR 2: plain ints and flat
+buffers, output byte-identical, no compiler.
 
 ## Not Blinka PRs
 
-- turbo-cli: Cython backend for `turbo build` (rewrite signature, declare int
-  locals from the AST), bench over ssh.
+- turbo-cli: `turbo build --target cpython`, done 2026-09-20. Rewrites a
+  `@turbo.viper` function for Cython (typed signature, int locals from the AST)
+  and builds the `.so`. Mandelbrot on the Pi 5: 141.6 to 1.2 ms, same checksum.
+  This is for a user's own code on a Pi with a compiler. It does not touch
+  Blinka's libraries.
+- turbo-cli: bench over ssh. Not started.
 - turbo shim: define `ptr8`, `ptr16`, `ptr32`, `uint` on CPython.
+
+## Last, only if Adafruit asks: PR 4a and 4b, optional compiled loop
+
+Not planned upstream. A `.so` is tied to the CPU, the Python version and the C
+library, and minimal Linux builds have no compiler and often no glibc, so a
+normal Pi wheel would not load there. The compiled loop stays in turbo-blinka
+as a demo of the ceiling.
+
+- 4a: a small package holding only the compiled `_fill_pixels`. Source:
+  `fastpath/cy/fill_pixels.py`, the #179 loop with typed locals, same arguments.
+- 4b, the PR to Blinka_Displayio, would be four lines above `class TileGrid`:
+
+```python
+try:
+    from fill_pixels import fill_pixels as _fill_pixels
+except ImportError:
+    pass
+```
+
+No matching `.so` means the plain Python loop runs and nothing breaks, so it
+could only ever be an extra. Measured with it, on real displays: 64x on the
+Zero 2 W, 8.8x on the Pi 5. Build time 75 s on a Zero 2 W, 10 s on a Pi 5.
