@@ -220,6 +220,42 @@ Setup notes for a Pi 5:
 - Do not pass `chip_select=board.CE0` to `FourWire`. spidev owns CE0 and lgpio
   fails with "GPIO busy". Leave it out and the kernel toggles CE0 per transfer.
 
+## 2026-09-20: PR 1 + PR 2 together, no compiler
+
+The combination that needs no dependencies: the upstream PR 1 file (`299c87a`)
+plus the fast path with its plain-Python kernel. Full-screen refresh,
+milliseconds. Log: `logs/pr1-pr2-combined-20260920.log`. Last pixel payload
+`78b6f072aa84` in every headless run.
+
+| | Pi Zero 2 W, headless 240x240 | Pi 5, headless 240x240 | Pi 5, PiTFT 3.5" 480x320 |
+|---|---|---|---|
+| Stock 2.3.2 | 3 565 | 326.9 | 1 149 |
+| PR 1 | 1 786 (2.0x) | 163.1 (2.0x) | 572 (2.0x) |
+| PR 2 | 1 252 (2.8x) | 122.2 (2.7x) | 600 (1.9x) |
+| PR 1 + PR 2 | 622 (5.7x) | 61.2 (5.3x) | 300 (3.8x) |
+
+Move a sprite (32x32 headless, 48x48 on the PiTFT):
+
+| | Pi Zero 2 W | Pi 5 | Pi 5, PiTFT |
+|---|---|---|---|
+| Stock and PR 1 | 42.4 | 3.9 | 11.2 |
+| PR 2, with or without PR 1 | 16.1 | 1.6 | 6.1 |
+
+The two gains multiply cleanly headless (2.0 x 2.8 = 5.6). On the PiTFT PR 2
+alone is 1.9x, not 2.7x: stock sends the frame twice, about 200 ms of SPI that
+PR 2 does not remove. PR 1 removes it.
+
+## 2026-09-20: fast path correctness scenes
+
+`bench/displayio_scenes.py`: 20 scenes on a headless 96x64 display, stock
+against the fast path, sha256 of every byte sent. Bitmap depths 1, 2, 4, 8 bit,
+flip_x, flip_y, transpose_xy, group scale 2 and 3, sprite sheet, transparent
+palette entries, overlapping sprites, clipping, hidden, display rotation 90,
+180, 270, and a ColorConverter scene that must fall back. 0 differ with the
+Python, Cython and Numba kernels. Log: `logs/pi5-displayio-scenes-20260920.log`.
+
+Four deliberate kernel bugs were caught by 15, 19, 2 and 4 of the 20 scenes.
+
 ## Other runs
 
 | Date | Host | What | Result |

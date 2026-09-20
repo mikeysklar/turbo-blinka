@@ -1,0 +1,46 @@
+=== pi5
+## stock 
+| full screen, bitmap fill | 115622 | 326.9 | 325.9 | 329.2 | 2.83 | 3.1 |
+| move 32x32 sprite 8 px | 1285 | 3.9 | 3.9 | 4.0 | 3.06 | 254.4 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/env/lib/python3.13/site-packages/displayio
+## pr1 
+| full screen, bitmap fill | 57811 | 163.1 | 162.8 | 164.3 | 2.82 | 6.1 |
+| move 32x32 sprite 8 px | 1285 | 3.9 | 3.9 | 4.0 | 3.06 | 254.6 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/blinka-turbo/pr1/displayio
+## stock --fast python
+| full screen, bitmap fill | 115622 | 122.2 | 120.5 | 124.1 | 1.06 | 8.2 |
+| move 32x32 sprite 8 px | 1285 | 1.6 | 1.6 | 1.6 | 1.28 | 610.0 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/env/lib/python3.13/site-packages/displayio
+## pr1 --fast python
+| full screen, bitmap fill | 57811 | 61.2 | 60.4 | 62.1 | 1.06 | 16.3 |
+| move 32x32 sprite 8 px | 1285 | 1.6 | 1.6 | 1.7 | 1.28 | 609.8 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/blinka-turbo/pr1/displayio
+=== pizero2w
+## stock 
+| full screen, bitmap fill | 115622 | 3564.5 | 3557.1 | 3586.5 | 30.83 | 0.3 |
+| move 32x32 sprite 8 px | 1285 | 42.4 | 42.3 | 42.6 | 33.00 | 23.6 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/env/lib/python3.13/site-packages/displayio
+## pr1 
+| full screen, bitmap fill | 57811 | 1785.6 | 1780.2 | 1806.6 | 30.89 | 0.6 |
+| move 32x32 sprite 8 px | 1285 | 42.3 | 42.3 | 42.5 | 32.95 | 23.6 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/blinka-turbo/pr1/displayio
+## stock --fast python
+| full screen, bitmap fill | 115622 | 1251.8 | 1229.8 | 1266.6 | 10.83 | 0.8 |
+| move 32x32 sprite 8 px | 1285 | 16.2 | 16.1 | 16.4 | 12.61 | 61.7 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/env/lib/python3.13/site-packages/displayio
+## pr1 --fast python
+| full screen, bitmap fill | 57811 | 621.5 | 609.8 | 628.4 | 10.75 | 1.6 |
+| move 32x32 sprite 8 px | 1285 | 16.1 | 16.1 | 16.2 | 12.51 | 62.2 |
+# last pixel payload sha256 78b6f072aa84 (115200 bytes), displayio from /home/pi/blinka-turbo/pr1/displayio
+## pitft stock 
+| full-screen fill, 480x320 | 1148.9 | 0.9 |
+| move 48x48 sprite 10 px | 11.2 | 89.5 |
+## pitft pr1 
+| full-screen fill, 480x320 | 571.7 | 1.7 |
+| move 48x48 sprite 10 px | 11.2 | 89.5 |
+## pitft stock --fast python
+| full-screen fill, 480x320 | 600.3 | 1.7 |
+| move 48x48 sprite 10 px | 6.2 | 161.6 |
+## pitft pr1 --fast python
+| full-screen fill, 480x320 | 300.4 | 3.3 |
+| move 48x48 sprite 10 px | 6.1 | 163.5 |

@@ -1,0 +1,26 @@
+# 0 scene(s) differ
+# 0 scene(s) differ
+# 20 scenes, 96x64 16-bit, kernel python, displayio from /home/pi/env/lib/python3.13/site-packages/displayio
+| scene | stock sha256 | fast sha256 | bytes | fast calls | fallback calls | stock ms | fast ms | |
+|---|---|---|---|---|---|---|---|---|
+| 1-bit bitmap | dc32a1900ff6 | dc32a1900ff6 | 36897 | 3 | 0 | 65 | 33 | ok |
+| 2-bit bitmap | 577aebdd28a1 | 577aebdd28a1 | 36897 | 3 | 0 | 66 | 33 | ok |
+| 4-bit bitmap | 2861379aa8d9 | 2861379aa8d9 | 36897 | 3 | 0 | 66 | 34 | ok |
+| 8-bit bitmap | 170cdec1a1c7 | 170cdec1a1c7 | 36897 | 3 | 0 | 71 | 36 | ok |
+| sprite, plain | 61434491d8e8 | 61434491d8e8 | 40759 | 9 | 0 | 58 | 22 | ok |
+| sprite, flip_x | ef6c1c8685a3 | ef6c1c8685a3 | 40759 | 9 | 0 | 58 | 22 | ok |
+| sprite, flip_y | 3955bbac30f7 | 3955bbac30f7 | 40759 | 9 | 0 | 58 | 22 | ok |
+| sprite, transpose_xy | 1c3dca039e9b | 1c3dca039e9b | 40759 | 9 | 0 | 58 | 22 | ok |
+| sprite, flip_x + flip_y + transpose | 447a9d21e7e0 | 447a9d21e7e0 | 40759 | 9 | 0 | 58 | 22 | ok |
+| group scale 2 | 07c87e3eed17 | 07c87e3eed17 | 39319 | 9 | 0 | 56 | 21 | ok |
+| group scale 3, odd offset | 4dbbf9a2051b | 4dbbf9a2051b | 41719 | 9 | 0 | 60 | 23 | ok |
+| sprite sheet, 10x6 tiles | 4520e3af1f0e | 4520e3af1f0e | 46135 | 9 | 0 | 68 | 27 | ok |
+| transparent palette entries | ab66168c97ce | ab66168c97ce | 46519 | 10 | 0 | 73 | 28 | ok |
+| three overlapping sprites | ab504bc26828 | ab504bc26828 | 49059 | 30 | 0 | 72 | 29 | ok |
+| sprite partly off screen | 9971adc86e0c | 9971adc86e0c | 39799 | 9 | 0 | 56 | 21 | ok |
+| sprite hidden | 16df8d5e6248 | 16df8d5e6248 | 36897 | 6 | 0 | 52 | 19 | ok |
+| display rotation 90 | ec5729c4e3ab | ec5729c4e3ab | 36663 | 9 | 0 | 54 | 21 | ok |
+| display rotation 180 | 5f9e1be994bb | 5f9e1be994bb | 46135 | 9 | 0 | 70 | 28 | ok |
+| display rotation 270 | 664b2ece72cc | 664b2ece72cc | 42423 | 10 | 0 | 67 | 26 | ok |
+| 16-bit bitmap + ColorConverter (fallback) | f9e06722b701 | f9e06722b701 | 36897 | 0 | 3 | 106 | 106 | ok |
+# 0 scene(s) differ

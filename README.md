@@ -23,6 +23,7 @@ Pi Zero 2 W and Pi 5, Pi OS 64-bit, Python 3.13.5. Milliseconds. Full data in [R
 |---|---|---|
 | Stock Blinka_Displayio 2.3.2 | 3560 | 325.7 |
 | Fast path, Python | 1241 | 121.8 |
+| Fast path, Python + double composite patch | 622 | 61.2 |
 | Fast path, Numba | 34.1 | 4.6 |
 | Fast path, Cython | 26.8 | 3.5 |
 | Fast path, Cython + [double composite patch](patches/blinka-displayio-double-composite.patch) | 13.7 | 1.8 |
@@ -114,6 +115,7 @@ Every run prints a checksum. It must match across backends.
 | `bench/numpy_backend/` | numpy rewrites, per row and whole frame. |
 | `bench/mandel_ref.c` | C version. The ceiling. |
 | `bench/displayio_refresh.py` | Headless `display.refresh()` timing. No display needed. |
+| `bench/displayio_scenes.py` | 20 scenes, stock against fast path, bytes must match. |
 | `bench/pitft_demo.py` | Same timing on a real PiTFT 3.5". `--seconds` for filming. |
 | `bench/life.py` | Conway kernel from the RGBMatrix Learn guide. |
 | `fastpath/fill_kernel.py` | `_fill_area` pixel loop on flat buffers. |

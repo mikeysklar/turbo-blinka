@@ -39,14 +39,15 @@ Patch, kernels, benches and logs for all of these: `mikeysklar/turbo-blinka`.
 
 Measured full-screen refresh, milliseconds:
 
-| After | Zero 2 W | Pi 5 |
-|---|---|---|
-| Stock 2.3.2 | 3 595 | 325.7 |
-| PR 1 | 1 796 | 162.7 |
-| PR 1 + PR 2, not measured together | about 620 | about 60 |
-| PR 1 + PR 2 + PR 4 | 13.7 | 1.8 |
+| After | Zero 2 W | Pi 5 | Pi 5, PiTFT 3.5" |
+|---|---|---|---|
+| Stock 2.3.2 | 3 565 | 326.9 | 1 149 |
+| PR 1 | 1 786 | 163.1 | 572 |
+| PR 1 + PR 2 | 622 | 61.2 | 300 |
+| PR 1 + PR 2 + PR 4 | 13.7 | 1.8 | 131 |
 
-The "about" numbers are 1 796 / 2.9 and 162.7 / 2.7.
+All measured. PR 1 + PR 2 is 5.7x on the Zero 2 W with no compiler and no new
+dependency.
 
 ## Before any PR
 
@@ -134,9 +135,10 @@ Steps:
 
 - [ ] Move the kernel and the case check into `_tilegrid.py`.
 - [ ] Hash check: `bench/displayio_refresh.py` before and after, same payload hash.
-- [ ] Add scenes to the bench first: flipped, transposed, scale 2, tiled sprite
-      sheet, transparent palette index. The current bench covers none of these.
-- [ ] Measure PR 1 + PR 2 together, no Cython. Put that number in the PR.
+- [x] Add scenes to the bench first. Done 2026-09-20: `bench/displayio_scenes.py`,
+      20 scenes, 0 differ, four deliberate kernel bugs all caught.
+- [x] Measure PR 1 + PR 2 together, no Cython. Done 2026-09-20: 622 ms on the
+      Zero 2 W (5.7x), 61.2 ms on the Pi 5, 300 ms on the PiTFT 3.5".
 
 Risk: medium. The setup code is a copy of the existing preamble. Reviewers may
 ask for it to be shared, not copied. If they want it smaller, split off "build
