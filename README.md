@@ -30,6 +30,15 @@ Pi Zero 2 W and Pi 5, Pi OS 64-bit, Python 3.13.5. Milliseconds. Full data in [R
 
 Output is byte-identical to stock in every row.
 
+### On a real display, stock against turbo + Cython
+
+| Full-screen fills in 10 s | Stock | turbo + Cython | Video |
+|---|---|---|---|
+| Pi Zero 2 W, PiTFT 2.8" | 3 | 97 | [watch](https://drive.google.com/file/d/1P1-LijQl6t-twvAlZE3E52PNMB0Iya2U/view) |
+| Pi 5, PiTFT 3.5" | 9 | 75 | [watch](https://drive.google.com/file/d/1eByUEks2I_9uzHSume6ZK1jqVe_WtbQ0/view) |
+
+How: [zero2w-howto.md](zero2w-howto.md).
+
 ### Startup cost
 
 | | Zero 2 W | Pi 5 |
