@@ -122,6 +122,7 @@ Every run prints a checksum. It must match across backends.
 | `fastpath/tilegrid_fast.py` | Monkeypatch that installs the kernel. Falls back if unsupported. |
 | `fastpath/cy/fill_kernel.py` | Same kernel with Cython types. |
 | [`patches/`](patches/blinka-displayio-double-composite.patch) | Blinka_Displayio fix: full refresh was drawn twice. |
+| [`zero2w-howto.md`](zero2w-howto.md) | Zero 2 W, 3 to 97 fills in 10 s: commands and changes. |
 | `pr-plan.md` | Upstream PRs, one at a time. PR 1 is open. |
 | `pr1-body.md`, `pr1-body-v2.md` | PR 1 description, long and short. |
 | `split-video-title-mp4.md` | How the side-by-side video was cut. |
