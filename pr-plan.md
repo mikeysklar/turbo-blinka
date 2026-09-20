@@ -7,7 +7,7 @@ one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 ## Short list
 
 - **PR 1:** Draw bitmap changes once ([#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178), open). Displayio. 2.0x
-- **PR 2:** Plain-Python fast pixel loop. Displayio. 2.9x
+- **PR 2:** Plain-Python fast pixel loop ([#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), draft). Displayio. 2.9x
 - **PR 3a:** Fast path for ColorConverter. Displayio. ~3x
 - **PR 3b:** Fast path for OnDiskBitmap. Displayio. ~2x
 - **PR 3c:** Fast path for vectorio shapes. Displayio. ~3x
@@ -27,7 +27,7 @@ one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 | PR | What | Gain | State | Git repo |
 |---|---|---|---|---|
 | 1 | Double composite fix, all in `TileGrid._get_refresh_areas` | 2.0x | Open 2026-09-19: [#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178) | `adafruit/Adafruit_Blinka_Displayio` |
-| 2 | `_fill_area` fast path, plain Python, no dependencies | 2.9x | Written as a monkeypatch, needs moving into the file | `adafruit/Adafruit_Blinka_Displayio` |
+| 2 | `_fill_area` fast path, plain Python, no dependencies | 2.9x | Draft 2026-09-20: [#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), builds on #178 | `adafruit/Adafruit_Blinka_Displayio` |
 | 3 | Widen the fast path, one case per PR | | Not started | `adafruit/Adafruit_Blinka_Displayio` |
 | 4a | Compiled kernel package with aarch64 and armv7 wheels | 46x | Kernel written, package and wheels not started | New repo, not created yet (working name `adafruit-blinka-displayio-turbo`) |
 | 4b | `try: import` hook that picks up the compiled kernel | | Not started | `adafruit/Adafruit_Blinka_Displayio` |
@@ -133,17 +133,22 @@ Still no dependencies. Bigger diff, so it goes after PR 1 has built some trust.
 
 Steps:
 
-- [ ] Move the kernel and the case check into `_tilegrid.py`.
-- [ ] Hash check: `bench/displayio_refresh.py` before and after, same payload hash.
+- [x] Move the kernel and the case check into `_tilegrid.py`. Done 2026-09-20:
+      branch `fill-area-fast-path`, +108 lines, shares the existing setup code.
+- [x] Hash check: `bench/displayio_refresh.py` before and after, same payload
+      hash, `78b6f072aa84`. 20 scenes identical to PR 1.
+- [x] Independent review. Small updates with a big palette were slower, fixed in
+      4973eb0. Numbers in `RESULTS.md`.
+- [x] Draft opened 2026-09-20: #179. Mark ready once #178 merges.
+- [ ] Run the in-file version on the Zero 2 W.
 - [x] Add scenes to the bench first. Done 2026-09-20: `bench/displayio_scenes.py`,
       20 scenes, 0 differ, four deliberate kernel bugs all caught.
 - [x] Measure PR 1 + PR 2 together, no Cython. Done 2026-09-20: 622 ms on the
       Zero 2 W (5.7x), 61.2 ms on the Pi 5, 300 ms on the PiTFT 3.5".
 
-Risk: medium. The setup code is a copy of the existing preamble. Reviewers may
-ask for it to be shared, not copied. If they want it smaller, split off "build
-the palette table once per call" as its own PR first. That split has not been
-measured.
+Risk: medium. The setup code is shared with the existing loop, not copied. If
+reviewers want it smaller, split off "build the palette table once per call" as
+its own PR first. That split has not been measured.
 
 ## PR 3: widen the fast path
 

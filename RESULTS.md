@@ -256,6 +256,37 @@ Python, Cython and Numba kernels. Log: `logs/pi5-displayio-scenes-20260920.log`.
 
 Four deliberate kernel bugs were caught by 15, 19, 2 and 4 of the 20 scenes.
 
+## 2026-09-20: PR 2 in the file, draft #179
+
+Branch `fill-area-fast-path` (0fa7f56 + 4973eb0), on top of PR 1. Pi 5 only.
+Draft: [#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179).
+
+| Pi 5 | PR 1 | PR 1 + PR 2 in the file |
+|---|---|---|
+| Full-screen refresh, no display, 240x240, ms | 163.1 | 52.2 |
+| PiTFT 3.5", full-screen fills in 10 s (stock: 9) | 18 | 34 |
+| 20 scenes, bytes sent | | identical to PR 1 |
+
+Last pixel payload sha256 `78b6f072aa84`, unchanged.
+
+An independent review fuzzed about 8 000 random cases against the old loop: 0
+differences. It found small updates got slower with a big palette, because the
+colour table is rebuilt on every call. Fixed in 4973eb0: areas with fewer
+pixels than the palette has entries use the old loop. 8-bit bitmap, 256 colour
+palette, microseconds:
+
+| Changed area | PR 1 | PR 2 before the fix | PR 2 |
+|---|---|---|---|
+| 1x1 | 24 | 217 | 22 |
+| 4x4 | 66 | 230 | 67 |
+| 8x8 | 211 | 273 | 213 |
+| 16x16 | 791 | 438 | 440 |
+| 32x32 | 3 107 | 1 115 | 1 118 |
+| 240x240 | 175 810 | 52 243 | 52 263 |
+
+Not run on the Zero 2 W yet. Video: stock on top, PR 1 + PR 2 on the bottom,
+[Drive](https://drive.google.com/file/d/16KWFTQvOk2QP8yC4XHw4lfDtFrJ-eeeQ/view).
+
 ## Other runs
 
 | Date | Host | What | Result |
