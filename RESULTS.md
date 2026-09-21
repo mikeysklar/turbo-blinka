@@ -52,7 +52,8 @@ float and fixed point round differently, same as on the boards).
 | Numba first-call JIT, every process (`cache=False`) | 2.4 s warm, 4.1 s first time | 0.28 s |
 | `import numpy`, every process | 0.66 s | 0.06 s |
 
-Not measured yet: `numba.njit(cache=True)` on a second process.
+`numba.njit(cache=True)` on a second process: measured 2026-09-21, see "The CPython
+shim" below.
 
 ## Against the boards, like for like
 
@@ -360,6 +361,38 @@ opened 2026-09-20: visited list becomes a set, two lines, branch
 
 Result hash `6d73c4f8bb54` in every row, whole bench `8bed9684ccfb`. Logs:
 `logs/*-bitmaptools-stock-20260920.log`, `logs/*-bitmaptools-pr5a-20260920.log`.
+
+## 2026-09-21: the CPython shim, four ways to run one project
+
+turbo-cli `cli/turbo.py`, the `turbo` module for CPython (not committed there
+yet). One project folder, `src/pixels.py` (turbo's mandelbrot) and a `code.py`
+that imports `turbo`, then `pixels`, and times `_turbo_bench()` twice.
+Milliseconds. Checksum 407644 in every row.
+
+| Pi 5 | `pixels` from | import turbo + pixels | first frame | later frames |
+|---|---|---|---|---|
+| `python3 code.py`, nothing built | `src/pixels.py` | 7 | 158 | 141.4 |
+| `TURBO=numba`, first ever run | `src/pixels.py` | 879 | 318.5 | 2.0 |
+| `TURBO=numba`, second run, cached | `src/pixels.py` | 256 | 171.6 | 1.9 |
+| after `turbo build --target cpython` | `lib/turbo/cpython/pixels.*.so` | 3 | 1.2 | 1.2 |
+| `TURBO=source`, `.so` present | `src/pixels.py` | 3 | 141.9 | 139.8 |
+
+| Zero 2 W | import turbo + pixels | first frame | later frames |
+|---|---|---|---|
+| `python3 code.py`, nothing built | 44 | 1 408 | 1 376 |
+| `TURBO=numba`, first ever run | 5 130 | 4 978 | 8.8 |
+| `TURBO=numba`, second run, cached | 3 062 | 1 427 | 8.8 |
+| `TURBO=numba`, third run, cached | 1 918 | 1 468 | 8.8 |
+
+`cache=True` answers the open question: it cuts the first-call compile by about
+two thirds (Pi 5 318 to 172 ms, Zero 2 W 4 978 to about 1 450 ms). What is left
+is mostly `import numba`. A cached start on the Zero 2 W still costs about 3.4 s
+against 44 ms from source and 3 ms for a Cython `.so`, and the cached first
+frame takes as long as one frame of plain Python. Numba pays for long-running
+programs, not quick scripts.
+
+Under `TURBO=numba` a function numba cannot compile (an attribute read, a
+`ptr8()` cast) printed one line and ran from source with the right result.
 
 ## Other runs
 

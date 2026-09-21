@@ -129,6 +129,21 @@ Zero 2 W before any compiler:
 are what goes to Blinka, and they work everywhere Blinka runs. Worth a line in
 the guide: look for wasted work first, reach for the compiler second.
 
+## Numba, the no-build option
+
+`TURBO=numba python3 code.py` with the turbo shim, or `@njit(cache=True)` by
+hand. Same source, no build, no gcc. Startup before the first fast frame,
+seconds:
+
+| | First ever run | Later runs, cached | Cython `.so` |
+|---|---|---|---|
+| Pi 5 | 1.2 | 0.43 | 0.003 |
+| Zero 2 W | 10.1 | 3.4 to 4.5 | not measured |
+
+Frame time after that: 1.9 ms Pi 5, 8.8 ms Zero 2 W (Cython: 1.2 and 6.0). 204 MB
+on disk. Good for long-running programs, poor for quick scripts on a Zero. Ints
+are 64-bit, not 32-bit wrapping.
+
 ## What a built file is tied to
 
 | | |
