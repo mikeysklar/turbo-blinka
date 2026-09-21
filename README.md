@@ -30,13 +30,20 @@ Pi Zero 2 W and Pi 5, Pi OS 64-bit, Python 3.13.5. Milliseconds. Full data in [R
 
 Output is byte-identical to stock in every row.
 
-### On a real display, stock against turbo + Cython
+### On a real display
 
-| Full-screen fills in 10 s | Stock | turbo + Cython | Video |
+| Full-screen fill, speedup over stock | Needs a compiler | Zero 2 W, PiTFT 2.8" | Pi 5, PiTFT 3.5" |
+|---|---|---|---|
+| [#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178), plain Python | no | 2.0x | 2.0x |
+| #178 + [#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), plain Python | no | 5.5x | 3.9x |
+| Plus the loop compiled with Cython | yes | 64x | 8.8x |
+
+| Full-screen fills in 10 s | Stock | All three | Video |
 |---|---|---|---|
 | Pi Zero 2 W, PiTFT 2.8" | 3 | 97 | [watch](https://drive.google.com/file/d/1P1-LijQl6t-twvAlZE3E52PNMB0Iya2U/view) |
 | Pi 5, PiTFT 3.5" | 9 | 75 | [watch](https://drive.google.com/file/d/1eByUEks2I_9uzHSume6ZK1jqVe_WtbQ0/view) |
 
+The two PRs are what goes to Blinka. The compiled loop is a demo in this repo.
 How: [zero2w-howto.md](zero2w-howto.md).
 
 ### Startup cost
@@ -127,6 +134,8 @@ Every run prints a checksum. It must match across backends.
 | `bench/displayio_scenes.py` | 20 scenes, stock against fast path, bytes must match. |
 | `bench/pitft_demo.py` | Same timing on a real PiTFT, 3.5" or 2.8". `--seconds` for filming. |
 | `bench/displayio_small_area.py` | Refresh time for small changed areas, 1x1 to 240x240. |
+| `bench/bitmaptools_bench.py` | Times bitmaptools and Bitmap pixel loops. Hashes each result. |
+| `bench/boundary_fill_demo.py` | Filmable before and after for `boundary_fill` on a PiTFT. |
 | `bench/life.py` | Conway kernel from the RGBMatrix Learn guide. |
 | `fastpath/fill_kernel.py` | `_fill_area` pixel loop on flat buffers. |
 | `fastpath/tilegrid_fast.py` | Monkeypatch that installs the kernel. Falls back if unsupported. |
@@ -134,7 +143,7 @@ Every run prints a checksum. It must match across backends.
 | `fastpath/cy/fill_pixels.py` | PR 2's `_fill_pixels` with Cython types. Same arguments. |
 | [`patches/`](patches/blinka-displayio-double-composite.patch) | Blinka_Displayio fix: full refresh was drawn twice. |
 | [`zero2w-howto.md`](zero2w-howto.md) | Zero 2 W, 3 to 97 fills in 10 s: commands and changes. |
-| `pr-plan.md` | Upstream PRs. PR 1 is open (#178), PR 2 is a draft (#179). |
+| `pr-plan.md` | Upstream PRs. Open: #178, #180. Draft: #179. |
 | `pr1-body.md`, `pr1-body-v2.md` | PR 1 description, long and short. |
 | `split-video-title-mp4.md` | How the side-by-side video was cut. |
 | `turbo-blinka.html` | Summary page: charts, tables, port work. |
