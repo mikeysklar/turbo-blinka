@@ -1,0 +1,42 @@
+== pr1 VALUES=2
+  1x1          21 us
+  4x4          62 us
+  8x8         194 us
+ 16x16        717 us
+ 32x32       2810 us
+240x240    160454 us
+== pr1 VALUES=256
+  1x1          23 us
+  4x4          66 us
+  8x8         210 us
+ 16x16        786 us
+ 32x32       3087 us
+240x240    174812 us
+== pr2x VALUES=2
+  1x1          22 us
+  4x4          63 us
+  8x8         194 us
+ 16x16        260 us
+ 32x32        979 us
+240x240     56831 us
+== pr2x VALUES=256
+  1x1          22 us
+  4x4          67 us
+  8x8         215 us
+ 16x16        439 us
+ 32x32       1119 us
+240x240     52290 us
+== pr2y VALUES=2
+  1x1          22 us
+  4x4          37 us
+  8x8          82 us
+ 16x16        260 us
+ 32x32        979 us
+240x240     56629 us
+== pr2y VALUES=256
+  1x1          22 us
+  4x4          68 us
+  8x8         216 us
+ 16x16        440 us
+ 32x32       1118 us
+240x240     52327 us

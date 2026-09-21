@@ -1,0 +1,48 @@
+== Pi 5, #179 as posted
+# hx8357 480x320, displayio from /home/pi/blinka-turbo/pr2/displayio, fast path off, SPI 24000000 Hz
+fill 0: 295 ms
+fill 1: 297 ms
+fill 2: 297 ms
+fill 3: 297 ms
+fill 4: 299 ms
+fill 5: 299 ms
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 480x320 | 296.6 | 3.4 |
+| move 48x48 sprite 10 px | 6.0 | 165.4 |
+== Pi 5, #179 + fix 1 + fix 2
+# hx8357 480x320, displayio from /home/pi/blinka-turbo/pr2y/displayio, fast path off, SPI 24000000 Hz
+fill 0: 294 ms
+fill 1: 295 ms
+fill 2: 296 ms
+fill 3: 295 ms
+fill 4: 298 ms
+fill 5: 299 ms
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 480x320 | 295.9 | 3.4 |
+| move 48x48 sprite 10 px | 6.0 | 165.4 |
+== Zero 2 W, #179 as posted
+# ili9341 320x240, displayio from /home/pi/blinka-turbo/pr2/displayio, fast path off, SPI 24000000 Hz
+fill 0: 908 ms
+fill 1: 887 ms
+fill 2: 888 ms
+fill 3: 888 ms
+fill 4: 897 ms
+fill 5: 897 ms
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 320x240 | 892.4 | 1.1 |
+| move 48x48 sprite 10 px | 36.7 | 27.3 |
+== Zero 2 W, #179 + fix 1 + fix 2
+# ili9341 320x240, displayio from /home/pi/blinka-turbo/pr2y/displayio, fast path off, SPI 24000000 Hz
+fill 0: 884 ms
+fill 1: 886 ms
+fill 2: 886 ms
+fill 3: 887 ms
+fill 4: 898 ms
+fill 5: 896 ms
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 320x240 | 887.0 | 1.1 |
+| move 48x48 sprite 10 px | 36.5 | 27.4 |

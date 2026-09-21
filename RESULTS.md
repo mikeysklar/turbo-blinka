@@ -285,8 +285,49 @@ palette, microseconds:
 | 32x32 | 3 107 | 1 115 | 1 118 |
 | 240x240 | 175 810 | 52 243 | 52 263 |
 
-Not run on the Zero 2 W yet. Video: stock on top, PR 1 + PR 2 on the bottom,
+Zero 2 W numbers are in the next sections. Video: stock on top, PR 1 + PR 2 on the bottom,
 [Drive](https://drive.google.com/file/d/16KWFTQvOk2QP8yC4XHw4lfDtFrJ-eeeQ/view).
+
+### 2026-09-21: two review fixes on #179
+
+Two review comments, both fixed as new commits on `fill-area-fast-path`:
+
+- fdef1d4, from Melissa's AI review: the fast path took `Bitmap` and `Palette`
+  subclasses, which can override `_get_pixel` or `_get_color`. It now takes the
+  exact types only; subclasses use the old loop.
+- 161bde2, from Copilot: small areas were compared against the palette length,
+  but the table only resolves `min(len(palette), 1 << bits_per_value)` entries.
+
+`bench/sub179.py`, Pi 5, the 20 scenes plus a Bitmap subclass and a Palette
+subclass, compared with PR 1:
+
+| | 20 scenes | Bitmap subclass | Palette subclass |
+|---|---|---|---|
+| #179 before the fixes | match | different | different |
+| #179 with both fixes | match | match | match |
+
+`VALUES=2 bench/displayio_small_area.py`, Pi 5, 1-bit bitmap with a 256 colour
+palette, microseconds:
+
+| Changed area | PR 1 | fdef1d4 | 161bde2 |
+|---|---|---|---|
+| 1x1 | 21 | 22 | 22 |
+| 4x4 | 62 | 63 | 37 |
+| 8x8 | 194 | 194 | 82 |
+| 16x16 | 717 | 260 | 260 |
+| 240x240 | 160 454 | 56 831 | 56 629 |
+
+With the default 8-bit bitmap nothing moved (4x4: 67 and 68).
+
+`pitft_demo.py` on the PiTFTs, median ms, before and after both fixes:
+
+| | Pi 5, 3.5" | Zero 2 W, 2.8" |
+|---|---|---|
+| Full-screen fill | 296.6 / 295.9 | 892.4 / 887.0 |
+| Sprite move | 6.0 / 6.0 | 36.7 / 36.5 |
+
+Logs: `logs/pi5-pr179-subclass-20260921.log`, `logs/pi5-pr179-gate-20260921.log`,
+`logs/pitft-pr179-fixes-20260921.log`.
 
 ## 2026-09-20: compiled loop on real displays, both Pis
 

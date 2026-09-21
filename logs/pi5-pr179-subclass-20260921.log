@@ -1,0 +1,69 @@
+== pr1
+1-bit bitmap 51e990909476
+2-bit bitmap 0755a04c01c0
+4-bit bitmap 1fc0ddbff531
+8-bit bitmap 3e104e0146b3
+sprite, plain b1be869cc0cc
+sprite, flip_x 6fb1a9bddb52
+sprite, flip_y 5ff9a643cbb7
+sprite, transpose_xy 96c6c98d322f
+sprite, flip_x + flip_y + transpose da09dea1b650
+group scale 2 205c3020ff55
+group scale 3, odd offset 275b2289665b
+sprite sheet, 10x6 tiles 25db931ca3dc
+transparent palette entries 36be51b58da3
+three overlapping sprites b332aefab340
+sprite partly off screen abf28f5cc177
+sprite hidden 0caa56d3b712
+display rotation 90 886f729cc6bd
+display rotation 180 22241fda9f8a
+display rotation 270 00ee75359e26
+16-bit bitmap + ColorConverter (fallback) c2ca879847a2
+subclass Bitmap 89fbd0c943ab
+subclass Palette 2d0f22c02a9a
+== pr2
+1-bit bitmap 51e990909476
+2-bit bitmap 0755a04c01c0
+4-bit bitmap 1fc0ddbff531
+8-bit bitmap 3e104e0146b3
+sprite, plain b1be869cc0cc
+sprite, flip_x 6fb1a9bddb52
+sprite, flip_y 5ff9a643cbb7
+sprite, transpose_xy 96c6c98d322f
+sprite, flip_x + flip_y + transpose da09dea1b650
+group scale 2 205c3020ff55
+group scale 3, odd offset 275b2289665b
+sprite sheet, 10x6 tiles 25db931ca3dc
+transparent palette entries 36be51b58da3
+three overlapping sprites b332aefab340
+sprite partly off screen abf28f5cc177
+sprite hidden 0caa56d3b712
+display rotation 90 886f729cc6bd
+display rotation 180 22241fda9f8a
+display rotation 270 00ee75359e26
+16-bit bitmap + ColorConverter (fallback) c2ca879847a2
+subclass Bitmap aeee073bfee8
+subclass Palette f2f233bf643a
+== pr2x
+1-bit bitmap 51e990909476
+2-bit bitmap 0755a04c01c0
+4-bit bitmap 1fc0ddbff531
+8-bit bitmap 3e104e0146b3
+sprite, plain b1be869cc0cc
+sprite, flip_x 6fb1a9bddb52
+sprite, flip_y 5ff9a643cbb7
+sprite, transpose_xy 96c6c98d322f
+sprite, flip_x + flip_y + transpose da09dea1b650
+group scale 2 205c3020ff55
+group scale 3, odd offset 275b2289665b
+sprite sheet, 10x6 tiles 25db931ca3dc
+transparent palette entries 36be51b58da3
+three overlapping sprites b332aefab340
+sprite partly off screen abf28f5cc177
+sprite hidden 0caa56d3b712
+display rotation 90 886f729cc6bd
+display rotation 180 22241fda9f8a
+display rotation 270 00ee75359e26
+16-bit bitmap + ColorConverter (fallback) c2ca879847a2
+subclass Bitmap 89fbd0c943ab
+subclass Palette 2d0f22c02a9a
