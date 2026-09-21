@@ -321,6 +321,46 @@ the compiled loop because its screen has half the pixels: what is left is SPI.
 PR 1 does not change the sprite move: moving a TileGrid dirties no bitmap.
 Log: `logs/pizero2w-pitft28-20260920.log`.
 
+## 2026-09-20: bitmaptools on stock, and the boundary_fill fix (#180)
+
+`bench/bitmaptools_bench.py`, 240x240 4-bit bitmap, no display. Median of 5 on
+the Pi 5, of 3 on the Zero 2 W. Each case hashes the result bitmap and its dirty
+area; every hash is the same on both Pis.
+
+| Stock 2.3.2, ms | Zero 2 W | Pi 5 |
+|---|---|---|
+| `bitmap[x, y] = v`, every pixel | 1 339 | 127.2 |
+| `v = bitmap[x, y]`, every pixel | 340 | 40.0 |
+| `Bitmap.fill` | 4.3 | 0.4 |
+| `fill_region`, whole bitmap | 1 300 | 124.0 |
+| `blit`, whole bitmap | 2 011 | 196.8 |
+| `blit` 64x64, skip_source_index | 135.5 | 13.4 |
+| `rotozoom` 64x64, 30 degrees, scale 2 | 550.7 | 53.9 |
+| `draw_line` x 20 | 112.7 | 10.9 |
+| `draw_circle` x 20 | 150.2 | 14.5 |
+| `boundary_fill` inside a radius 80 ring | 190 980 | 17 406 |
+
+Two findings:
+
+- `boundary_fill` keeps its visited points in a list and tests `not in` for
+  every neighbour, so the cost grows with the square of the area.
+- Every `bitmap[x, y] = v` builds two `Area` objects and runs a union and an
+  overlap for one pixel. `fill_region` and `Bitmap.fill` write the same bitmap
+  (same hash): 1 300 ms against 4.3 ms on the Zero 2 W.
+
+PR 5a, [#180](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/180),
+opened 2026-09-20: visited list becomes a set, two lines, branch
+`boundary-fill-set` (a967fab) on upstream main.
+
+| `boundary_fill` inside a ring, ms | Zero 2 W | Pi 5 |
+|---|---|---|
+| Stock | 190 980 | 17 406 |
+| #180, visited points in a set | 2 680 (71x) | 273.5 (64x) |
+| Scratch only: one set of queued points plus a deque | | 79.0 (220x) |
+
+Result hash `6d73c4f8bb54` in every row, whole bench `8bed9684ccfb`. Logs:
+`logs/*-bitmaptools-stock-20260920.log`, `logs/*-bitmaptools-pr5a-20260920.log`.
+
 ## Other runs
 
 | Date | Host | What | Result |

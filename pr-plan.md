@@ -1,6 +1,6 @@
 # PR plan: Blinka_Displayio, one at a time
 
-Target repo: `adafruit/Adafruit_Blinka_Displayio`. One PR open at a time, next
+Target repo: `adafruit/Adafruit_Blinka_Displayio`. One PR open at a time per file, next
 one starts after the previous merges. Numbers are full-screen refresh, 240x240,
 16-bit, from `RESULTS.md`.
 
@@ -12,7 +12,8 @@ included. Compiled code comes last and only if Adafruit asks for it.
 
 - **PR 1:** Draw bitmap changes once ([#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178), open). Displayio. 2.0x
 - **PR 2:** Plain-Python fast pixel loop ([#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), draft). Displayio. 2.9x
-- **PR 5:** Faster bitmaptools drawing functions, plain Python. Displayio. Not measured
+- **PR 5a:** `boundary_fill` visited list to a set ([#180](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/180), open). Displayio. 64x to 71x
+- **PR 5b:** bitmaptools writes pixels directly, marks dirty once. Displayio. Not written
 - **Maybe:** check `<` versus `<=`, line 441. Displayio
 - Cython backend for `turbo build` (done 2026-09-20, `--target cpython`). turbo-cli. 119x
 - Run `turbo bench` over ssh. turbo-cli
@@ -28,7 +29,8 @@ included. Compiled code comes last and only if Adafruit asks for it.
 |---|---|---|---|---|
 | 1 | Double composite fix, all in `TileGrid._get_refresh_areas` | 2.0x | Open 2026-09-19: [#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178) | `adafruit/Adafruit_Blinka_Displayio` |
 | 2 | `_fill_area` fast path, plain Python, no dependencies | 2.9x | Draft 2026-09-20: [#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179), builds on #178 | `adafruit/Adafruit_Blinka_Displayio` |
-| 5 | `bitmaptools`, plain Python | | Not measured yet | `adafruit/Adafruit_Blinka_Displayio` |
+| 5a | `boundary_fill`: visited list to a set, 2 lines | 64x Pi 5, 71x Zero 2 W | Open 2026-09-20: [#180](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/180), stands alone | `adafruit/Adafruit_Blinka_Displayio` |
+| 5b | `bitmaptools`: write pixels directly, mark the dirty area once | | Stock measured, fix not written | `adafruit/Adafruit_Blinka_Displayio` |
 | | Cython backend for `turbo build` | 119x on mandelbrot | Done 2026-09-20: `turbo build --target cpython` | `mikeysklar/turbo-cli` |
 | | `turbo bench` over ssh | | Not started | `mikeysklar/turbo-cli` |
 | | CPython shim: define `ptr8`, `ptr16`, `ptr32`, `uint` | | Working copy in `bench/run_bench.py` | `mikeysklar/turbo` |
@@ -159,10 +161,23 @@ that does not add to the 3.8x. Stays dropped unless someone asks.
 
 ## PR 5: `bitmaptools`, plain Python
 
-Next upstream candidate. Not measured yet: measure first, then decide.
-`draw_line`, `draw_circle`, `blit`, `rotozoom`, `fill_region`, `boundary_fill`
-are all per-pixel Python loops. Same recipe as PR 2: plain ints and flat
-buffers, output byte-identical, no compiler.
+Stock measured 2026-09-20 with `bench/bitmaptools_bench.py`, numbers in
+`RESULTS.md`. The bench hashes each result bitmap and its dirty area, so a
+faster version is checked against stock. No compiler.
+
+- [x] 5a, [#180](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/180):
+      `boundary_fill` searched a list of visited points for every neighbour.
+      A set: 17.4 s to 0.27 s on the Pi 5, 191 s to 2.7 s on the Zero 2 W, same
+      hash. Two lines, independent of #178 and #179. An independent review
+      found nothing blocking.
+- [ ] 5a follow-up, only if asked: `fill_points` is still a list. One set of
+      queued points plus a deque gave 79 ms on the Pi 5 in a scratch copy, same
+      hash, about 15 lines.
+- [ ] 5b: every `bitmap[x, y] = v` builds two `Area` objects and runs a union
+      and an overlap. `fill_region` takes 124 ms where `Bitmap.fill` writes the
+      same bitmap in 0.4 ms. Write pixels with `_write_pixel` and mark the dirty
+      area once, one function per PR: `fill_region`, `blit`, `rotozoom`,
+      `draw_line`, `draw_circle`. The dirty area must match stock exactly.
 
 ## Not Blinka PRs
 
