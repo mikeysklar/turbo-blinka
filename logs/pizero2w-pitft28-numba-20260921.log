@@ -1,0 +1,49 @@
+== numba, first ever run (cache empty)
+# import numba 0.67.0: 2.14 s
+# numba first call, compile or cache load included: 6.63 s
+# ili9341 320x240, displayio from /home/pi/blinka-turbo/pr4/displayio, fast path off, SPI 24000000 Hz
+fill 0: 87 ms
+fill 1: 80 ms
+fill 2: 80 ms
+fill 3: 81 ms
+fill 4: 80 ms
+fill 5: 80 ms
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 320x240 | 80.5 | 12.4 |
+| move 48x48 sprite 10 px | 5.0 | 201.0 |
+== numba, second run (cached)
+# import numba 0.67.0: 1.59 s
+# numba first call, compile or cache load included: 1.48 s
+# ili9341 320x240, displayio from /home/pi/blinka-turbo/pr4/displayio, fast path off, SPI 24000000 Hz
+fill 0: 86 ms
+fill 1: 80 ms
+fill 2: 80 ms
+fill 3: 80 ms
+fill 4: 81 ms
+fill 5: 80 ms
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 320x240 | 80.3 | 12.5 |
+| move 48x48 sprite 10 px | 5.0 | 201.8 |
+== numba, third run (cached)
+# import numba 0.67.0: 1.59 s
+# numba first call, compile or cache load included: 1.47 s
+# ili9341 320x240, displayio from /home/pi/blinka-turbo/pr4/displayio, fast path off, SPI 24000000 Hz
+fill 0: 86 ms
+fill 1: 80 ms
+fill 2: 80 ms
+fill 3: 80 ms
+fill 4: 80 ms
+fill 5: 80 ms
+| scene | median ms | fps |
+|---|---|---|
+| full-screen fill, 320x240 | 80.2 | 12.5 |
+| move 48x48 sprite 10 px | 4.9 | 202.1 |
+== numba, fills in 10 s
+# import numba 0.67.0: 1.59 s
+# numba first call, compile or cache load included: 1.45 s
+# ili9341 320x240, displayio from /home/pi/blinka-turbo/pr4/displayio, fast path off, SPI 24000000 Hz
+93 full-screen fills in 10 s
+== scenes, pr4 + numba hook
+20 scenes: pr4 + numba hook == pr1 (20 of 20 sha256 rows match; compared on the scene rows only)

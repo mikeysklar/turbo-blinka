@@ -363,6 +363,37 @@ the compiled loop because its screen has half the pixels: what is left is SPI.
 PR 1 does not change the sprite move: moving a TileGrid dirties no bitmap.
 Log: `logs/pizero2w-pitft28-20260920.log`.
 
+## 2026-09-21: Numba on real displays, both Pis
+
+`fastpath/nb/fill_pixels.py`: same name and arguments as the Cython twin, so the
+same try-import hook in the `pr4` copy of `_tilegrid.py` picks it up
+(`PYTHONPATH=pr4:fastpath/nb`). Numba cannot compile attribute reads, so a plain
+Python wrapper unpacks the tilegrid and bitmap and calls `fastpath/fill_kernel.py`
+under `numba.njit(cache=True)`. No build step. Same displays, SPI 24 MHz,
+`bench/pitft_demo.py`, median of 6 fills and 20 moves. Cython columns are the
+2026-09-20 run above.
+
+| | Zero 2 W, Cython | Zero 2 W, Numba | Pi 5, Cython | Pi 5, Numba |
+|---|---|---|---|---|
+| Full-screen fill, ms | 75.6 (64x) | 80.3 (61x) | 130.6 (8.8x) | 132.2 (8.7x) |
+| Move 48x48 sprite 10 px, ms | 4.7 | 5.0 | 2.8 | 2.8 |
+| Full-screen fills in 10 s | 90 | 93 | 75 | 73 |
+| 20 scenes, bytes sent | identical to PR 1 | identical to PR 1 | identical to PR 1 | identical to PR 1 |
+
+Numba figures are the second, cached run. Three runs each: 80.5, 80.3, 80.2 ms
+on the Zero 2 W and 132.2, 133.6, 132.1 ms on the Pi 5.
+
+| Numba start, every process | Zero 2 W | Pi 5 |
+|---|---|---|
+| `import numba` | 1.6 s (2.1 s first time) | 0.21 s |
+| First call, cache empty | 6.6 s | 0.60 s |
+| First call, cached | 1.5 s | 0.17 s |
+
+The compile lands on the setup refresh, before the timed fills: the first timed
+fill was 86 ms on the Zero 2 W and 135 ms on the Pi 5. On a real display both
+backends are SPI-bound, so they are within 6% of each other.
+Logs: `logs/pizero2w-pitft28-numba-20260921.log`, `logs/pi5-pitft35-numba-20260921.log`.
+
 ## 2026-09-20: bitmaptools on stock, and the boundary_fill fix (#180)
 
 `bench/bitmaptools_bench.py`, 240x240 4-bit bitmap, no display. Median of 5 on
