@@ -1,17 +1,27 @@
 # Playground guide notes: Cython on a Raspberry Pi
 
-Running notes for a short Adafruit Playground guide: how to get started with
-Cython on a Pi and what speed to expect. Add to this as the work goes. Numbers
-come from `RESULTS.md`.
+Running notes for a short Adafruit Playground guide: how to speed up your own
+Python code with Cython on a Raspberry Pi, and what speed to expect. Add to this
+as the work goes. Numbers come from `RESULTS.md`.
 
 ## What the guide should show
 
 | | |
 |---|---|
-| Reader | Someone running Blinka Python on a Pi who has a slow loop |
+| Reader | Someone running Python on a Pi who has a slow loop of their own |
 | Promise | Same Python file, add types, build once, 100x on number loops |
 | Proof | Two videos and two small tables |
 | Length | One page |
+
+## What the guide must not suggest
+
+| | |
+|---|---|
+| Blinka stays pure Python | Nothing here changes Blinka or asks Adafruit to ship compiled code |
+| This is for your own code | On a full Pi OS, where a compiler is a `pip install` away |
+| It is optional | The same file runs as plain Python without the build, only slower |
+| It is not for minimal Linux builds | No compiler there, and a built file from a Pi will not load |
+| Word to use | "compiled", not "C". Nobody writes C: the source is Python with decorators |
 
 ## Hardware used
 
@@ -87,9 +97,10 @@ Mandelbrot 160x120, milliseconds:
 | Cython, typed | 6.0 | 1.2 |
 | C, gcc -O2 | 4.8 | 1.05 |
 
-Full-screen fills in 10 s on a real display:
+Full-screen fills in 10 s on a real display. This is a demo of the ceiling, done
+in a test copy of displayio: it is not part of Blinka and not planned for it.
 
-| | Stock | With Cython | Video |
+| | Stock | Plain Python fixes + compiled loop | Video |
 |---|---|---|---|
 | Zero 2 W, 2.8" | 3 | 97 | [watch](https://drive.google.com/file/d/1P1-LijQl6t-twvAlZE3E52PNMB0Iya2U/view) |
 | Pi 5, 3.5" | 9 | 75 | [watch](https://drive.google.com/file/d/1eByUEks2I_9uzHSume6ZK1jqVe_WtbQ0/view) |
@@ -114,12 +125,26 @@ Full-screen fills in 10 s on a real display:
 Two plain-Python fixes to Blinka_Displayio gave 3.8x on the Pi 5 and 5.5x on the
 Zero 2 W before any compiler:
 [#178](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/178),
-[#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179). Worth a
-line in the guide: look for wasted work first.
+[#179](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/179). Those
+are what goes to Blinka, and they work everywhere Blinka runs. Worth a line in
+the guide: look for wasted work first, reach for the compiler second.
+
+## What a built file is tied to
+
+| | |
+|---|---|
+| CPU type | A `.so` from a Pi 5 or Zero 2 W is aarch64 only |
+| Python version | The file name carries it: `pixels.cpython-313-aarch64-linux-gnu.so` |
+| C library | Built against glibc on Pi OS. Will not load on a musl system |
+| So | Build on the machine that runs it, and rebuild after a Python upgrade |
 
 ## Still to add
 
-- `turbo build --target cpython`: once it exists the typed copy is written by the
-  tool, and this guide gets one command shorter.
+- `turbo build --target cpython` exists as of 2026-09-20 (turbo-cli). It writes
+  the typed copy from a `@turbo.viper` function and builds it: mandelbrot on the
+  Pi 5 went 141.6 to 1.2 ms, same checksum, 8.9 s to build. Decide whether the
+  guide shows the hand-typed decorators, the one command, or both.
+- Running the decorated file without building it needs the `cython` package
+  installed, because of `import cython`. No compiler needed for that.
 - A photo of each setup.
 - Numba and numpy comparison, one row each, from `RESULTS.md`.
