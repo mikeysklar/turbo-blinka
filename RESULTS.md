@@ -357,10 +357,19 @@ opened 2026-09-20: visited list becomes a set, two lines, branch
 |---|---|---|
 | Stock | 190 980 | 17 406 |
 | #180, visited points in a set | 2 680 (71x) | 273.5 (64x) |
-| Scratch only: one set of queued points plus a deque | | 79.0 (220x) |
+| #180 + c619924, queued points in a deque, each queued once | 791.5 (241x) | 79.0 (220x) |
 
 Result hash `6d73c4f8bb54` in every row, whole bench `8bed9684ccfb`. Logs:
 `logs/*-bitmaptools-stock-20260920.log`, `logs/*-bitmaptools-pr5a-20260920.log`.
+
+2026-09-21: Melissa's review suggested the deque, added to #180 as c619924. 150
+random bitmaps (sizes, depths, start points, replaced colour None/-1/0/1) give the
+same data and dirty area as a967fab. Logs: `logs/*-bitmaptools-pr5c-20260921.log`.
+
+| `boundary_fill_demo.py` on the PiTFT, total fill time | #180 set only | + deque |
+|---|---|---|
+| Pi 5, 3 rings | 0.48 s | 0.14 s |
+| Zero 2 W, 2 rings | 0.77 s | 0.35 s |
 
 ## 2026-09-21: the CPython shim, four ways to run one project
 

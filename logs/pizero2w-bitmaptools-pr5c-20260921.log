@@ -1,0 +1,14 @@
+# bitmaptools bench, Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 240x240 4-bit, displayio from /home/pi/env/lib/python3.13/site-packages/displayio
+| case | pixels | median ms | us per pixel | sha256 |
+|---|---|---|---|---|
+| bitmap[x, y] = v, every pixel | 57600 | 1338.3 | 23.23 | 4b5420481545 |
+| v = bitmap[x, y], every pixel | 57600 | 340.5 | 5.91 | 460a263aa241 |
+| Bitmap.fill | 57600 | 4.3 | 0.07 | 6850147ad542 |
+| fill_region, whole bitmap | 57600 | 1274.4 | 22.12 | 6850147ad542 |
+| blit, whole bitmap | 57600 | 2010.0 | 34.90 | daebaf16a1d8 |
+| blit 64x64, skip_source_index | 4096 | 137.6 | 33.58 | 5811232d7bc6 |
+| rotozoom 64x64, 30 degrees, scale 2 | 16384 | 553.0 | 33.75 | 6a081ac4555a |
+| draw_line x 20, corner to corner | 4800 | 112.6 | 23.45 | c557a2875931 |
+| draw_circle x 20 |  | 150.3 |  | 7a5b84c1ec48 |
+| boundary_fill inside a ring |  | 791.5 |  | 6d73c4f8bb54 |
+# output sha256 8bed9684ccfb
