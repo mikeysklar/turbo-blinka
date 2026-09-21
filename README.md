@@ -46,6 +46,20 @@ Output is byte-identical to stock in every row.
 The two PRs are what goes to Blinka. The compiled loop is a demo in this repo.
 How: [zero2w-howto.md](zero2w-howto.md).
 
+### bitmaptools.boundary_fill
+
+[#180](https://github.com/adafruit/Adafruit_Blinka_Displayio/pull/180), plain Python, two lines. Seconds.
+
+| Flood fill inside rings on a PiTFT | Stock | #180 | Video |
+|---|---|---|---|
+| Pi Zero 2 W, 2.8", 2 rings | 19.4 | 0.78 | [watch](https://drive.google.com/file/d/1UUrYKssTnSUvj_UbQ3lM6BTD6PBycW10/view) |
+| Pi 5, 3.5", 3 rings | 24.2 | 0.47 | [watch](https://drive.google.com/file/d/1gqKEylIx8_vFGMqL6ajCTncBjG5In95x/view) |
+
+| Radius 80 ring, 240x240, no display | Stock | #180 |
+|---|---|---|
+| Pi Zero 2 W | 191 | 2.7 |
+| Pi 5 | 17.4 | 0.27 |
+
 ### Startup cost
 
 | | Zero 2 W | Pi 5 |
