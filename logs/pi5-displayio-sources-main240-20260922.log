@@ -1,0 +1,13 @@
+# displayio sources, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240, displayio from /home/pi/blinka-turbo/main240/displayio, 2026-09-22 10:22
+| scene | pixels sent | median ms | ms per 1k px | vs fast path | sha256 |
+|---|---|---|---|---|---|
+| Bitmap + Palette (#179 fast path) | 57557 | 52.2 | 0.91 | 1.0x | 2e91c9b5dcea |
+| OnDiskBitmap, 8-bit BMP | 57557 | 187.0 | 3.25 | 3.6x | 7466da0a4139 |
+| OnDiskBitmap, 16-bit BMP | 57557 | 314.8 | 5.47 | 6.0x | df42b6f504f4 |
+| OnDiskBitmap, 24-bit BMP | 57557 | 302.3 | 5.25 | 5.8x | 1e5dc9e1d135 |
+| Bitmap + ColorConverter | 57557 | 283.1 | 4.92 | 5.4x | 26131d1fd355 |
+| vectorio Rectangle | 57605 | 133.0 | 2.31 | 2.5x | 82819e0b9c61 |
+| vectorio Circle | 57605 | 122.1 | 2.12 | 2.3x | c7d5c3ac70d3 |
+| vectorio Polygon | 57365 | 163.2 | 2.85 | 3.1x | 50765039f599 |
+| Bitmap + Palette, 1-bit mono display 128x64 | 8267 | 27.8 | 3.36 | 3.7x | cb9885dac4e2 |
+# output sha256 55ada9a3802a
