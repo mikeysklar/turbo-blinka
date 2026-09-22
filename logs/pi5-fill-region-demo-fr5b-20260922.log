@@ -1,0 +1,5 @@
+# hx8357 480x320, bitmaptools from /home/pi/blinka-turbo/fr5b/bitmaptools
+pass 1: 0.68 s
+pass 2: 0.41 s
+pass 3: 0.41 s
+3 passes, 144 rectangles: 1.50 s

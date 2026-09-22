@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Time the per-pixel Python loops in bitmaptools and Bitmap. No display needed.
 
-    python3 bitmaptools_bench.py [--size 240] [--trials 5]
+    python3 bitmaptools_bench.py [--size 240] [--trials 5] [--verbose]
 
 Each case starts from the same patterned bitmap. Prints the median time and a
 sha256 of the destination bitmap's data and dirty area, so a faster version can
-be checked against stock.
+be checked against stock. Then runs fill_region edge cases (bit depths,
+rectangles off the bitmap, reversed and empty corners) and prints one combined
+hash; --verbose lists each case.
 """
 import argparse
 import hashlib
@@ -44,6 +46,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--size", type=int, default=240)
     ap.add_argument("--trials", type=int, default=5)
+    ap.add_argument("--verbose", action="store_true",
+                    help="print every fill_region check, not just the combined hash")
     a = ap.parse_args()
     n = a.size
 
@@ -114,6 +118,61 @@ def main():
         per = "%.2f" % (med * 1e3 / pixels) if pixels else ""
         print("| %s | %s | %.1f | %s | %s |" % (name, pixels or "", med, per, sha))
     print("# output sha256 %s" % total.hexdigest()[:12])
+    fill_region_checks(a.verbose)
+
+
+def fill_region_checks(verbose):
+    # Edge cases for fill_region, no timing: bit depths, rectangles that leave the
+    # bitmap, reversed and empty corners, and the dirty area left by an earlier
+    # write. Each case hashes the bitmap data, its dirty area and any exception.
+    # pylint: disable=protected-access
+    w, h = 40, 30
+    rects = [
+        ("inside", (3, 4, 20, 17)),
+        ("whole", (0, 0, w, h)),
+        ("1x1", (7, 8, 8, 9)),
+        ("off left", (-5, 2, 10, 12)),
+        ("off top", (4, -6, 12, 9)),
+        ("off bottom right", (30, 20, 50, 40)),
+        ("larger than bitmap", (-5, -5, w + 5, h + 5)),
+        ("all right of bitmap", (w + 5, 5, w + 10, 10)),
+        ("all above and left", (-10, -10, -2, -2)),
+        ("reversed x", (20, 4, 3, 17)),
+        ("reversed y", (3, 17, 20, 4)),
+        ("zero width", (5, 5, 5, 10)),
+        ("zero height", (5, 5, 10, 5)),
+    ]
+    before = [
+        ("clean", lambda b: b._finish_refresh()),
+        ("new bitmap", lambda b: None),
+        ("one pixel dirty", lambda b: (b._finish_refresh(), b.__setitem__((33, 25), 1))),
+    ]
+    total = hashlib.sha256()
+    rows = []
+    for values in (2, 16, 256, 65536):
+        for bname, prep in before:
+            for rname, (x1, y1, x2, y2) in rects:
+                bmp = displayio.Bitmap(w, h, values)
+                pattern(bmp, values)
+                prep(bmp)
+                try:
+                    bitmaptools.fill_region(bmp, x1, y1, x2, y2, 5)
+                    err = ""
+                except Exception as e:  # pylint: disable=broad-except
+                    err = "%s: %s" % (type(e).__name__, e)
+                d = bmp._dirty_area
+                sha = hashlib.sha256(bytes(memoryview(bmp._data).cast("B")))
+                sha.update(("%d,%d,%d,%d|%s" % (d.x1, d.y1, d.x2, d.y2, err)).encode())
+                sha = sha.hexdigest()[:12]
+                total.update(sha.encode())
+                rows.append((values, bname, rname, "%d,%d,%d,%d" % (d.x1, d.y1, d.x2, d.y2),
+                             err, sha))
+    if verbose:
+        print("| values | before | rectangle | dirty area after | error | sha256 |")
+        print("|---|---|---|---|---|---|")
+        for row in rows:
+            print("| %s | %s | %s | %s | %s | %s |" % row)
+    print("# fill_region checks: %d cases, sha256 %s" % (len(rows), total.hexdigest()[:12]))
 
 
 if __name__ == "__main__":

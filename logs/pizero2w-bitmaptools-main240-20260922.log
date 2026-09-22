@@ -1,0 +1,173 @@
+# bitmaptools bench, Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 240x240 4-bit, displayio from /home/pi/blinka-turbo/main240/displayio
+| case | pixels | median ms | us per pixel | sha256 |
+|---|---|---|---|---|
+| bitmap[x, y] = v, every pixel | 57600 | 1322.6 | 22.96 | 4b5420481545 |
+| v = bitmap[x, y], every pixel | 57600 | 336.9 | 5.85 | 460a263aa241 |
+| Bitmap.fill | 57600 | 4.2 | 0.07 | 6850147ad542 |
+| fill_region, whole bitmap | 57600 | 1266.6 | 21.99 | 6850147ad542 |
+| blit, whole bitmap | 57600 | 1993.5 | 34.61 | daebaf16a1d8 |
+| blit 64x64, skip_source_index | 4096 | 134.8 | 32.92 | 5811232d7bc6 |
+| rotozoom 64x64, 30 degrees, scale 2 | 16384 | 547.8 | 33.44 | 6a081ac4555a |
+| draw_line x 20, corner to corner | 4800 | 111.1 | 23.15 | c557a2875931 |
+| draw_circle x 20 |  | 148.2 |  | 7a5b84c1ec48 |
+| boundary_fill inside a ring |  | 782.9 |  | 6d73c4f8bb54 |
+# output sha256 8bed9684ccfb
+| values | before | rectangle | dirty area after | error | sha256 |
+|---|---|---|---|---|---|
+| 2 | clean | inside | 3,4,20,17 |  | 83bc120169ff |
+| 2 | clean | whole | 0,0,40,30 |  | 754b3da0ea4a |
+| 2 | clean | 1x1 | 7,8,8,9 |  | 8fe5480b2006 |
+| 2 | clean | off left | 0,2,10,12 |  | 8c38e3bb67d2 |
+| 2 | clean | off top | 4,0,12,9 |  | 508028b8c6cf |
+| 2 | clean | off bottom right | 30,20,40,30 |  | 31e33ef1f19d |
+| 2 | clean | larger than bitmap | 0,0,40,30 |  | 754b3da0ea4a |
+| 2 | clean | all right of bitmap | 45,0,40,30 |  | 044b7b2430c3 |
+| 2 | clean | all above and left | 0,0,-2,30 |  | 2a029af87752 |
+| 2 | clean | reversed x | 0,0,0,30 |  | 9e7b077f2865 |
+| 2 | clean | reversed y | 0,0,0,30 |  | 9e7b077f2865 |
+| 2 | clean | zero width | 0,0,0,30 |  | 9e7b077f2865 |
+| 2 | clean | zero height | 0,0,0,30 |  | 9e7b077f2865 |
+| 2 | new bitmap | inside | 0,0,40,30 |  | f66132bfde31 |
+| 2 | new bitmap | whole | 0,0,40,30 |  | 754b3da0ea4a |
+| 2 | new bitmap | 1x1 | 0,0,40,30 |  | ac6a6e6fc27a |
+| 2 | new bitmap | off left | 0,0,40,30 |  | 721fb5a5ae3d |
+| 2 | new bitmap | off top | 0,0,40,30 |  | 90f8ecec683f |
+| 2 | new bitmap | off bottom right | 0,0,40,30 |  | d5945e8f8ad3 |
+| 2 | new bitmap | larger than bitmap | 0,0,40,30 |  | 754b3da0ea4a |
+| 2 | new bitmap | all right of bitmap | 0,0,40,30 |  | 17b9f745ec79 |
+| 2 | new bitmap | all above and left | 0,0,40,30 |  | 17b9f745ec79 |
+| 2 | new bitmap | reversed x | 0,0,40,30 |  | 17b9f745ec79 |
+| 2 | new bitmap | reversed y | 0,0,40,30 |  | 17b9f745ec79 |
+| 2 | new bitmap | zero width | 0,0,40,30 |  | 17b9f745ec79 |
+| 2 | new bitmap | zero height | 0,0,40,30 |  | 17b9f745ec79 |
+| 2 | one pixel dirty | inside | 3,4,34,26 |  | 2534ea22076c |
+| 2 | one pixel dirty | whole | 0,0,40,30 |  | 754b3da0ea4a |
+| 2 | one pixel dirty | 1x1 | 7,8,34,26 |  | 781383df20cb |
+| 2 | one pixel dirty | off left | 0,2,34,26 |  | d0fe9182c4ab |
+| 2 | one pixel dirty | off top | 4,0,34,26 |  | 269ed393b34e |
+| 2 | one pixel dirty | off bottom right | 30,20,40,30 |  | 31e33ef1f19d |
+| 2 | one pixel dirty | larger than bitmap | 0,0,40,30 |  | 754b3da0ea4a |
+| 2 | one pixel dirty | all right of bitmap | 33,5,40,26 |  | 971f03f2557d |
+| 2 | one pixel dirty | all above and left | 0,0,34,26 |  | d23606c0145a |
+| 2 | one pixel dirty | reversed x | 33,25,34,26 |  | d42398d67055 |
+| 2 | one pixel dirty | reversed y | 33,25,34,26 |  | d42398d67055 |
+| 2 | one pixel dirty | zero width | 33,25,34,26 |  | d42398d67055 |
+| 2 | one pixel dirty | zero height | 33,25,34,26 |  | d42398d67055 |
+| 16 | clean | inside | 3,4,20,17 |  | 884aa81d8d4d |
+| 16 | clean | whole | 0,0,40,30 |  | f2be3a462a95 |
+| 16 | clean | 1x1 | 7,8,8,9 |  | 3071babd850e |
+| 16 | clean | off left | 0,2,10,12 |  | da7e6cad4f48 |
+| 16 | clean | off top | 4,0,12,9 |  | 7efe0e756657 |
+| 16 | clean | off bottom right | 30,20,40,30 |  | 06a0ed2ae696 |
+| 16 | clean | larger than bitmap | 0,0,40,30 |  | f2be3a462a95 |
+| 16 | clean | all right of bitmap | 45,0,40,30 |  | 1e1c5f9e4db7 |
+| 16 | clean | all above and left | 0,0,-2,30 |  | 409a96e53410 |
+| 16 | clean | reversed x | 0,0,0,30 |  | b04ffd7b2e7f |
+| 16 | clean | reversed y | 0,0,0,30 |  | b04ffd7b2e7f |
+| 16 | clean | zero width | 0,0,0,30 |  | b04ffd7b2e7f |
+| 16 | clean | zero height | 0,0,0,30 |  | b04ffd7b2e7f |
+| 16 | new bitmap | inside | 0,0,40,30 |  | 687746e7e9ca |
+| 16 | new bitmap | whole | 0,0,40,30 |  | f2be3a462a95 |
+| 16 | new bitmap | 1x1 | 0,0,40,30 |  | 540c5bdb3ee3 |
+| 16 | new bitmap | off left | 0,0,40,30 |  | b7d2254d3651 |
+| 16 | new bitmap | off top | 0,0,40,30 |  | b07ebadc42b3 |
+| 16 | new bitmap | off bottom right | 0,0,40,30 |  | c9bf8ac1073a |
+| 16 | new bitmap | larger than bitmap | 0,0,40,30 |  | f2be3a462a95 |
+| 16 | new bitmap | all right of bitmap | 0,0,40,30 |  | ab58dc633ba7 |
+| 16 | new bitmap | all above and left | 0,0,40,30 |  | ab58dc633ba7 |
+| 16 | new bitmap | reversed x | 0,0,40,30 |  | ab58dc633ba7 |
+| 16 | new bitmap | reversed y | 0,0,40,30 |  | ab58dc633ba7 |
+| 16 | new bitmap | zero width | 0,0,40,30 |  | ab58dc633ba7 |
+| 16 | new bitmap | zero height | 0,0,40,30 |  | ab58dc633ba7 |
+| 16 | one pixel dirty | inside | 3,4,34,26 |  | ec07580fc038 |
+| 16 | one pixel dirty | whole | 0,0,40,30 |  | f2be3a462a95 |
+| 16 | one pixel dirty | 1x1 | 7,8,34,26 |  | 0fff2ce64658 |
+| 16 | one pixel dirty | off left | 0,2,34,26 |  | 694a1049dd18 |
+| 16 | one pixel dirty | off top | 4,0,34,26 |  | 9ffe1d298e2c |
+| 16 | one pixel dirty | off bottom right | 30,20,40,30 |  | 06a0ed2ae696 |
+| 16 | one pixel dirty | larger than bitmap | 0,0,40,30 |  | f2be3a462a95 |
+| 16 | one pixel dirty | all right of bitmap | 33,5,40,26 |  | 45b3a22ca413 |
+| 16 | one pixel dirty | all above and left | 0,0,34,26 |  | d476b268df6c |
+| 16 | one pixel dirty | reversed x | 33,25,34,26 |  | b5efe96a09a7 |
+| 16 | one pixel dirty | reversed y | 33,25,34,26 |  | b5efe96a09a7 |
+| 16 | one pixel dirty | zero width | 33,25,34,26 |  | b5efe96a09a7 |
+| 16 | one pixel dirty | zero height | 33,25,34,26 |  | b5efe96a09a7 |
+| 256 | clean | inside | 3,4,20,17 |  | fdf7dd80c9e4 |
+| 256 | clean | whole | 0,0,40,30 |  | 4c4a6cd0730d |
+| 256 | clean | 1x1 | 7,8,8,9 |  | fc72fbb0705a |
+| 256 | clean | off left | 0,2,10,12 |  | 6eee40b2504e |
+| 256 | clean | off top | 4,0,12,9 |  | 27fde68473b0 |
+| 256 | clean | off bottom right | 30,20,40,30 |  | 53ff7322cac6 |
+| 256 | clean | larger than bitmap | 0,0,40,30 |  | 4c4a6cd0730d |
+| 256 | clean | all right of bitmap | 45,0,40,30 |  | 30e36c5641b5 |
+| 256 | clean | all above and left | 0,0,-2,30 |  | 1aa9a724b75e |
+| 256 | clean | reversed x | 0,0,0,30 |  | e6ffc863c85a |
+| 256 | clean | reversed y | 0,0,0,30 |  | e6ffc863c85a |
+| 256 | clean | zero width | 0,0,0,30 |  | e6ffc863c85a |
+| 256 | clean | zero height | 0,0,0,30 |  | e6ffc863c85a |
+| 256 | new bitmap | inside | 0,0,40,30 |  | ffe4195636e8 |
+| 256 | new bitmap | whole | 0,0,40,30 |  | 4c4a6cd0730d |
+| 256 | new bitmap | 1x1 | 0,0,40,30 |  | b9b69c6682db |
+| 256 | new bitmap | off left | 0,0,40,30 |  | f1a30792e8fc |
+| 256 | new bitmap | off top | 0,0,40,30 |  | 270e5772610b |
+| 256 | new bitmap | off bottom right | 0,0,40,30 |  | 424415d75de7 |
+| 256 | new bitmap | larger than bitmap | 0,0,40,30 |  | 4c4a6cd0730d |
+| 256 | new bitmap | all right of bitmap | 0,0,40,30 |  | 4d076df98af4 |
+| 256 | new bitmap | all above and left | 0,0,40,30 |  | 4d076df98af4 |
+| 256 | new bitmap | reversed x | 0,0,40,30 |  | 4d076df98af4 |
+| 256 | new bitmap | reversed y | 0,0,40,30 |  | 4d076df98af4 |
+| 256 | new bitmap | zero width | 0,0,40,30 |  | 4d076df98af4 |
+| 256 | new bitmap | zero height | 0,0,40,30 |  | 4d076df98af4 |
+| 256 | one pixel dirty | inside | 3,4,34,26 |  | e4a1672a4447 |
+| 256 | one pixel dirty | whole | 0,0,40,30 |  | 4c4a6cd0730d |
+| 256 | one pixel dirty | 1x1 | 7,8,34,26 |  | 27b87463b98b |
+| 256 | one pixel dirty | off left | 0,2,34,26 |  | 8a09ee3e8074 |
+| 256 | one pixel dirty | off top | 4,0,34,26 |  | c63e87b6338d |
+| 256 | one pixel dirty | off bottom right | 30,20,40,30 |  | 53ff7322cac6 |
+| 256 | one pixel dirty | larger than bitmap | 0,0,40,30 |  | 4c4a6cd0730d |
+| 256 | one pixel dirty | all right of bitmap | 33,5,40,26 |  | e08d889afe87 |
+| 256 | one pixel dirty | all above and left | 0,0,34,26 |  | 4e96f77df306 |
+| 256 | one pixel dirty | reversed x | 33,25,34,26 |  | a93a72b05a04 |
+| 256 | one pixel dirty | reversed y | 33,25,34,26 |  | a93a72b05a04 |
+| 256 | one pixel dirty | zero width | 33,25,34,26 |  | a93a72b05a04 |
+| 256 | one pixel dirty | zero height | 33,25,34,26 |  | a93a72b05a04 |
+| 65536 | clean | inside | 3,4,20,17 |  | 108a1c4cde43 |
+| 65536 | clean | whole | 0,0,40,30 |  | 966314980bde |
+| 65536 | clean | 1x1 | 7,8,8,9 |  | ae354cb3df76 |
+| 65536 | clean | off left | 0,2,10,12 |  | 9f2ccd4e1276 |
+| 65536 | clean | off top | 4,0,12,9 |  | ecbabc5ec9b0 |
+| 65536 | clean | off bottom right | 30,20,40,30 |  | 0d6a03ecf948 |
+| 65536 | clean | larger than bitmap | 0,0,40,30 |  | 966314980bde |
+| 65536 | clean | all right of bitmap | 45,0,40,30 |  | ecff4675c600 |
+| 65536 | clean | all above and left | 0,0,-2,30 |  | 79f2c8ca0e5d |
+| 65536 | clean | reversed x | 0,0,0,30 |  | 53ff543f63f1 |
+| 65536 | clean | reversed y | 0,0,0,30 |  | 53ff543f63f1 |
+| 65536 | clean | zero width | 0,0,0,30 |  | 53ff543f63f1 |
+| 65536 | clean | zero height | 0,0,0,30 |  | 53ff543f63f1 |
+| 65536 | new bitmap | inside | 0,0,40,30 |  | e0307b412dfe |
+| 65536 | new bitmap | whole | 0,0,40,30 |  | 966314980bde |
+| 65536 | new bitmap | 1x1 | 0,0,40,30 |  | 9c67278c7f08 |
+| 65536 | new bitmap | off left | 0,0,40,30 |  | d290b102e812 |
+| 65536 | new bitmap | off top | 0,0,40,30 |  | 08b882188fbc |
+| 65536 | new bitmap | off bottom right | 0,0,40,30 |  | 5d36376cd2b6 |
+| 65536 | new bitmap | larger than bitmap | 0,0,40,30 |  | 966314980bde |
+| 65536 | new bitmap | all right of bitmap | 0,0,40,30 |  | 1a3d28e8b388 |
+| 65536 | new bitmap | all above and left | 0,0,40,30 |  | 1a3d28e8b388 |
+| 65536 | new bitmap | reversed x | 0,0,40,30 |  | 1a3d28e8b388 |
+| 65536 | new bitmap | reversed y | 0,0,40,30 |  | 1a3d28e8b388 |
+| 65536 | new bitmap | zero width | 0,0,40,30 |  | 1a3d28e8b388 |
+| 65536 | new bitmap | zero height | 0,0,40,30 |  | 1a3d28e8b388 |
+| 65536 | one pixel dirty | inside | 3,4,34,26 |  | b7d22ce631dc |
+| 65536 | one pixel dirty | whole | 0,0,40,30 |  | 966314980bde |
+| 65536 | one pixel dirty | 1x1 | 7,8,34,26 |  | f617b0ad1e6a |
+| 65536 | one pixel dirty | off left | 0,2,34,26 |  | 1098f922f975 |
+| 65536 | one pixel dirty | off top | 4,0,34,26 |  | 6ceac5c3fe6e |
+| 65536 | one pixel dirty | off bottom right | 30,20,40,30 |  | 0d6a03ecf948 |
+| 65536 | one pixel dirty | larger than bitmap | 0,0,40,30 |  | 966314980bde |
+| 65536 | one pixel dirty | all right of bitmap | 33,5,40,26 |  | f6ee5f3df5e4 |
+| 65536 | one pixel dirty | all above and left | 0,0,34,26 |  | 85b4ab2c2f33 |
+| 65536 | one pixel dirty | reversed x | 33,25,34,26 |  | 87838ce26648 |
+| 65536 | one pixel dirty | reversed y | 33,25,34,26 |  | 87838ce26648 |
+| 65536 | one pixel dirty | zero width | 33,25,34,26 |  | 87838ce26648 |
+| 65536 | one pixel dirty | zero height | 33,25,34,26 |  | 87838ce26648 |
+# fill_region checks: 156 cases, sha256 2f1f9bb6a18c
