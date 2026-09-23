@@ -1,0 +1,30 @@
+# displayio sources, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240, displayio from /home/pi/blinka-turbo/ccfix/displayio, 2026-09-23 10:35
+| scene | pixels sent | median ms | ms per 1k px | vs fast path | sha256 |
+|---|---|---|---|---|---|
+| Bitmap + Palette (#179 fast path) | 57557 | 52.0 | 0.90 | 1.0x | 2e91c9b5dcea |
+| OnDiskBitmap, 8-bit BMP | 57557 | 190.9 | 3.32 | 3.7x | 7466da0a4139 |
+| OnDiskBitmap, 16-bit BMP | 57557 | 313.8 | 5.45 | 6.0x | df42b6f504f4 |
+| OnDiskBitmap, 24-bit BMP | 57557 | 303.0 | 5.27 | 5.8x | 1e5dc9e1d135 |
+| Bitmap + ColorConverter, 16 bit values | 57557 | 282.4 | 4.91 | 5.4x | 26131d1fd355 |
+| Bitmap + ColorConverter, 8 bit values | 57557 | 268.9 | 4.67 | 5.2x | 9a5b7b10bbab |
+| Bitmap + ColorConverter, 8 bit, RGB555 | 57557 | 277.2 | 4.82 | 5.3x | e345c266ac51 |
+| vectorio Rectangle | 57605 | 133.2 | 2.31 | 2.6x | 82819e0b9c61 |
+| vectorio Circle | 57605 | 122.7 | 2.13 | 2.4x | c7d5c3ac70d3 |
+| vectorio Polygon | 57365 | 166.1 | 2.90 | 3.2x | 50765039f599 |
+| Bitmap + Palette, 1-bit mono display 128x64 | 8267 | 27.9 | 3.38 | 3.7x | cb9885dac4e2 |
+# output sha256 0d4293d7b7d8
+# displayio sources, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240, displayio from /home/pi/blinka-turbo/cc4b/displayio, 2026-09-23 10:35
+| scene | pixels sent | median ms | ms per 1k px | vs fast path | sha256 |
+|---|---|---|---|---|---|
+| Bitmap + Palette (#179 fast path) | 57557 | 52.2 | 0.91 | 1.0x | 2e91c9b5dcea |
+| OnDiskBitmap, 8-bit BMP | 57557 | 188.3 | 3.27 | 3.6x | 7466da0a4139 |
+| OnDiskBitmap, 16-bit BMP | 57557 | 312.1 | 5.42 | 6.0x | df42b6f504f4 |
+| OnDiskBitmap, 24-bit BMP | 57557 | 301.9 | 5.24 | 5.8x | 1e5dc9e1d135 |
+| Bitmap + ColorConverter, 16 bit values | 57557 | 59.7 | 1.04 | 1.1x | 26131d1fd355 |
+| Bitmap + ColorConverter, 8 bit values | 57557 | 52.6 | 0.91 | 1.0x | 9a5b7b10bbab |
+| Bitmap + ColorConverter, 8 bit, RGB555 | 57557 | 52.6 | 0.91 | 1.0x | e345c266ac51 |
+| vectorio Rectangle | 57605 | 133.8 | 2.32 | 2.6x | 82819e0b9c61 |
+| vectorio Circle | 57605 | 123.3 | 2.14 | 2.4x | c7d5c3ac70d3 |
+| vectorio Polygon | 57365 | 166.0 | 2.89 | 3.2x | 50765039f599 |
+| Bitmap + Palette, 1-bit mono display 128x64 | 8267 | 27.6 | 3.34 | 3.7x | cb9885dac4e2 |
+# output sha256 0d4293d7b7d8

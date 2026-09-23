@@ -1,0 +1,51 @@
+# ColorConverter scenes, 48x32, displayio from /home/pi/blinka-turbo/cc4a/displayio/__init__.py
+| BGR555, reverse=True, 256 values | bd133af39561 | 6102 bytes |
+| BGR555, reverse=True, 65536 values | e583d2a62bae | 6102 bytes |
+| BGR555, reverse=False, 256 values | 0f3ba5018bbe | 6102 bytes |
+| BGR555, reverse=False, 65536 values | a70e8aba0f5a | 6102 bytes |
+| BGR555_SWAPPED, reverse=True, 256 values | 83dbc16f78e9 | 6102 bytes |
+| BGR555_SWAPPED, reverse=True, 65536 values | ba0cd5ddf1ab | 6102 bytes |
+| BGR555_SWAPPED, reverse=False, 256 values | 9acb1edd0023 | 6102 bytes |
+| BGR555_SWAPPED, reverse=False, 65536 values | fb8e984887b4 | 6102 bytes |
+| BGR565, reverse=True, 256 values | a7d520ff8aab | 6102 bytes |
+| BGR565, reverse=True, 65536 values | 4d1bbf3d4fc0 | 6102 bytes |
+| BGR565, reverse=False, 256 values | c87feb2d92cc | 6102 bytes |
+| BGR565, reverse=False, 65536 values | 088667c37569 | 6102 bytes |
+| BGR565_SWAPPED, reverse=True, 256 values | 2aaf7fde57fb | 6102 bytes |
+| BGR565_SWAPPED, reverse=True, 65536 values | 23306193cf23 | 6102 bytes |
+| BGR565_SWAPPED, reverse=False, 256 values | 3350264ac494 | 6102 bytes |
+| BGR565_SWAPPED, reverse=False, 65536 values | 1366954e7dd1 | 6102 bytes |
+| L8, reverse=True, 256 values | 5b27d0ac50ec | 6102 bytes |
+| L8, reverse=True, 65536 values | 5b27d0ac50ec | 6102 bytes |
+| L8, reverse=False, 256 values | 5b27d0ac50ec | 6102 bytes |
+| L8, reverse=False, 65536 values | 5b27d0ac50ec | 6102 bytes |
+| RGB555, reverse=True, 256 values | 1809a8f8d3d1 | 6102 bytes |
+| RGB555, reverse=True, 65536 values | 7e58a327bcf9 | 6102 bytes |
+| RGB555, reverse=False, 256 values | 6e3603072954 | 6102 bytes |
+| RGB555, reverse=False, 65536 values | 014a9841bd6b | 6102 bytes |
+| RGB555_SWAPPED, reverse=True, 256 values | 50b76d6fd0f0 | 6102 bytes |
+| RGB555_SWAPPED, reverse=True, 65536 values | 1912baa3a634 | 6102 bytes |
+| RGB555_SWAPPED, reverse=False, 256 values | error: 'H' format requires 0 <= number <= 65535 |
+| RGB555_SWAPPED, reverse=False, 65536 values | error: 'H' format requires 0 <= number <= 65535 |
+| RGB565, reverse=True, 256 values | 56b1e58283b9 | 6102 bytes |
+| RGB565, reverse=True, 65536 values | 71247ea669ef | 6102 bytes |
+| RGB565, reverse=False, 256 values | 219d45ad2f20 | 6102 bytes |
+| RGB565, reverse=False, 65536 values | 901c3fc4e038 | 6102 bytes |
+| RGB565_SWAPPED, reverse=True, 256 values | 219d45ad2f20 | 6102 bytes |
+| RGB565_SWAPPED, reverse=True, 65536 values | 901c3fc4e038 | 6102 bytes |
+| RGB565_SWAPPED, reverse=False, 256 values | 56b1e58283b9 | 6102 bytes |
+| RGB565_SWAPPED, reverse=False, 65536 values | 71247ea669ef | 6102 bytes |
+| RGB888, reverse=True, 256 values | 0e32a5674b09 | 6102 bytes |
+| RGB888, reverse=True, 65536 values | 0e32a5674b09 | 6102 bytes |
+| RGB888, reverse=False, 256 values | f6a1f050a6da | 6102 bytes |
+| RGB888, reverse=False, 65536 values | f6a1f050a6da | 6102 bytes |
+| RGB565, dithered | 71247ea669ef | 6102 bytes |
+| RGB565, transparent 0 | 71247ea669ef | 6102 bytes |
+| RGB565, transparent 7 | 6467796d253f | 6102 bytes |
+| RGB565, subclass | 71247ea669ef | 6102 bytes |
+| RGB565, 32 bit bitmap | ValueError: value_count must be in the range of 1-65536 |
+| RGB555, dithered | 7e58a327bcf9 | 6102 bytes |
+| RGB555, transparent 0 | 7e58a327bcf9 | 6102 bytes |
+| RGB555, transparent 7 | 41f537d6cbc7 | 6102 bytes |
+| RGB555, subclass | 7e58a327bcf9 | 6102 bytes |
+| RGB555, 32 bit bitmap | ValueError: value_count must be in the range of 1-65536 |

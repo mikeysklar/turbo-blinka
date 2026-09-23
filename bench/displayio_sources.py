@@ -71,6 +71,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--size", type=int, default=240)
     ap.add_argument("--trials", type=int, default=5)
+    ap.add_argument("--profile", help="cProfile one refresh of the scenes matching this text")
     a = ap.parse_args()
     n = a.size
     tmp = tempfile.mkdtemp()
@@ -90,11 +91,14 @@ def main():
             return displayio.TileGrid(odb, pixel_shader=odb.pixel_shader)
         return make
 
-    def bitmap_colorconverter():
-        b = displayio.Bitmap(n, n, 65536)
-        pattern(b, 65536)
-        conv = displayio.ColorConverter(input_colorspace=displayio.Colorspace.RGB565)
-        return displayio.TileGrid(b, pixel_shader=conv)
+    def bitmap_colorconverter(values=65536, space="RGB565"):
+        def make():
+            b = displayio.Bitmap(n, n, values)
+            pattern(b, values)
+            conv = displayio.ColorConverter(
+                input_colorspace=getattr(displayio.Colorspace, space))
+            return displayio.TileGrid(b, pixel_shader=conv)
+        return make
 
     def vec(kind):
         def make():
@@ -117,7 +121,10 @@ def main():
         ("OnDiskBitmap, 8-bit BMP", ondisk(8), {}, (n, n)),
         ("OnDiskBitmap, 16-bit BMP", ondisk(16), {}, (n, n)),
         ("OnDiskBitmap, 24-bit BMP", ondisk(24), {}, (n, n)),
-        ("Bitmap + ColorConverter", bitmap_colorconverter, {}, (n, n)),
+        ("Bitmap + ColorConverter, 16 bit values", bitmap_colorconverter(), {}, (n, n)),
+        ("Bitmap + ColorConverter, 8 bit values", bitmap_colorconverter(256), {}, (n, n)),
+        ("Bitmap + ColorConverter, 8 bit, RGB555", bitmap_colorconverter(256, "RGB555"),
+         {}, (n, n)),
         ("vectorio Rectangle", vec("rectangle"), {}, (n, n)),
         ("vectorio Circle", vec("circle"), {}, (n, n)),
         ("vectorio Polygon", vec("polygon"), {}, (n, n)),
@@ -143,6 +150,17 @@ def main():
             group.append(layer)
             display.root_group = group
             display.refresh()
+            if a.profile:
+                if a.profile.lower() not in name.lower():
+                    continue
+                import cProfile
+                import pstats
+                layer.x += 1
+                prof = cProfile.Profile()
+                prof.runcall(display.refresh)
+                print("\n# %s" % name)
+                pstats.Stats(prof).sort_stats("tottime").print_stats(8)
+                continue
             sent0 = bus.sent
             times = []
             for t in range(a.trials):

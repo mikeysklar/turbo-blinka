@@ -1,0 +1,32 @@
+== ccfix
+# displayio sources, Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 240x240, displayio from /home/pi/blinka-turbo/ccfix/displayio, 2026-09-23 10:30
+| scene | pixels sent | median ms | ms per 1k px | vs fast path | sha256 |
+|---|---|---|---|---|---|
+| Bitmap + Palette (#179 fast path) | 57557 | 516.9 | 8.98 | 1.0x | 2e91c9b5dcea |
+| OnDiskBitmap, 8-bit BMP | 57557 | 2073.8 | 36.03 | 4.0x | 7466da0a4139 |
+| OnDiskBitmap, 16-bit BMP | 57557 | 3521.9 | 61.19 | 6.8x | df42b6f504f4 |
+| OnDiskBitmap, 24-bit BMP | 57557 | 3377.7 | 58.68 | 6.5x | 1e5dc9e1d135 |
+| Bitmap + ColorConverter, 16 bit values | 57557 | 3168.0 | 55.04 | 6.1x | 26131d1fd355 |
+| Bitmap + ColorConverter, 8 bit values | 57557 | 3005.4 | 52.22 | 5.8x | 9a5b7b10bbab |
+| Bitmap + ColorConverter, 8 bit, RGB555 | 57557 | 3088.0 | 53.65 | 6.0x | e345c266ac51 |
+| vectorio Rectangle | 57605 | 1407.2 | 24.43 | 2.7x | 82819e0b9c61 |
+| vectorio Circle | 57605 | 1315.0 | 22.83 | 2.5x | c7d5c3ac70d3 |
+| vectorio Polygon | 57365 | 1645.2 | 28.68 | 3.2x | 50765039f599 |
+| Bitmap + Palette, 1-bit mono display 128x64 | 8267 | 301.1 | 36.43 | 4.1x | cb9885dac4e2 |
+# output sha256 0d4293d7b7d8
+== cc4b
+# displayio sources, Raspberry Pi Zero 2 W Rev 1.0, Python 3.13.5, 240x240, displayio from /home/pi/blinka-turbo/cc4b/displayio, 2026-09-23 10:33
+| scene | pixels sent | median ms | ms per 1k px | vs fast path | sha256 |
+|---|---|---|---|---|---|
+| Bitmap + Palette (#179 fast path) | 57557 | 514.1 | 8.93 | 1.0x | 2e91c9b5dcea |
+| OnDiskBitmap, 8-bit BMP | 57557 | 2085.7 | 36.24 | 4.1x | 7466da0a4139 |
+| OnDiskBitmap, 16-bit BMP | 57557 | 3516.7 | 61.10 | 6.8x | df42b6f504f4 |
+| OnDiskBitmap, 24-bit BMP | 57557 | 3366.5 | 58.49 | 6.5x | 1e5dc9e1d135 |
+| Bitmap + ColorConverter, 16 bit values | 57557 | 598.8 | 10.40 | 1.2x | 26131d1fd355 |
+| Bitmap + ColorConverter, 8 bit values | 57557 | 518.6 | 9.01 | 1.0x | 9a5b7b10bbab |
+| Bitmap + ColorConverter, 8 bit, RGB555 | 57557 | 521.0 | 9.05 | 1.0x | e345c266ac51 |
+| vectorio Rectangle | 57605 | 1404.8 | 24.39 | 2.7x | 82819e0b9c61 |
+| vectorio Circle | 57605 | 1302.0 | 22.60 | 2.5x | c7d5c3ac70d3 |
+| vectorio Polygon | 57365 | 1631.6 | 28.44 | 3.2x | 50765039f599 |
+| Bitmap + Palette, 1-bit mono display 128x64 | 8267 | 302.2 | 36.56 | 4.1x | cb9885dac4e2 |
+# output sha256 0d4293d7b7d8
