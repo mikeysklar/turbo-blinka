@@ -475,6 +475,94 @@ programs, not quick scripts.
 Under `TURBO=numba` a function numba cannot compile (an attribute read, a
 `ptr8()` cast) printed one line and ran from source with the right result.
 
+## 2026-09-22: fill_region marks the dirty area once (#181)
+
+`bitmaptools.fill_region` set every pixel through `__setitem__`, which unioned
+the dirty area once per pixel. The merged version clips the rectangle, marks it
+dirty once and writes through `_write_pixel`. A subclass of `Bitmap` keeps the
+old loop, since it may override `__setitem__`, which was a review finding and
+was confirmed on both Pis: stock writes 10 through a `Doubled` subclass, the
+first draft wrote 5.
+
+| 240x240 4-bit bitmap | Zero 2 W | Pi 5 |
+|---|---|---|
+| Fill the whole bitmap | 1.26 s → 0.33 s (3.8x) | 123 ms → 37 ms (3.3x) |
+| On a PiTFT, 48 rectangles a pass | 9.0 s → 5.1 s (1.75x) | 2.25 s → 1.50 s (1.5x) |
+
+156 edge cases, bit depths against 13 rectangles against three before-states,
+hash identically. Merged as c25d3e9.
+Logs: `logs/*-bitmaptools-fr5b-20260922.log`,
+`logs/*-fill-region-demo-*-20260922.log`.
+
+## 2026-09-23: the 555 colorspaces convert wrongly (#183)
+
+Found while checking the 4a table against stock. `_convert_pixel` shifts the top
+channel of a 555 colour down without masking it, and 555 leaves a spare bit above
+its three 5-bit channels, so the spare bit lands in the channel. The 565 paths
+shift by 11 instead of 10 and stay inside a byte.
+
+| Colorspace | Sweep of all 65536 values, stock | With the mask |
+|---|---|---|
+| RGB555, RGB555_SWAPPED | 32 768 colours outside 16 bits, 0x8000 gives 0x1000000 | 0 |
+| BGR555, BGR555_SWAPPED | blue spills into green, 0x8000 gives 0x000100 | 0x000000 |
+| RGB565, BGR565 and swapped | 0 | unchanged |
+
+131 072 of 262 144 conversions change, every one of them an input with the spare
+bit set, so no colour that was already right moves. CircuitPython's C masks to
+5 bits and also expands 5 bits to 8 by repeating the top bits, which Blinka does
+not; that second difference is left alone.
+
+## 2026-09-23: ColorConverter gets the #179 treatment (#184)
+
+`bench/displayio_sources.py`, full 240x240 redraw, median of 5, headless. The
+baseline is main plus the #182 cache fix, since without it the old code gives
+wrong colours here. Values up to 8 bits resolve through a table like a palette;
+16-bit values would need 65 536 entries, so the loop converts them inline.
+
+| Scene | Zero 2 W | Pi 5 |
+|---|---|---|
+| Bitmap + Palette, the #179 path | 512.2 | 52.0 |
+| ColorConverter, 16-bit values | 3 162.0 → 603.8 (5.2x) | 282.6 → 59.2 (4.8x) |
+| ColorConverter, 8-bit values | 3 014.8 → 522.1 (5.8x) | 267.5 → 52.6 (5.1x) |
+| ColorConverter, 8-bit, RGB555 | 3 108.2 → 522.4 (5.9x) | 276.9 → 52.7 (5.3x) |
+
+All 77 scenes in `bench/converter_scenes.py` send identical bytes, and the
+whole sources run hashes 0d4293d7b7d8 on both Pis.
+
+On a PiTFT, `bench/colorconverter_demo.py`, 12 seconds of scrolling:
+
+| Per frame | Pi 5, 480x320 | Zero 2 W, 320x240 |
+|---|---|---|
+| Before | 629 ms (20 frames) | 2 941 ms (5 frames) |
+| After | 296 ms (41 frames) | 885 ms (14 frames) |
+| Sending the frame, unchanged | about 210 ms | about 400 ms |
+| Drawing | 420 → 88 ms | 2 544 → 490 ms |
+
+The screen transfer costs the same either way, so 5x in the drawing shows up as
+2.1x on the Pi 5 and 3.3x on the Zero 2 W.
+
+## 2026-09-23: OnDiskBitmap reads rows, not pixels (4b)
+
+Two steps on top of #184, not yet a PR. Option A first, a row cache inside
+`_get_pixel`, measured on the Pi 5 at 186.0 → 179.3 ms, about 4%, because Python
+file objects are already buffered: the seek per pixel mostly hits memory and the
+cost is the per-pixel Python call. Dropped. Option B puts the whole loop in
+`_fill_area`, reading each file row once and resolving colours through the
+palette table for indexed files or inline for 16 and 24-bit ones.
+
+| Full 240x240 redraw | Zero 2 W | Pi 5 |
+|---|---|---|
+| 8-bit BMP | 2 109.3 → 514.7 (4.1x) | 187.3 → 53.3 (3.5x) |
+| 16-bit BMP | 3 551.9 → 849.0 (4.2x) | 311.8 → 83.2 (3.7x) |
+| 24-bit BMP | 3 416.4 → 785.7 (4.3x) | 302.5 → 77.6 (3.9x) |
+
+The indexed case lands on the palette fast path exactly, 8.94 against 8.92 ms
+per 1 000 pixels on the Zero 2 W. 32-bit files keep the old loop, since their
+top byte overflows the same unmasked shift as #183. All 84 scenes in
+`bench/ondisk_scenes.py` are identical on both Pis, and the scenes reach the new
+loops 87 and 57 times.
+Logs: `logs/*-ondisk-scenes-*-20260923.log`.
+
 ## Other runs
 
 | Date | Host | What | Result |
