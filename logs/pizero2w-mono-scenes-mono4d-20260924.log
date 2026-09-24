@@ -1,0 +1,68 @@
+# packed display scenes, 128x64, displayio from /home/pi/blinka-turbo/mono4d/displayio/__init__.py
+| 1 bit, share_row=False, reverse=False | e814c9219b79 | 2062 bytes |
+| 1 bit, share_row=False, reverse=True | e814c9219b79 | 2062 bytes |
+| 1 bit, share_row=True, reverse=False | 760f92c0a691 | 2070 bytes |
+| 1 bit, share_row=True, reverse=True | b53ccfccad73 | 2070 bytes |
+| 2 bit, share_row=False, reverse=False | 9cd444029eaa | 4102 bytes |
+| 2 bit, share_row=False, reverse=True | 9cd444029eaa | 4102 bytes |
+| 2 bit, share_row=True, reverse=False | 7ffc592f209d | 4118 bytes |
+| 2 bit, share_row=True, reverse=True | 0fd5f6479ba8 | 4118 bytes |
+| 4 bit, share_row=False, reverse=False | 3da4cdf7244e | 8182 bytes |
+| 4 bit, share_row=False, reverse=True | 8da4d924efb9 | 8182 bytes |
+| 4 bit, share_row=True, reverse=False | bc76e039cb2e | 8214 bytes |
+| 4 bit, share_row=True, reverse=True | 519b6a9dc2a9 | 8214 bytes |
+| 1 bit, color, not grayscale | 5b2eb0ae9422 | 2062 bytes |
+| 2 bit, color, not grayscale | 7255eed63738 | 4102 bytes |
+| 4 bit, color, not grayscale | 51899c5609a4 | 8182 bytes |
+| 1 bit display, 2 value bitmap | e814c9219b79 | 2062 bytes |
+| 4 bit display, 2 value bitmap | 60fa845eaa22 | 8182 bytes |
+| 1 bit display, 4 value bitmap | e814c9219b79 | 2062 bytes |
+| 4 bit display, 4 value bitmap | 268ca3750311 | 8182 bytes |
+| 1 bit display, 16 value bitmap | 192c183f0790 | 2062 bytes |
+| 4 bit display, 16 value bitmap | 3da4cdf7244e | 8182 bytes |
+| 1 bit display, 256 value bitmap | c79d6208abfe | 2062 bytes |
+| 4 bit display, 256 value bitmap | 4c5b16d5111d | 8182 bytes |
+| 1 bit, dithered palette | e814c9219b79 | 2062 bytes |
+| 1 bit, Bitmap subclass | e814c9219b79 | 2062 bytes |
+| 1 bit, Palette subclass | e814c9219b79 | 2062 bytes |
+| 1 bit, ColorConverter | c67811f5fcf6 | 2062 bytes |
+| 4 bit, dithered palette | 15b32666bebb | 8182 bytes |
+| 1 bit, share_row=False, transparent 0 | 0451c3360c25 | 2062 bytes |
+| 1 bit, share_row=True, transparent 0 | e35392f3e801 | 2070 bytes |
+| 4 bit, share_row=False, transparent 0 | d7f797ded6f0 | 8182 bytes |
+| 1 bit, share_row=False, transparent 1 | fa6d14106f59 | 2062 bytes |
+| 1 bit, share_row=True, transparent 1 | 034d3a7e5c9a | 2070 bytes |
+| 4 bit, share_row=False, transparent 1 | a4e47e384138 | 8182 bytes |
+| 1 bit, share_row=False, scale 2 | a084bd10073a | 2054 bytes |
+| 1 bit, share_row=True, scale 2 | 0a99d14f89be | 2070 bytes |
+| 4 bit, share_row=False, scale 2 | 2b1225677b33 | 8150 bytes |
+| 1 bit, share_row=False, scale 3 | ce72f8c11ded | 2046 bytes |
+| 1 bit, share_row=True, scale 3 | c0f26d0db97b | 2070 bytes |
+| 4 bit, share_row=False, scale 3 | ea263f702b1b | 8118 bytes |
+| 1 bit, share_row=False, flip_x | e814c9219b79 | 2062 bytes |
+| 1 bit, share_row=True, flip_x | 760f92c0a691 | 2070 bytes |
+| 4 bit, share_row=False, flip_x | 76eb7fc21c9a | 8182 bytes |
+| 1 bit, share_row=False, flip_y | e814c9219b79 | 2062 bytes |
+| 1 bit, share_row=True, flip_y | 760f92c0a691 | 2070 bytes |
+| 4 bit, share_row=False, flip_y | b1c780a16a57 | 8182 bytes |
+| 1 bit, share_row=False, flip both | e814c9219b79 | 2062 bytes |
+| 1 bit, share_row=True, flip both | 760f92c0a691 | 2070 bytes |
+| 4 bit, share_row=False, flip both | 67f4f9ea7e84 | 8182 bytes |
+| 1 bit, share_row=False, transposed | d33fd7a32553 | 1558 bytes |
+| 1 bit, share_row=True, transposed | 66e621284332 | 1622 bytes |
+| 4 bit, share_row=False, transposed | 59e56c9836de | 6166 bytes |
+| 1 bit, share_row=False, transposed and flipped | d33fd7a32553 | 1558 bytes |
+| 1 bit, share_row=True, transposed and flipped | 66e621284332 | 1622 bytes |
+| 4 bit, share_row=False, transposed and flipped | ec8530f98e9f | 6166 bytes |
+| 1 bit, share_row=False, odd 37x23 bitmap | IndexError: index out of bounds on dimension 1 |
+| 1 bit, share_row=True, odd 37x23 bitmap | 5d81c2f295d1 | 1172 bytes |
+| 4 bit, share_row=False, odd 37x23 bitmap | 4b4b0269c44d | 4562 bytes |
+| 1 bit, share_row=False, placed off the left edge | 8e4b0dddac57 | 2006 bytes |
+| 1 bit, share_row=True, placed off the left edge | fb9d2618947c | 1942 bytes |
+| 4 bit, share_row=False, placed off the left edge | dd8f958f635d | 7718 bytes |
+| 1 bit, share_row=False, placed off the right edge | IndexError: index out of bounds on dimension 1 |
+| 1 bit, share_row=True, placed off the right edge | ebbfaaaf9a60 | 1071 bytes |
+| 4 bit, share_row=False, placed off the right edge | bacd0357fbaf | 4130 bytes |
+| 1 bit, share_row=False, sprite sheet 4x2 tiles | 39eac0215bd1 | 1302 bytes |
+| 1 bit, share_row=True, sprite sheet 4x2 tiles | 7181f8f1749b | 1334 bytes |
+| 4 bit, share_row=False, sprite sheet 4x2 tiles | f6a5b05f2553 | 5142 bytes |
