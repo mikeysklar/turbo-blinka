@@ -1,0 +1,8 @@
+# vector race checks, Raspberry Pi Zero 2 W Rev 1.0, vectorio from /home/pi/blinka-turbo/main241/vectorio/__init__.py, 2026-09-24 15:54
+| check | detail | result |
+|---|---|---|
+| interleave | collected 0 areas at start, 0 after | move kept: NO, change lost |
+| full refresh interleave | 0 areas after | move kept: NO, change lost |
+| 500 random frames | 498 areas | 12810441d413 |
+| clean scan | 200000 calls | 5959.0 ns per call |
+| move, collect, finish | 50000 cycles | 59.20 us per cycle |
