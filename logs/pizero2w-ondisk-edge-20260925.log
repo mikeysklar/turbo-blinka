@@ -1,0 +1,16 @@
+# ondisk edge cases, Raspberry Pi Zero 2 W Rev 1.0, displayio from /home/pi/blinka-turbo/main244/displayio/__init__.py
+| case | result | |
+|---|---|---|
+| short reads, 8 bit | d7550aedc273 | same as a regular file |
+| short reads, 24 bit | b1e2fb3f30ae | same as a regular file |
+| 1 px of a 4000 px row, 8 bit | 1166 file bytes read |
+| 1 px of a 4000 px row, 24 bit | 150 file bytes read |
+| index past the palette | IndexError |
+# ondisk edge cases, Raspberry Pi Zero 2 W Rev 1.0, displayio from /home/pi/blinka-turbo/odb4b/displayio/__init__.py
+| case | result | |
+|---|---|---|
+| short reads, 8 bit | d7550aedc273 | same as a regular file |
+| short reads, 24 bit | b1e2fb3f30ae | same as a regular file |
+| 1 px of a 4000 px row, 8 bit | 1166 file bytes read |
+| 1 px of a 4000 px row, 24 bit | 150 file bytes read |
+| index past the palette | IndexError |

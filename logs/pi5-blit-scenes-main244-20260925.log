@@ -1,0 +1,17 @@
+# blit scenes, 16x16 source holding y*16+x, bitmaptools from /home/pi/blinka-turbo/main244/bitmaptools/__init__.py
+| scene | copied | asked for | |
+|---|---|---|---|
+| whole bitmap                       | [0, 1, 2, 3, 4, 5] | [0, 1, 2, 3, 4, 5] | ok |
+| y1=1                               | [1, 2, 3, 4, 5, 6] | [16, 17, 18, 19, 20, 21] | WRONG ROW |
+| y1=3, y2=7                         | [3, 4, 5, 6, 7, 8] | [48, 49, 50, 51, 52, 53] | WRONG ROW |
+| y1=8, bottom half                  | [8, 9, 10, 11, 12, 13] | [128, 129, 130, 131, 132, 133] | WRONG ROW |
+| x1=4                               | [4, 5, 6, 7, 8, 9] | [4, 5, 6, 7, 8, 9] | ok |
+| x1=4 and y1=4                      | [8, 9, 10, 11, 12, 13] | [68, 69, 70, 71, 72, 73] | WRONG ROW |
+| y1=15, last row                    | [15, 16, 17, 18, 19, 20] | [240, 241, 242, 243, 244, 245] | WRONG ROW |
+| placed at 2,3                      | [5, 6, 7, 8, 9, 10] | [80, 81, 82, 83, 84, 85] | WRONG ROW |
+| placed at 8,8, clipped             | [4, 5, 6, 7, 8, 9] | [64, 65, 66, 67, 68, 69] | WRONG ROW |
+| one pixel, x1=5 y1=6               | [11] | [101] | WRONG ROW |
+| y1=2 with skip_source_index        | [2, 3, 4, 5, 6, 7] | [32, 33, 34, 35, 36, 37] | WRONG ROW |
+| y1=2 with skip_dest_index          | [2, 3, 4, 5, 6, 7] | [32, 33, 34, 35, 36, 37] | WRONG ROW |
+| y2 past the source                 | [4, 5, 6, 7, 8, 9] | [64, 65, 66, 67, 68, 69] | WRONG ROW |
+| reversed region, y2 < y1           | [4, 5, 6, 7, 8, 9] | [64, 65, 66, 67, 68, 69] | WRONG ROW |

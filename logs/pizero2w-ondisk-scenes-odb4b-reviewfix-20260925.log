@@ -1,0 +1,85 @@
+# OnDiskBitmap scenes, 48x32, displayio from /home/pi/blinka-turbo/odb4b/displayio/__init__.py
+| 1 bpp, reverse=True | 6c1b5b1cf708 | 6102 bytes |
+| 1 bpp, reverse=False | 726ee0dabd27 | 6102 bytes |
+| 4 bpp, reverse=True | c47aad79b598 | 6102 bytes |
+| 4 bpp, reverse=False | f5965529ee2c | 6102 bytes |
+| 8 bpp, reverse=True | 545b308ecb38 | 6102 bytes |
+| 8 bpp, reverse=False | 7478dfc676ab | 6102 bytes |
+| 16 bpp, reverse=True | fcfd3b5ff4f7 | 6102 bytes |
+| 16 bpp, reverse=False | f6c3f28f6ccd | 6102 bytes |
+| 24 bpp, reverse=True | 71e99e4d0872 | 6102 bytes |
+| 24 bpp, reverse=False | f386f41c364c | 6102 bytes |
+| 32 bpp, reverse=True | 71e99e4d0872 | 6102 bytes |
+| 32 bpp, reverse=False | error: 'H' format requires 0 <= number <= 65535 |
+| 16 bpp 5:6:5 masks, reverse=True | 90c5977e8e92 | 6102 bytes |
+| 16 bpp 5:6:5 masks, reverse=False | 2022a3314ab2 | 6102 bytes |
+| 24 bpp, odd 37x23 | 2422b5baa850 | 4807 bytes |
+| 24 bpp, truncated file | 7f39c044d65e | 6102 bytes |
+| 16 bpp, dithered converter | fcfd3b5ff4f7 | 6102 bytes |
+| 24 bpp, dithered converter | 5c3893d0abbd | 6102 bytes |
+| 16 bpp, subclass | fcfd3b5ff4f7 | 6102 bytes |
+| 24 bpp, subclass | 71e99e4d0872 | 6102 bytes |
+| 16 bpp, transparent black | fcfd3b5ff4f7 | 6102 bytes |
+| 24 bpp, transparent black | 71e99e4d0872 | 6102 bytes |
+| 24 bpp, transparent 0x00FF7F | 71e99e4d0872 | 6102 bytes |
+| 8 bpp, odd 37x23 | 4a13e93145df | 4807 bytes |
+| 4 bpp, odd 37x23 | dd45039909ca | 4807 bytes |
+| 8 bpp, truncated file | 76901bc6ab76 | 6102 bytes |
+| 8 bpp, dithered palette | c08ae5430f3b | 6102 bytes |
+| 8 bpp, subclass | 545b308ecb38 | 6102 bytes |
+| 1 bpp, subclass | 6c1b5b1cf708 | 6102 bytes |
+| 8 bpp, transparent 0 | 35a9c370797e | 6102 bytes |
+| 8 bpp, transparent 7 | 828b53dadb0b | 6102 bytes |
+| 8 bpp, transparent 255 | 9d5bf1e9666f | 6102 bytes |
+| 1 bpp, transparent 0 | 5566b8953e78 | 6102 bytes |
+| 4 bpp, transparent 3 | 4e2e40104318 | 6102 bytes |
+| 1 bpp, scale 2 | 2e750c097695 | 6038 bytes |
+| 4 bpp, scale 2 | ff8a941fb4b6 | 6038 bytes |
+| 8 bpp, scale 2 | 0b265537a5c3 | 6038 bytes |
+| 16 bpp, scale 2 | 8e11d04f6735 | 6038 bytes |
+| 24 bpp, scale 2 | 43b5059ea6b7 | 6038 bytes |
+| 1 bpp, scale 3 | 5fde75e953fb | 5974 bytes |
+| 4 bpp, scale 3 | 4c9d7a2a99d6 | 5974 bytes |
+| 8 bpp, scale 3 | 7d285352d593 | 5974 bytes |
+| 16 bpp, scale 3 | e4567951fc14 | 5974 bytes |
+| 24 bpp, scale 3 | a75fb2eba920 | 5974 bytes |
+| 1 bpp, flip_x | e87c539319dc | 6102 bytes |
+| 4 bpp, flip_x | ff3ad9fc61a3 | 6102 bytes |
+| 8 bpp, flip_x | 68b318fd071a | 6102 bytes |
+| 16 bpp, flip_x | 7ac060bf0fd9 | 6102 bytes |
+| 24 bpp, flip_x | 899172cca593 | 6102 bytes |
+| 1 bpp, flip_y | 2bf1a09df95c | 6102 bytes |
+| 4 bpp, flip_y | c29dc2c3852b | 6102 bytes |
+| 8 bpp, flip_y | 13857a9912ef | 6102 bytes |
+| 16 bpp, flip_y | ba21c21ad8e1 | 6102 bytes |
+| 24 bpp, flip_y | 97e942944cf6 | 6102 bytes |
+| 1 bpp, flip both | 4c59e6343496 | 6102 bytes |
+| 4 bpp, flip both | b449f20556d0 | 6102 bytes |
+| 8 bpp, flip both | 34bbbc40f4f8 | 6102 bytes |
+| 16 bpp, flip both | 6016c408095d | 6102 bytes |
+| 24 bpp, flip both | 05d392fd4b07 | 6102 bytes |
+| 1 bpp, transposed | 5aee0cdd7131 | 5142 bytes |
+| 4 bpp, transposed | 84c1e907da60 | 5142 bytes |
+| 8 bpp, transposed | 70f95ffaa0b9 | 5142 bytes |
+| 16 bpp, transposed | b37c236822b2 | 5142 bytes |
+| 24 bpp, transposed | a6ca6624563f | 5142 bytes |
+| 1 bpp, transposed and flipped | 79b05eb17282 | 5142 bytes |
+| 4 bpp, transposed and flipped | f7add092f578 | 5142 bytes |
+| 8 bpp, transposed and flipped | 616a9700a606 | 5142 bytes |
+| 16 bpp, transposed and flipped | 68fac7345906 | 5142 bytes |
+| 24 bpp, transposed and flipped | 746fe4aa77c0 | 5142 bytes |
+| 1 bpp, placed off the left edge | 0857efa42ce9 | 5254 bytes |
+| 4 bpp, placed off the left edge | 8cae00967618 | 5254 bytes |
+| 8 bpp, placed off the left edge | d9b0355155e7 | 5254 bytes |
+| 16 bpp, placed off the left edge | af9982c9dda4 | 5254 bytes |
+| 24 bpp, placed off the left edge | aa2af3cd4ff6 | 5254 bytes |
+| 1 bpp, placed off the right edge | f7c0a38d9406 | 3130 bytes |
+| 4 bpp, placed off the right edge | 982156368d77 | 3130 bytes |
+| 8 bpp, placed off the right edge | c95b7658e384 | 3130 bytes |
+| 16 bpp, placed off the right edge | c37b621d8ef3 | 3130 bytes |
+| 24 bpp, placed off the right edge | ccc26b0cdf78 | 3130 bytes |
+| 1 bpp, sprite sheet 4x2 tiles | fe536083dbd0 | 6102 bytes |
+| 4 bpp, sprite sheet 4x2 tiles | b446dda47ec0 | 6102 bytes |
+| 8 bpp, sprite sheet 4x2 tiles | e21bed72dc57 | 6102 bytes |
+| 16 bpp, sprite sheet 4x2 tiles | 3e57ba8b2161 | 6102 bytes |
+| 24 bpp, sprite sheet 4x2 tiles | e1cb89621120 | 6102 bytes |
