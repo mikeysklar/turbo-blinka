@@ -1,0 +1,63 @@
+# packed subrectangles, 128x64, Raspberry Pi Zero 2 W Rev 1.0, displayio from /home/pi/blinka-turbo/subfix/displayio/__init__.py
+| depth | share_row | case | framebuffer | writes |
+|---|---|---|---|---|
+| 1 | True | full screen | 156aee09025f | 2 |
+| 1 | True | odd 37x23 at 0,0 | adaa5f67edc0 | 2 |
+| 1 | True | 7x3 off the bottom right | 03f0e560df95 | 2 |
+| 1 | True | 37x8, one band tall | c7cf765b89d7 | 2 |
+| 1 | True | 37x16 at 0,8 | a688d616fbe3 | 2 |
+| 1 | True | 100x5, part of a band | 28ffc6ffeed9 | 2 |
+| 1 | True | 64x64 off the right edge | 7b50f7d59c21 | 2 |
+| 1 | True | 1x8, one pixel wide | e976d19479e4 | 2 |
+| 1 | True | full width, 3 rows | 232d1b9973f7 | 2 |
+| 1 | True | moved a whole band | d60ec54dc97c | 2 |
+| 1 | False | full screen | 5032780acbb3 | 2 |
+| 1 | False | odd 37x23 at 0,0 | 4520e0f7b8b9 | 2 |
+| 1 | False | 7x3 off the bottom right | c449672e280c | 2 |
+| 1 | False | 37x8, one band tall | 61f1aaad8f52 | 2 |
+| 1 | False | 37x16 at 0,8 | 7188e4214a3a | 2 |
+| 1 | False | 100x5, part of a band | 80cb28a6fad7 | 2 |
+| 1 | False | 64x64 off the right edge | 6366828d4659 | 2 |
+| 1 | False | 1x8, one pixel wide | 1bad422effa9 | 2 |
+| 1 | False | full width, 3 rows | fd6f2dd1cd38 | 2 |
+| 1 | False | moved a whole band | d60ec54dc97c | 2 |
+| 2 | True | full screen | d54f9b862ec4 | 2 |
+| 2 | True | odd 37x23 at 0,0 | 3c8d983f8ff7 | 2 |
+| 2 | True | 7x3 off the bottom right | dce5c97f8a4f | 2 |
+| 2 | True | 37x8, one band tall | c8e5aa70ee5c | 2 |
+| 2 | True | 37x16 at 0,8 | 54e0a45905d2 | 2 |
+| 2 | True | 100x5, part of a band | a32c420213fd | 2 |
+| 2 | True | 64x64 off the right edge | 9ae67645b511 | 2 |
+| 2 | True | 1x8, one pixel wide | ba36593de023 | 2 |
+| 2 | True | full width, 3 rows | 545d32334bd5 | 2 |
+| 2 | True | moved a whole band | 9b80925bdeca | 2 |
+| 2 | False | full screen | f66ba4aead84 | 2 |
+| 2 | False | odd 37x23 at 0,0 | 76bcce9c748a | 2 |
+| 2 | False | 7x3 off the bottom right | 958dd64dfcb4 | 2 |
+| 2 | False | 37x8, one band tall | b1045f8dd85d | 2 |
+| 2 | False | 37x16 at 0,8 | 9840784db4f8 | 2 |
+| 2 | False | 100x5, part of a band | a32c420213fd | 2 |
+| 2 | False | 64x64 off the right edge | e371b4b294eb | 2 |
+| 2 | False | 1x8, one pixel wide | 256f3034f3d9 | 2 |
+| 2 | False | full width, 3 rows | 681a46cb6f17 | 2 |
+| 2 | False | moved a whole band | 9b80925bdeca | 2 |
+| 4 | True | full screen | a9a76e0a05e3 | 2 |
+| 4 | True | odd 37x23 at 0,0 | 412d4737b551 | 2 |
+| 4 | True | 7x3 off the bottom right | 467077b6e6b9 | 2 |
+| 4 | True | 37x8, one band tall | 1b618c40b4d1 | 2 |
+| 4 | True | 37x16 at 0,8 | 08803d8163ae | 2 |
+| 4 | True | 100x5, part of a band | 618860e1b4e0 | 2 |
+| 4 | True | 64x64 off the right edge | ad4dc0c6b22b | 2 |
+| 4 | True | 1x8, one pixel wide | 741b6b0f3b98 | 2 |
+| 4 | True | full width, 3 rows | 4b08105c31cb | 2 |
+| 4 | True | moved a whole band | 9e5596aa83e8 | 2 |
+| 4 | False | full screen | 1eb186148298 | 2 |
+| 4 | False | odd 37x23 at 0,0 | 6fefdfaf9047 | 2 |
+| 4 | False | 7x3 off the bottom right | 467077b6e6b9 | 2 |
+| 4 | False | 37x8, one band tall | 00266cf866ea | 2 |
+| 4 | False | 37x16 at 0,8 | ebbd4dd9f6c6 | 2 |
+| 4 | False | 100x5, part of a band | 618860e1b4e0 | 2 |
+| 4 | False | 64x64 off the right edge | 576c4c6fae73 | 2 |
+| 4 | False | 1x8, one pixel wide | 38ea423122b1 | 2 |
+| 4 | False | full width, 3 rows | e89dab8b0fd3 | 2 |
+| 4 | False | moved a whole band | 9e5596aa83e8 | 2 |
