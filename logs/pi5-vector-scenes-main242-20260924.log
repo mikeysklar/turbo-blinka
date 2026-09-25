@@ -1,0 +1,47 @@
+# vectorio scenes, 96x64, vectorio from /home/pi/blinka-turbo/main242/vectorio/__init__.py
+| rectangle, reverse=False | 0e788d728cb4 | 16937 bytes |
+| rectangle, reverse=True | e6e8acc48554 | 16937 bytes |
+| circle, reverse=False | c27a58cc09ce | 20969 bytes |
+| circle, reverse=True | 6008fb7b8703 | 20969 bytes |
+| polygon, reverse=False | 81b3be4bf46a | 24541 bytes |
+| polygon, reverse=True | 7261a96b7650 | 24541 bytes |
+| circle, dithered palette | 5f46fb948a10 | 20969 bytes |
+| circle, Palette subclass | c27a58cc09ce | 20969 bytes |
+| circle, Circle subclass | c27a58cc09ce | 20969 bytes |
+| circle, ColorConverter shader | 6c1e6e6b4352 | 20969 bytes |
+| circle, 1 bit display | 24b52b5587cf | 1472 bytes |
+| rectangle, 1 bit display | e14f879b17fd | 1165 bytes |
+| circle, transparent color | 6c1e6e6b4352 | 20969 bytes |
+| circle, color index 0 | fb5c3a236310 | 20969 bytes |
+| circle, color index 2 of 3 | c8922c5e690e | 20969 bytes |
+| circle, color index past the palette | 6c1e6e6b4352 | 20969 bytes |
+| rectangle, scale 2 | 605a04a2af1e | 17073 bytes |
+| rectangle, scale 3 | cc30e81cfaa9 | 17209 bytes |
+| rectangle, rotated 90 | 88ef81c49f99 | 16937 bytes |
+| rectangle, rotated 180 | 70ced7a30d41 | 16937 bytes |
+| rectangle, rotated 270 | a9d353b0d47e | 16937 bytes |
+| rectangle, off the left edge | 4e1e7f704f2a | 14297 bytes |
+| rectangle, off the right edge | 822772403abd | 12665 bytes |
+| rectangle, off the top | a76a87ec7a0e | 12818 bytes |
+| rectangle, overlapping a rectangle | fcf2acc0d3d6 | 16937 bytes |
+| rectangle, overlapping a circle | f98eec65459a | 16937 bytes |
+| circle, scale 2 | 1732246e95e7 | 18333 bytes |
+| circle, scale 3 | 408e355ae495 | 12818 bytes |
+| circle, rotated 90 | 2f5e91a8ec42 | 20969 bytes |
+| circle, rotated 180 | c847e9413a34 | 20969 bytes |
+| circle, rotated 270 | 46290f7bfcbc | 20969 bytes |
+| circle, off the left edge | a2cfd1ab79fa | 16265 bytes |
+| circle, off the right edge | b499d8ce7db8 | 12929 bytes |
+| circle, off the top | dbc93f2ba0ac | 15669 bytes |
+| circle, overlapping a rectangle | 08b3d0facb02 | 20969 bytes |
+| circle, overlapping a circle | 693be323ea62 | 20969 bytes |
+| polygon, scale 2 | bd97bb281410 | 24273 bytes |
+| polygon, scale 3 | c917cacddcec | 22521 bytes |
+| polygon, rotated 90 | b97e069178b9 | 24541 bytes |
+| polygon, rotated 180 | c5fde66b8686 | 24541 bytes |
+| polygon, rotated 270 | 1bafebb2273d | 24541 bytes |
+| polygon, off the left edge | 6a09bffc574b | 19865 bytes |
+| polygon, off the right edge | 7fecff94df29 | 12665 bytes |
+| polygon, off the top | 0c8efea26876 | 18382 bytes |
+| polygon, overlapping a rectangle | cb61936de028 | 24541 bytes |
+| polygon, overlapping a circle | 9707583af99f | 24541 bytes |
