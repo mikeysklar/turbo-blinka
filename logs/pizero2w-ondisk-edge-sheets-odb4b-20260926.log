@@ -1,0 +1,28 @@
+# ondisk edge cases, Raspberry Pi Zero 2 W Rev 1.0, displayio from /home/pi/blinka-turbo/odb4b/displayio/__init__.py
+| case | result | |
+|---|---|---|
+| short reads, 8 bit | d7550aedc273 | same as a regular file |
+| short reads, 24 bit | b1e2fb3f30ae | same as a regular file |
+| 1 px of a 4000 px row, 8 bit | 1166 file bytes read |
+| 1 px of a 4000 px row, 24 bit | 150 file bytes read |
+| index past the palette | IndexError |
+| sheet 4 bit, layout 0, tiles 2,3 | 1fd9f641baa9 |
+| sheet 4 bit, layout 1, tiles 0,2 | 635a64878f34 |
+| sheet 4 bit, layout 2, tiles 3,0,1,2 | 72446558ab9d |
+| sheet 4 bit, layout 3, tiles 3,0 | bf0c033053dc |
+| sheet 4 bit, layout 4, tiles 5,0,3 | aafafc092b85 |
+| sheet 8 bit, layout 0, tiles 2,3 | f21d45797833 |
+| sheet 8 bit, layout 1, tiles 0,2 | 3c5218262020 |
+| sheet 8 bit, layout 2, tiles 3,0,1,2 | cdb86f70d7f1 |
+| sheet 8 bit, layout 3, tiles 3,0 | ab0393438b7c |
+| sheet 8 bit, layout 4, tiles 5,0,3 | 50e8de14ddda |
+| sheet 16 bit, layout 0, tiles 2,3 | bfdd3c4594b9 |
+| sheet 16 bit, layout 1, tiles 0,2 | e14b53e63aa5 |
+| sheet 16 bit, layout 2, tiles 3,0,1,2 | bb854d86d338 |
+| sheet 16 bit, layout 3, tiles 3,0 | cd297cb2f4cb |
+| sheet 16 bit, layout 4, tiles 5,0,3 | 5ff38bf456be |
+| sheet 24 bit, layout 0, tiles 2,3 | 60fec5faadc1 |
+| sheet 24 bit, layout 1, tiles 0,2 | d6194e26e941 |
+| sheet 24 bit, layout 2, tiles 3,0,1,2 | 71082b8e1e96 |
+| sheet 24 bit, layout 3, tiles 3,0 | 0764e002768b |
+| sheet 24 bit, layout 4, tiles 5,0,3 | 88a15ee98d2b |

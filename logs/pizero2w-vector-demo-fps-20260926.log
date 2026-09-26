@@ -1,0 +1,16 @@
+# Real frame rates on a panel for the vectorio travel box fix
+# Pi Zero 2 W, Adafruit PiTFT ILI9341 320x240, fourwire at 24 MHz, 12 s per run
+# step 6 px: every shape overlaps the box it just left, so the fix cannot engage
+# step 160 px: further than any of the three shapes, which is the case it is for
+#
+#   cd ~/blinka-turbo && PYTHONPATH=<snap>:. ~/env/bin/python3 \
+#       vector_demo.py --display ili9341 --seconds 12 --step <step>
+
+[main246 step 6] # ili9341 320x240, rectangle circle polygon, vectorio from /home/pi/blinka-turbo/main246/vectorio
+[main246 step 6] 26 frames in 12.1 s, 2.15 frames per second
+[main246 step 160] # ili9341 320x240, rectangle circle polygon, vectorio from /home/pi/blinka-turbo/main246/vectorio
+[main246 step 160] 18 frames in 12.6 s, 1.43 frames per second
+[travel step 6] # ili9341 320x240, rectangle circle polygon, vectorio from /home/pi/blinka-turbo/travel/vectorio
+[travel step 6] 27 frames in 12.2 s, 2.22 frames per second
+[travel step 160] # ili9341 320x240, rectangle circle polygon, vectorio from /home/pi/blinka-turbo/travel/vectorio
+[travel step 160] 28 frames in 12.5 s, 2.25 frames per second

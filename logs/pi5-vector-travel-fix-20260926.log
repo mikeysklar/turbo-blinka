@@ -1,0 +1,99 @@
+# vectorio travel, 240x240 rotation 0, Raspberry Pi 5 Model B Rev 1.0, vectorio from /home/pi/blinka-turbo/travel/vectorio/__init__.py
+| scene | framebuffer | redrawn | |
+|---|---|---|---|
+| rectangle, 2 px                    | 4ceaa6c095bc |    440 px | ok |
+| rectangle, its own width           | 08e43c416513 |    800 px | ok |
+| rectangle, well past itself        | c6bb50039b27 |    800 px | ok |
+| rectangle, back again              | a9a21c6b4bef |   1600 px | ok |
+| rectangle, diagonal jump           | eea0816e194e |   2000 px | ok |
+| rectangle, off the right           | 42317febe984 |    800 px | ok |
+| rectangle, off the left            | 104a2c587f8d |    600 px | ok |
+| rectangle, off the bottom          | d1244514e11f |    800 px | ok |
+| rectangle, three moves, one refresh | 6ac45990daf3 |   1800 px | ok |
+| rectangle, two refreshes apart     | 6ac45990daf3 |   2200 px | ok |
+| circle, well past itself           | c87bc97ce664 |    968 px | ok |
+| circle, diagonal jump              | 34aa774f0179 |   2178 px | ok |
+| polygon, well past itself          | 050a0d64a7cb |    576 px | ok |
+| polygon, off the top               | 2d137c4894b3 |    468 px | ok |
+| rectangle, resized                 | be60b6a48aee |    800 px | ok |
+| circle, resized                    | 57e98776d3b0 |   2116 px | ok |
+| rectangle, hidden                  | d8b443032200 |    400 px | ok |
+| rectangle, hidden then shown       | a9a21c6b4bef |    800 px | ok |
+| two shapes, both jump              | 577cbf8a08fa |   1482 px | ok |
+| two shapes, crossing               | 565097d9c1f4 |   1394 px | ok |
+| rectangle under scale 2            | 1e9619e205a7 |   1200 px | ok |
+| circle under scale 2               | 464ac8a59a5e |   1144 px | ok |
+| rectangle, no change at all        | a9a21c6b4bef |      0 px | ok |
+| transparent shape, well past itself | f39263a9aab5 |    800 px | ok |
+| transparent over a solid, crossing | d1ed34a97ad4 |   1300 px | ok |
+| rectangle, crosses the screen      | bd6a4c9d4a2c |    800 px | ok |
+| circle, crosses the screen         | e5a4a3dbe087 |    968 px | ok |
+| rectangle, crosses diagonally      | 1b48be51d205 |   4900 px | ok |
+| rectangle, many small steps        | c0e923f37d82 |   5060 px | ok |
+| circle, many small steps           | fde2bc927605 |   5148 px | ok |
+# vectorio travel, 480x320 rotation 0, Raspberry Pi 5 Model B Rev 1.0, vectorio from /home/pi/blinka-turbo/travel/vectorio/__init__.py
+| scene | framebuffer | redrawn | |
+|---|---|---|---|
+| rectangle, 2 px                    | 68e06cda03d0 |    440 px | ok |
+| rectangle, its own width           | aa59db0312ac |    800 px | ok |
+| rectangle, well past itself        | 11d51421f7af |    800 px | ok |
+| rectangle, back again              | 6105b113eab0 |   1600 px | ok |
+| rectangle, diagonal jump           | b9897cd67d43 |   2000 px | ok |
+| rectangle, off the right           | 5bdf83032451 |    800 px | ok |
+| rectangle, off the left            | bfa8c428f975 |    600 px | ok |
+| rectangle, off the bottom          | d97dd86caebf |    800 px | ok |
+| rectangle, three moves, one refresh | e435a975e42c |   1800 px | ok |
+| rectangle, two refreshes apart     | e435a975e42c |   2200 px | ok |
+| circle, well past itself           | c37a7a4d2d68 |    968 px | ok |
+| circle, diagonal jump              | 35f9035a2ba8 |   2178 px | ok |
+| polygon, well past itself          | d9e01eaafd38 |    576 px | ok |
+| polygon, off the top               | 436a76ae5a08 |    468 px | ok |
+| rectangle, resized                 | 39d8023ddb23 |    800 px | ok |
+| circle, resized                    | cf43efe14216 |   2116 px | ok |
+| rectangle, hidden                  | 7818f5542a04 |    400 px | ok |
+| rectangle, hidden then shown       | 6105b113eab0 |    800 px | ok |
+| two shapes, both jump              | 18e169b78589 |   1482 px | ok |
+| two shapes, crossing               | 1b8a585f16cc |   1394 px | ok |
+| rectangle under scale 2            | 17d8ccd454fe |   1200 px | ok |
+| circle under scale 2               | 22347e466ede |   1144 px | ok |
+| rectangle, no change at all        | 6105b113eab0 |      0 px | ok |
+| transparent shape, well past itself | ccff21fb7573 |    800 px | ok |
+| transparent over a solid, crossing | 079d6fb535aa |   1300 px | ok |
+| rectangle, crosses the screen      | d78c63be45b2 |    800 px | ok |
+| circle, crosses the screen         | b92e4a6d2389 |    968 px | ok |
+| rectangle, crosses diagonally      | 879c3cc2ba27 |   9700 px | ok |
+| rectangle, many small steps        | 9785d9e266cb |   5060 px | ok |
+| circle, many small steps           | a09fef79bb6c |   5148 px | ok |
+# vectorio travel, 96x64 rotation 0, Raspberry Pi 5 Model B Rev 1.0, vectorio from /home/pi/blinka-turbo/travel/vectorio/__init__.py
+| scene | framebuffer | redrawn | |
+|---|---|---|---|
+| rectangle, 2 px                    | 149e95653f4c |    440 px | ok |
+| rectangle, its own width           | 7c55106845fc |    800 px | ok |
+| rectangle, well past itself        | cc18e75dc901 |    800 px | ok |
+| rectangle, back again              | 1fa7137a2d1b |   1600 px | ok |
+| rectangle, diagonal jump           | 03fb94122dd6 |   2000 px | ok |
+| rectangle, off the right           | 54b778c652ef |    520 px | ok |
+| rectangle, off the left            | 885d9db2a947 |    600 px | ok |
+| rectangle, off the bottom          | 82da6f4c6007 |    480 px | ok |
+| rectangle, three moves, one refresh | aedc704f38f6 |   1720 px | ok |
+| rectangle, two refreshes apart     | aedc704f38f6 |   2120 px | ok |
+| circle, well past itself           | 558b53df08ce |    968 px | ok |
+| circle, diagonal jump              | 2df82503932c |   2178 px | ok |
+| polygon, well past itself          | 8a8c03b3cac3 |    576 px | ok |
+| polygon, off the top               | ede4e832a42e |    468 px | ok |
+| rectangle, resized                 | 91d41d9c9cc4 |    800 px | ok |
+| circle, resized                    | f0c53dfe8012 |   2116 px | ok |
+| rectangle, hidden                  | f3cc10313642 |    400 px | ok |
+| rectangle, hidden then shown       | 1fa7137a2d1b |    800 px | ok |
+| two shapes, both jump              | 0a57b18952c2 |   1482 px | ok |
+| two shapes, crossing               | 50ab96debb28 |   1394 px | ok |
+| rectangle under scale 2            | f286e18ad086 |   1200 px | ok |
+| circle under scale 2               | 45e39899548e |   1144 px | ok |
+| rectangle, no change at all        | 1fa7137a2d1b |      0 px | ok |
+| transparent shape, well past itself | a388315b10ee |    800 px | ok |
+| transparent over a solid, crossing | 2093fb1cccb0 |   1300 px | ok |
+| rectangle, crosses the screen      | 2821995635bf |    800 px | ok |
+| circle, crosses the screen         | e544379054d5 |    968 px | ok |
+| rectangle, crosses diagonally      | 0bb53ae80fa6 |   2020 px | ok |
+| rectangle, many small steps        | 2a6d44748a09 |   5060 px | ok |
+| circle, many small steps           | b246d0838e23 |   5148 px | ok |

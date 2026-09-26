@@ -67,8 +67,18 @@ def write_bmp(path, width, height, bpp, colors, pixel):
         row = bytearray(stride)
         for x in range(width):
             value = pixel(x, y)
-            if bpp == 8:
+            if bpp == 4:  # two pixels per byte, high nibble first
+                if x % 2 == 0:
+                    row[x // 2] = (value & 0x0F) << 4
+                else:
+                    row[x // 2] |= value & 0x0F
+            elif bpp == 8:
                 row[x] = value
+            elif bpp == 16:  # 5:6:5, little endian
+                struct.pack_into(
+                    "<H", row, x * 2,
+                    ((value >> 3) << 11) | ((value >> 2) << 5) | (value >> 3),
+                )
             else:
                 row[x * 3 : x * 3 + 3] = bytes(
                     (value & 0xFF, (255 - value) & 0xFF, (value // 2) & 0xFF)
@@ -148,6 +158,55 @@ def check_index_past_palette():
     print("| index past the palette | %s |" % got)
 
 
+def write_sheet(path, tiles_across, tile_w, tile_h, bpp, colors):
+    """A sheet of tiles laid out left to right, each tile filled with its own number."""
+    width, height = tiles_across * tile_w, tile_h
+    return write_bmp(
+        path, width, height, bpp, colors,
+        lambda x, y: ((x // tile_w) * 17 + y) & 0xFF,
+    )
+
+
+def check_sprite_sheets():
+    """Each grid row can hold a tile from a different part of the sheet, so the span
+    has to cover every visible row, not just the first one."""
+    layouts = (
+        # tiles across, tile w, tile h, grid w, grid h, the tile each cell shows
+        (3, 8, 4, 1, 2, (2, 3)),
+        (3, 8, 4, 1, 2, (0, 2)),
+        (4, 8, 4, 2, 2, (3, 0, 1, 2)),
+        (4, 4, 8, 2, 1, (3, 0)),
+        (6, 8, 2, 1, 3, (5, 0, 3)),
+    )
+    for bpp, colors in ((4, 16), (8, 256), (16, 0), (24, 0)):
+        for index, (across, tile_w, tile_h, grid_w, grid_h, cells) in enumerate(layouts):
+            path = "/tmp/edge-sheet-%d-%d.bmp" % (bpp, index)
+            write_sheet(path, across, tile_w, tile_h, bpp, colors)
+            displayio.release_displays()
+            bus = NullBus()
+            try:
+                display = busdisplay.BusDisplay(
+                    bus, b"", width=grid_w * tile_w, height=grid_h * tile_h,
+                    auto_refresh=False,
+                )
+                bitmap = displayio.OnDiskBitmap(path)
+                grid = displayio.TileGrid(
+                    bitmap, pixel_shader=bitmap.pixel_shader, width=grid_w,
+                    height=grid_h, tile_width=tile_w, tile_height=tile_h,
+                )
+                for cell, tile in enumerate(cells):
+                    grid[cell % grid_w, cell // grid_w] = tile
+                group = displayio.Group()
+                group.append(grid)
+                display.root_group = group
+                display.refresh()
+                got = bus.digest.hexdigest()[:12]
+            except Exception as e:  # pylint: disable=broad-except
+                got = "%s: %s" % (type(e).__name__, e)
+            print("| sheet %d bit, layout %d, tiles %s | %s |"
+                  % (bpp, index, ",".join(str(t) for t in cells), got))
+
+
 def main():
     displayio._stop_background()  # pylint: disable=protected-access
     print("# ondisk edge cases, %s, displayio from %s" % (host(), displayio.__file__))
@@ -156,6 +215,7 @@ def main():
     check_short_reads()
     check_wide_row()
     check_index_past_palette()
+    check_sprite_sheets()
     return 0
 
 

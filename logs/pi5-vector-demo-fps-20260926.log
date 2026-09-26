@@ -1,0 +1,16 @@
+# Real frame rates on a panel for the vectorio travel box fix
+# Pi 5, Adafruit PiTFT HX8357 480x320, fourwire at 24 MHz, 12 s per run
+# step 6 px: every shape overlaps the box it just left, so the fix cannot engage
+# step 220 px: further than any of the three shapes, which is the case it is for
+#
+#   cd ~/blinka-turbo && PYTHONPATH=<snap>:. ~/env/bin/python3 \
+#       vector_demo.py --display hx8357 --seconds 12 --step <step>
+
+[main246 step 6] # hx8357 480x320, rectangle circle polygon, vectorio from /home/pi/blinka-turbo/main246/vectorio
+[main246 step 6] 98 frames in 12.1 s, 8.08 frames per second
+[main246 step 220] # hx8357 480x320, rectangle circle polygon, vectorio from /home/pi/blinka-turbo/main246/vectorio
+[main246 step 220] 40 frames in 12.4 s, 3.23 frames per second
+[travel step 6] # hx8357 480x320, rectangle circle polygon, vectorio from /home/pi/blinka-turbo/travel/vectorio
+[travel step 6] 98 frames in 12.1 s, 8.12 frames per second
+[travel step 220] # hx8357 480x320, rectangle circle polygon, vectorio from /home/pi/blinka-turbo/travel/vectorio
+[travel step 220] 82 frames in 12.1 s, 6.77 frames per second
