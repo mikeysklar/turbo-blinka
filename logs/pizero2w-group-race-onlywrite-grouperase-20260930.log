@@ -1,0 +1,6 @@
+trial 1: screen differs from a full redraw after write write write write write write
+trial 2: screen differs from a full redraw after write write write write write write
+trial 27: screen differs from a full redraw after write write write write write write
+trial 29: screen differs from a full redraw after write write write write write write
+trial 35: screen differs from a full redraw after write write write write write write
+# group race, 40 trials, 5 wrong, new root each trial, actions write, displayio from /home/pi/blinka-turbo/grouperase/displayio/__init__.py

@@ -1,0 +1,71 @@
+# group remove, 96x64, displayio from /home/pi/blinka-turbo/grouperase/displayio/__init__.py
+
+rotation 0
+| scene | px sent after first draw | screen |
+|---|---|---|
+| pop a TileGrid                               |    600 | ok |
+| remove a TileGrid                            |    600 | ok |
+| del group[0]                                 |    600 | ok |
+| group[0] = a smaller TileGrid elsewhere      |    664 | ok |
+| pop the top of two                           |    976 | ok |
+| pop both before one refresh                  |   3871 | ok |
+| pop over a background                        |   6464 | ok |
+| pop a label-like Group                       |    264 | ok |
+| pop a scaled Group                           |    320 | ok |
+| pop inside a nested Group                    |    512 | ok |
+| remove inside a nested Group                 |    512 | ok |
+| pop a vectorio Rectangle                     |    432 | ok |
+| move a Rectangle, pop before refresh         |    432 | ok |
+| move a TileGrid, pop before refresh          |   2400 | ok |
+| hide, refresh, then pop                      |   1200 | ok |
+| append and pop before any refresh            |    700 | ok |
+| remove, refresh, add back elsewhere          |   1800 | ok |
+| pop, then two more refreshes                 |    600 | ok |
+| no change                                    |   6464 | ok |
+| move a TileGrid                              |   6784 | ok |
+| write a pixel                                |   6464 | ok |
+| hide, then show                              |   6784 | ok |
+| change a palette colour                      |   6464 | ok |
+| flip_x and transpose_xy                      |   6544 | ok |
+| move a nested Group                          |   1024 | ok |
+| scale a nested Group                         |   1040 | ok |
+| move a Rectangle                             |   1617 | ok |
+
+rotation 90
+| scene | px sent after first draw | screen |
+|---|---|---|
+| pop a TileGrid                               |    600 | ok |
+| remove a TileGrid                            |    600 | ok |
+| del group[0]                                 |    600 | ok |
+| group[0] = a smaller TileGrid elsewhere      |    664 | ok |
+| pop the top of two                           |    976 | ok |
+| pop both before one refresh                  |   3871 | ok |
+| pop over a background                        |   6464 | ok |
+| pop a label-like Group                       |    264 | ok |
+| pop a scaled Group                           |    320 | ok |
+| pop inside a nested Group                    |    512 | ok |
+| remove inside a nested Group                 |    512 | ok |
+| pop a vectorio Rectangle                     |    432 | ok |
+| move a Rectangle, pop before refresh         |    432 | ok |
+| move a TileGrid, pop before refresh          |   2400 | ok |
+| hide, refresh, then pop                      |   1200 | ok |
+| append and pop before any refresh            |    700 | ok |
+| remove, refresh, add back elsewhere          |   1800 | ok |
+| pop, then two more refreshes                 |    600 | ok |
+| no change                                    |   6464 | ok |
+| move a TileGrid                              |   6784 | ok |
+| write a pixel                                |   6464 | ok |
+| hide, then show                              |   6784 | ok |
+| change a palette colour                      |   6464 | ok |
+| flip_x and transpose_xy                      |   6544 | ok |
+| move a nested Group                          |   1024 | ok |
+| scale a nested Group                         |   1040 | ok |
+| move a Rectangle                             |   1617 | ok |
+
+| add back after | result |
+|---|---|
+| pop() | ok |
+| remove() | ok |
+| del group[0] | ok |
+
+480x320: first, full refresh 171.8 ms; next refresh after one pixel changed 171.8 ms

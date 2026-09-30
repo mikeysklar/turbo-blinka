@@ -1,0 +1,71 @@
+# group remove, 96x64, displayio from /home/pi/blinka-turbo/main247/displayio/__init__.py
+
+rotation 0
+| scene | px sent after first draw | screen |
+|---|---|---|
+| pop a TileGrid                               |      0 | STALE, 600 px |
+| remove a TileGrid                            |      0 | STALE, 600 px |
+| del group[0]                                 |      0 | STALE, 600 px |
+| group[0] = a smaller TileGrid elsewhere      |     64 | STALE, 600 px |
+| pop the top of two                           |    400 | STALE, 576 px |
+| pop both before one refresh                  |      0 | STALE, 976 px |
+| pop over a background                        |   6144 | ok |
+| pop a label-like Group                       |      0 | STALE, 240 px |
+| pop a scaled Group                           |      0 | STALE, 320 px |
+| pop inside a nested Group                    |    256 | STALE, 256 px |
+| remove inside a nested Group                 |    256 | STALE, 256 px |
+| pop a vectorio Rectangle                     |      0 | STALE, 432 px |
+| move a Rectangle, pop before refresh         |      0 | STALE, 432 px |
+| move a TileGrid, pop before refresh          |      0 | STALE, 600 px |
+| hide, refresh, then pop                      |      0 | STALE, 600 px |
+| append and pop before any refresh            |    600 | ok |
+| remove, refresh, add back elsewhere          |        | ValueError: Layer already in a group. |
+| pop, then two more refreshes                 |      0 | STALE, 600 px |
+| no change                                    |   6464 | ok |
+| move a TileGrid                              |   6464 | ok |
+| write a pixel                                |   6464 | ok |
+| hide, then show                              |   6464 | ok |
+| change a palette colour                      |   6464 | ok |
+| flip_x and transpose_xy                      |   6464 | ok |
+| move a nested Group                          |    512 | STALE, 512 px |
+| scale a nested Group                         |    720 | ok |
+| move a Rectangle                             |   1617 | ok |
+
+rotation 90
+| scene | px sent after first draw | screen |
+|---|---|---|
+| pop a TileGrid                               |      0 | STALE, 600 px |
+| remove a TileGrid                            |      0 | STALE, 600 px |
+| del group[0]                                 |      0 | STALE, 600 px |
+| group[0] = a smaller TileGrid elsewhere      |     64 | STALE, 600 px |
+| pop the top of two                           |    400 | STALE, 96 px |
+| pop both before one refresh                  |      0 | STALE, 496 px |
+| pop over a background                        |   6144 | ok |
+| pop a label-like Group                       |      0 | STALE, 240 px |
+| pop a scaled Group                           |      0 | STALE, 320 px |
+| pop inside a nested Group                    |    256 | STALE, 256 px |
+| remove inside a nested Group                 |    256 | STALE, 256 px |
+| pop a vectorio Rectangle                     |      0 | STALE, 1 px |
+| move a Rectangle, pop before refresh         |      0 | STALE, 1 px |
+| move a TileGrid, pop before refresh          |      0 | STALE, 600 px |
+| hide, refresh, then pop                      |      0 | STALE, 600 px |
+| append and pop before any refresh            |    600 | ok |
+| remove, refresh, add back elsewhere          |        | ValueError: Layer already in a group. |
+| pop, then two more refreshes                 |      0 | STALE, 600 px |
+| no change                                    |   6464 | ok |
+| move a TileGrid                              |   6464 | ok |
+| write a pixel                                |   6464 | ok |
+| hide, then show                              |   6464 | ok |
+| change a palette colour                      |   6464 | ok |
+| flip_x and transpose_xy                      |   6464 | ok |
+| move a nested Group                          |    512 | STALE, 512 px |
+| scale a nested Group                         |    720 | ok |
+| move a Rectangle                             |   1617 | ok |
+
+| add back after | result |
+|---|---|
+| pop() | ok |
+| remove() | ValueError: Layer already in a group. |
+| del group[0] | ValueError: Layer already in a group. |
+
+480x320: first, full refresh 172.9 ms; next refresh after one pixel changed 172.5 ms

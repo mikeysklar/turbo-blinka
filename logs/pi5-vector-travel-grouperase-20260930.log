@@ -1,0 +1,33 @@
+# vectorio travel, 96x64 rotation 0, Raspberry Pi 5 Model B Rev 1.0, vectorio from /home/pi/blinka-turbo/grouperase/vectorio/__init__.py
+| scene | framebuffer | redrawn | |
+|---|---|---|---|
+| rectangle, 2 px                    | 149e95653f4c |    440 px | ok |
+| rectangle, its own width           | 7c55106845fc |    800 px | ok |
+| rectangle, well past itself        | cc18e75dc901 |    800 px | ok |
+| rectangle, back again              | 1fa7137a2d1b |   1600 px | ok |
+| rectangle, diagonal jump           | 03fb94122dd6 |   2000 px | ok |
+| rectangle, off the right           | 54b778c652ef |    520 px | ok |
+| rectangle, off the left            | 885d9db2a947 |    600 px | ok |
+| rectangle, off the bottom          | 82da6f4c6007 |    480 px | ok |
+| rectangle, three moves, one refresh | aedc704f38f6 |   1720 px | ok |
+| rectangle, two refreshes apart     | aedc704f38f6 |   2120 px | ok |
+| circle, well past itself           | 558b53df08ce |    968 px | ok |
+| circle, diagonal jump              | 2df82503932c |   2178 px | ok |
+| polygon, well past itself          | 8a8c03b3cac3 |    576 px | ok |
+| polygon, off the top               | ede4e832a42e |    468 px | ok |
+| rectangle, resized                 | 91d41d9c9cc4 |    800 px | ok |
+| circle, resized                    | f0c53dfe8012 |   2116 px | ok |
+| rectangle, hidden                  | f3cc10313642 |    400 px | ok |
+| rectangle, hidden then shown       | 1fa7137a2d1b |    800 px | ok |
+| two shapes, both jump              | 0a57b18952c2 |   1482 px | ok |
+| two shapes, crossing               | 50ab96debb28 |   1394 px | ok |
+| rectangle under scale 2            | f286e18ad086 |   1200 px | ok |
+| circle under scale 2               | 45e39899548e |   1144 px | ok |
+| rectangle, no change at all        | 1fa7137a2d1b |      0 px | ok |
+| transparent shape, well past itself | a388315b10ee |    800 px | ok |
+| transparent over a solid, crossing | 2093fb1cccb0 |   1300 px | ok |
+| rectangle, crosses the screen      | 2821995635bf |    800 px | ok |
+| circle, crosses the screen         | e544379054d5 |    968 px | ok |
+| rectangle, crosses diagonally      | 0bb53ae80fa6 |   2020 px | ok |
+| rectangle, many small steps        | 2a6d44748a09 |   5060 px | ok |
+| circle, many small steps           | b246d0838e23 |   5148 px | ok |

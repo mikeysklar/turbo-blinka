@@ -1,0 +1,46 @@
+Exception in thread Thread-1 (_background):
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/threading.py", line 1043, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "/usr/lib/python3.13/threading.py", line 994, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pi/blinka-turbo/grouperase/displayio/__init__.py", line 45, in _background
+    display._background()  # pylint: disable=protected-access
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/pi/blinka-turbo/grouperase/busdisplay/__init__.py", line 334, in _background
+    self.refresh()
+    ~~~~~~~~~~~~^^
+  File "/home/pi/blinka-turbo/grouperase/busdisplay/__init__.py", line 299, in refresh
+    self._refresh_display()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/pi/blinka-turbo/grouperase/busdisplay/__init__.py", line 308, in _refresh_display
+    self._refresh_area(area)
+    ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/pi/blinka-turbo/grouperase/busdisplay/__init__.py", line 407, in _refresh_area
+    self._core.fill_area(subrectangle, mask, buffer)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pi/blinka-turbo/grouperase/displayio/_displaycore.py", line 240, in fill_area
+    return self.current_group._fill_area(  # pylint: disable=protected-access
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.colorspace, area, mask, buffer
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pi/blinka-turbo/grouperase/displayio/_group.py", line 214, in _fill_area
+    if layer._fill_area(  # pylint: disable=protected-access
+       ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        colorspace, area, mask, buffer
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/home/pi/blinka-turbo/grouperase/displayio/_tilegrid.py", line 917, in _fill_area
+    covered = _fill_pixels(
+        buffer.cast("B").cast("H"), mask, colors, opaque, geometry, self, bitmap
+    )
+  File "/home/pi/blinka-turbo/grouperase/displayio/_tilegrid.py", line 79, in _fill_pixels
+    scale = tilegrid._absolute_transform.scale
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'scale'
+# group race, 40 trials, 0 wrong, new root each trial, actions pop, displayio from /home/pi/blinka-turbo/grouperase/displayio/__init__.py
