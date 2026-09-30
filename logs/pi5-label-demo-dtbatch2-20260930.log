@@ -1,0 +1,4 @@
+# hx8357 480x320, 10 lines a pass, display_text from /home/pi/blinka-turbo/dt-batch2/adafruit_display_text
+pass 1: 0.75 s
+pass 2: 0.71 s
+2 passes, 20 labels: 1.45 s

@@ -1,0 +1,14 @@
+# label newline, display_text from /home/pi/blinka-turbo/dt-batch2/adafruit_display_text, bitmap_font from /home/pi/blinka-turbo/bf-243/adafruit_bitmap_font
+| font | class | update, one line ms | update, two lines ms |
+|---|---|---|---|
+| LeagueSpartan-Bold-16.bdf | label | 1.0 | 0.9 |
+| LeagueSpartan-Bold-16.bdf | bitmap_label | 43.2 | 43.3 |
+| Junction-regular-24.pcf | label | 1.0 | 1.0 |
+| Junction-regular-24.pcf | bitmap_label | 88.7 | 87.1 |
+# label newline, display_text from /home/pi/blinka-turbo/dt-batch2/adafruit_display_text, bitmap_font from /home/pi/blinka-turbo/bf-242/adafruit_bitmap_font
+| font | class | update, one line ms | update, two lines ms |
+|---|---|---|---|
+| LeagueSpartan-Bold-16.bdf | label | 1.0 | 0.9 |
+| LeagueSpartan-Bold-16.bdf | bitmap_label | 43.3 | 43.3 |
+| Junction-regular-24.pcf | label | 1.0 | 1.0 |
+| Junction-regular-24.pcf | bitmap_label | 89.1 | 87.3 |

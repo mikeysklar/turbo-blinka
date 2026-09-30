@@ -1,0 +1,8 @@
+## dt-main
+terminalio.FONT has load_glyphs: False
+adafruit_display_text.label ok, bounding box (0, -5, 42, 12)
+adafruit_display_text.bitmap_label ok, bounding box (0, -5, 42, 12)
+## dt-batch
+terminalio.FONT has load_glyphs: False
+adafruit_display_text.label ok, bounding box (0, -5, 42, 12)
+adafruit_display_text.bitmap_label ok, bounding box (0, -5, 42, 12)

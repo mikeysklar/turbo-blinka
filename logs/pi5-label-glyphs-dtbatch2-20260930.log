@@ -1,0 +1,11 @@
+# label glyphs, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 10 trials, 44 chars, 22 distinct, gc.collect on, display_text from /home/pi/blinka-turbo/dt-batch2/adafruit_display_text
+| font | class | first, stock ms | first, batched ms | | warm, stock ms | warm, batched ms | hash |
+|---|---|---|---|---|---|---|---|
+| LeagueSpartan-Bold-16.bdf | label | 97.3 | 97.1 | 1.0x | 0.3 | 0.3 | 05f497031ee4 |
+| LeagueSpartan-Bold-16.bdf | bitmap_label | 104.9 | 104.6 | 1.0x | 9.8 | 9.7 | 3898a5331c4a |
+| Junction-regular-24.bdf | label | 109.3 | 108.9 | 1.0x | 0.3 | 0.3 | 2deab996041c |
+| Junction-regular-24.bdf | bitmap_label | 129.0 | 128.3 | 1.0x | 21.8 | 21.7 | 3af0fdaa9798 |
+| Junction-regular-24.pcf | label | 22.1 | 32.2 | 0.7x | 0.3 | 0.3 | 2deab996041c |
+| Junction-regular-24.pcf | bitmap_label | 43.4 | 53.5 | 0.8x | 21.8 | 21.8 | 3af0fdaa9798 |
+| ter-u12n.bdf | label | 95.2 | 95.1 | 1.0x | 0.4 | 0.3 | 8d9a89e2b483 |
+| ter-u12n.bdf | bitmap_label | 97.1 | 96.9 | 1.0x | 4.2 | 4.2 | 9d13e0a3f3f8 |

@@ -1,0 +1,4 @@
+# ili9341 320x240, 8 lines a pass, display_text from /home/pi/blinka-turbo/dt-main/adafruit_display_text
+pass 1: 10.06 s
+pass 2: 9.93 s
+2 passes, 16 labels: 20.00 s
