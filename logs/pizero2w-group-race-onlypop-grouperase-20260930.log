@@ -28,19 +28,15 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
-  File "/home/pi/blinka-turbo/grouperase/displayio/_group.py", line 214, in _fill_area
+  File "/home/pi/blinka-turbo/grouperase/displayio/_group.py", line 228, in _fill_area
     if layer._fill_area(  # pylint: disable=protected-access
        ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         colorspace, area, mask, buffer
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ):
     ^
-  File "/home/pi/blinka-turbo/grouperase/displayio/_tilegrid.py", line 917, in _fill_area
-    covered = _fill_pixels(
-        buffer.cast("B").cast("H"), mask, colors, opaque, geometry, self, bitmap
-    )
-  File "/home/pi/blinka-turbo/grouperase/displayio/_tilegrid.py", line 79, in _fill_pixels
-    scale = tilegrid._absolute_transform.scale
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'scale'
+  File "/home/pi/blinka-turbo/grouperase/displayio/_tilegrid.py", line 860, in _fill_area
+    if self._transpose_xy != self._absolute_transform.transpose_xy:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'transpose_xy'
 # group race, 40 trials, 0 wrong, new root each trial, actions pop, displayio from /home/pi/blinka-turbo/grouperase/displayio/__init__.py

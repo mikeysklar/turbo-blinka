@@ -20,6 +20,9 @@ rotation 0
 | hide, refresh, then pop                      |      0 | STALE, 600 px |
 | append and pop before any refresh            |    600 | ok |
 | remove, refresh, add back elsewhere          |        | ValueError: Layer already in a group. |
+| del group[:]                                 |      0 | STALE, 976 px |
+| del group[1:]                                |    400 | STALE, 576 px |
+| pop a Group, add it back elsewhere           |    512 | STALE, 488 px |
 | pop, then two more refreshes                 |      0 | STALE, 600 px |
 | no change                                    |   6464 | ok |
 | move a TileGrid                              |   6464 | ok |
@@ -51,6 +54,9 @@ rotation 90
 | hide, refresh, then pop                      |      0 | STALE, 600 px |
 | append and pop before any refresh            |    600 | ok |
 | remove, refresh, add back elsewhere          |        | ValueError: Layer already in a group. |
+| del group[:]                                 |      0 | STALE, 496 px |
+| del group[1:]                                |    400 | STALE, 96 px |
+| pop a Group, add it back elsewhere           |    512 | STALE, 488 px |
 | pop, then two more refreshes                 |      0 | STALE, 600 px |
 | no change                                    |   6464 | ok |
 | move a TileGrid                              |   6464 | ok |
@@ -68,4 +74,10 @@ rotation 90
 | remove() | ValueError: Layer already in a group. |
 | del group[0] | ValueError: Layer already in a group. |
 
-480x320: first, full refresh 172.9 ms; next refresh after one pixel changed 172.5 ms
+| check | result |
+|---|---|
+| group[0] = a layer already in another group | accepted |
+| group[0] = a string | AttributeError: 'str' object has no attribute '_update_transform' |
+| areas queued after 1000 append and pop on a group not shown | 0 |
+
+480x320: first, full refresh 171.4 ms; next refresh after one pixel changed 171.5 ms

@@ -1,2 +1,4 @@
+trial 9: screen differs from a full redraw after add move pop move add pop
 trial 45: screen differs from a full redraw after move move add write move move
-# group race, 60 trials, 1 wrong, same root, actions move,pop,add,write, displayio from /home/pi/blinka-turbo/grouperase/displayio/__init__.py
+trial 54: screen differs from a full redraw after move move pop add write pop
+# group race, 60 trials, 3 wrong, same root, actions move,pop,add,write, displayio from /home/pi/blinka-turbo/grouperase/displayio/__init__.py

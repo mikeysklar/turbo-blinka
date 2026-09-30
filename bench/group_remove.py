@@ -173,6 +173,10 @@ SCENES = [
      [lambda r, m: (r.append(square(60, 5, 10, 10, 2)), r.pop())]),
     ("remove, refresh, add back elsewhere", one_square,
      [lambda r, m: r.remove(m[0]), lambda r, m: (move(m[0], 55, 30), r.append(m[0]))]),
+    ("del group[:]", two_squares, [lambda r, m: r.__delitem__(slice(None))]),
+    ("del group[1:]", two_squares, [lambda r, m: r.__delitem__(slice(1, None))]),
+    ("pop a Group, add it back elsewhere", inner_group,
+     [lambda r, m: r.pop(), lambda r, m: (move(m[0], 30, 20), r.append(m[0]))]),
     ("pop, then two more refreshes", one_square,
      [lambda r, m: r.pop(), lambda r, m: None, lambda r, m: None]),
     # Nothing removed: ordinary changes after the first, full refresh
@@ -237,6 +241,40 @@ def second_refresh():
           % (full * 1e3, second * 1e3))
 
 
+def api_checks():
+    # pylint: disable=protected-access
+    print()
+    print("| check | result |")
+    print("|---|---|")
+    group, other = displayio.Group(), displayio.Group()
+    layer = square(0, 0, 4, 4, 1)
+    other.append(layer)
+    group.append(square(0, 0, 4, 4, 2))
+    try:
+        group[0] = layer
+        result = "accepted"
+    except ValueError as e:
+        result = "ValueError: %s" % e
+    print("| group[0] = a layer already in another group | %s |" % result)
+    try:
+        group[0] = "not a layer"
+        result = "accepted"
+    except Exception as e:  # pylint: disable=broad-except
+        result = "%s: %s" % (type(e).__name__, e)
+    print("| group[0] = a string | %s |" % result)
+
+    displayio.release_displays()
+    display = busdisplay.BusDisplay(NullBus(), b"", width=W, height=H, auto_refresh=False)
+    shown, hidden = displayio.Group(), displayio.Group()
+    display.root_group = shown
+    display.refresh()
+    for _ in range(1000):
+        hidden.append(square(0, 0, 4, 4, 1))
+        hidden.pop()
+    queued = len(getattr(hidden, "_removed_areas", ()))
+    print("| areas queued after 1000 append and pop on a group not shown | %d |" % queued)
+
+
 def main():
     displayio._stop_background()  # pylint: disable=protected-access
     print("# group remove, %dx%d, displayio from %s" % (W, H, displayio.__file__))
@@ -248,6 +286,7 @@ def main():
         for name, scene, steps in SCENES:
             run(name, scene, steps, rotation)
     readd_checks()
+    api_checks()
     second_refresh()
     return 0
 

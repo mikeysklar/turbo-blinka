@@ -20,6 +20,9 @@ rotation 0
 | hide, refresh, then pop                      |   1200 | ok |
 | append and pop before any refresh            |    700 | ok |
 | remove, refresh, add back elsewhere          |   1800 | ok |
+| del group[:]                                 |   3871 | ok |
+| del group[1:]                                |    976 | ok |
+| pop a Group, add it back elsewhere           |   3040 | ok |
 | pop, then two more refreshes                 |    600 | ok |
 | no change                                    |   6464 | ok |
 | move a TileGrid                              |   6784 | ok |
@@ -51,6 +54,9 @@ rotation 90
 | hide, refresh, then pop                      |   1200 | ok |
 | append and pop before any refresh            |    700 | ok |
 | remove, refresh, add back elsewhere          |   1800 | ok |
+| del group[:]                                 |   3871 | ok |
+| del group[1:]                                |    976 | ok |
+| pop a Group, add it back elsewhere           |   3040 | ok |
 | pop, then two more refreshes                 |    600 | ok |
 | no change                                    |   6464 | ok |
 | move a TileGrid                              |   6784 | ok |
@@ -68,4 +74,10 @@ rotation 90
 | remove() | ok |
 | del group[0] | ok |
 
-480x320: first, full refresh 171.8 ms; next refresh after one pixel changed 171.8 ms
+| check | result |
+|---|---|
+| group[0] = a layer already in another group | ValueError: Layer already in a group. |
+| group[0] = a string | ValueError: Invalid Group Member |
+| areas queued after 1000 append and pop on a group not shown | 8 |
+
+480x320: first, full refresh 174.1 ms; next refresh after one pixel changed 173.9 ms
