@@ -1,4 +1,4 @@
-Video, main on top: TODO link
+[Video](https://drive.google.com/file/d/1wUV0P8W8tPjRQfOXBmGIplDkNkLb-aVf/view?usp=sharing)
 
 ## What
 Removing something from a group now erases it from the screen on the next refresh.
@@ -48,3 +48,4 @@ Erasing takes a redraw. Removing 48 squares one at a time: 0.12 s on a Pi 5, 0.1
 Written with Claude Code. I ran every test on both Pis and filmed the panels myself.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
