@@ -1,0 +1,5 @@
+# ili9341 320x240, 40 px sprites, bitmaptools from /home/pi/blinka-turbo/main247/bitmaptools
+pass 1: 3.86 s
+pass 2: 2.99 s
+pass 3: 2.99 s
+3 passes, 144 sprites: 9.83 s

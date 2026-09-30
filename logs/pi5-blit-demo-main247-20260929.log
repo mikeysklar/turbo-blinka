@@ -1,0 +1,5 @@
+# hx8357 480x320, 53 px sprites, bitmaptools from /home/pi/blinka-turbo/main247/bitmaptools
+pass 1: 0.89 s
+pass 2: 0.61 s
+pass 3: 0.64 s
+3 passes, 144 sprites: 2.14 s

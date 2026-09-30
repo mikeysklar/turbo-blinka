@@ -1,0 +1,123 @@
+# blit dirty scenes, 16x12 source into 20x14, bitmaptools from /home/pi/blinka-turbo/main247/bitmaptools/__init__.py
+| bits | scene | dest words | dirty | exception |
+|---|---|---|---|---|
+|  1 | whole source at 0,0                | 151beeb7197f | (0,0)-(16,12)   |  |
+|  1 | region 2,3-10,9 at 3,2             | 151beeb7197f | (3,2)-(11,8)    |  |
+|  1 | placed at -4,-3                    | fc5bac2a9d8b | (0,0)-(12,9)    |  |
+|  1 | placed at 15,10, clipped           | d7d37c0db594 | (15,10)-(20,14) |  |
+|  1 | fully off the right                | 151beeb7197f | none            |  |
+|  1 | fully off the bottom               | 151beeb7197f | none            |  |
+|  1 | fully off above left               | 151beeb7197f | none            |  |
+|  1 | x1=-2                              | 151beeb7197f | none            | ValueError: Index (-2, 0) is out of range |
+|  1 | y1=-2                              | 151beeb7197f | none            | ValueError: Index (0, -2) is out of range |
+|  1 | x1=-2, placed at -5 so unread      | 923126556ada | (0,0)-(13,12)   |  |
+|  1 | x1 past the source                 | 151beeb7197f | none            |  |
+|  1 | reversed region 10,9-2,3           | 70a6bd4dee58 | (1,1)-(9,7)     |  |
+|  1 | y2 past the source                 | 151beeb7197f | (0,0)-(16,8)    |  |
+|  1 | one pixel                          | 271394317ec1 | (7,5)-(8,6)     |  |
+|  1 | skip_source_index                  | 9ced0442d4c9 | (2,1)-(18,13)   |  |
+|  1 | skip_dest_index                    | aad4c8bb23e9 | (2,1)-(18,13)   |  |
+|  1 | both skips                         | 151beeb7197f | none            |  |
+|  1 | skip_source_index, clipped         | e024c4fd02c2 | (0,8)-(13,14)   |  |
+|  1 | two blits, dirty unions            | 909eb92598a5 | (0,0)-(18,13)   |  |
+|  1 | read-only destination              | 151beeb7197f | none            | RuntimeError: Read-only object |
+|  1 | subclass destination               | 9804e3e2b766 | (3,2)-(19,14)   |  |
+|  1 | subclass source                    | 9804e3e2b766 | (3,2)-(19,14)   |  |
+|  1 | self blit, overlapping             | 9c4a423fc0d2 | (2,1)-(14,11)   |  |
+|  1 | 16 bit source into this depth      | 151beeb7197f | (1,1)-(17,13)   |  |
+|  2 | whole source at 0,0                | 7334a7e07e99 | (0,0)-(16,12)   |  |
+|  2 | region 2,3-10,9 at 3,2             | ba9198cf1672 | (3,2)-(11,8)    |  |
+|  2 | placed at -4,-3                    | 74006b2b3542 | (0,0)-(12,9)    |  |
+|  2 | placed at 15,10, clipped           | cfbcd81b1fad | (15,10)-(20,14) |  |
+|  2 | fully off the right                | ba9198cf1672 | none            |  |
+|  2 | fully off the bottom               | ba9198cf1672 | none            |  |
+|  2 | fully off above left               | ba9198cf1672 | none            |  |
+|  2 | x1=-2                              | ba9198cf1672 | none            | ValueError: Index (-2, 0) is out of range |
+|  2 | y1=-2                              | ba9198cf1672 | none            | ValueError: Index (0, -2) is out of range |
+|  2 | x1=-2, placed at -5 so unread      | 076ce3aad56e | (0,0)-(13,12)   |  |
+|  2 | x1 past the source                 | ba9198cf1672 | none            |  |
+|  2 | reversed region 10,9-2,3           | cad3d592b294 | (1,1)-(9,7)     |  |
+|  2 | y2 past the source                 | 82152e57130d | (0,0)-(16,8)    |  |
+|  2 | one pixel                          | 107529580ede | (7,5)-(8,6)     |  |
+|  2 | skip_source_index                  | 2d36f0a9b46c | (2,1)-(18,13)   |  |
+|  2 | skip_dest_index                    | 68984b701538 | (2,1)-(18,13)   |  |
+|  2 | both skips                         | eb5832e434cd | (2,1)-(18,13)   |  |
+|  2 | skip_source_index, clipped         | 73ffc4ace65a | (0,8)-(13,14)   |  |
+|  2 | two blits, dirty unions            | c11db7b07426 | (0,0)-(18,13)   |  |
+|  2 | read-only destination              | ba9198cf1672 | none            | RuntimeError: Read-only object |
+|  2 | subclass destination               | b62f0eb644bc | (3,2)-(19,14)   |  |
+|  2 | subclass source                    | b62f0eb644bc | (3,2)-(19,14)   |  |
+|  2 | self blit, overlapping             | 7fd73eb5ed86 | (2,1)-(14,11)   |  |
+|  2 | 16 bit source into this depth      | f8fb1afe9436 | (1,1)-(17,13)   |  |
+|  4 | whole source at 0,0                | ed5a3cf75fc6 | (0,0)-(16,12)   |  |
+|  4 | region 2,3-10,9 at 3,2             | a75af1e0602f | (3,2)-(11,8)    |  |
+|  4 | placed at -4,-3                    | 1651752b0c99 | (0,0)-(12,9)    |  |
+|  4 | placed at 15,10, clipped           | b7996f53a75d | (15,10)-(20,14) |  |
+|  4 | fully off the right                | a0d8786f48cb | none            |  |
+|  4 | fully off the bottom               | a0d8786f48cb | none            |  |
+|  4 | fully off above left               | a0d8786f48cb | none            |  |
+|  4 | x1=-2                              | a0d8786f48cb | none            | ValueError: Index (-2, 0) is out of range |
+|  4 | y1=-2                              | a0d8786f48cb | none            | ValueError: Index (0, -2) is out of range |
+|  4 | x1=-2, placed at -5 so unread      | 12e9a6fa6e56 | (0,0)-(13,12)   |  |
+|  4 | x1 past the source                 | a0d8786f48cb | none            |  |
+|  4 | reversed region 10,9-2,3           | 13e6f361d347 | (1,1)-(9,7)     |  |
+|  4 | y2 past the source                 | cf906ccc1b1b | (0,0)-(16,8)    |  |
+|  4 | one pixel                          | 9e09f7e541ad | (7,5)-(8,6)     |  |
+|  4 | skip_source_index                  | 08771aee78ac | (2,1)-(18,13)   |  |
+|  4 | skip_dest_index                    | 5e79371e9c78 | (2,1)-(18,13)   |  |
+|  4 | both skips                         | a51b75a43c40 | (2,1)-(18,13)   |  |
+|  4 | skip_source_index, clipped         | 20db6fe25ee1 | (0,8)-(13,14)   |  |
+|  4 | two blits, dirty unions            | d278b4806049 | (0,0)-(18,13)   |  |
+|  4 | read-only destination              | a0d8786f48cb | none            | RuntimeError: Read-only object |
+|  4 | subclass destination               | a158387eb367 | (3,2)-(19,14)   |  |
+|  4 | subclass source                    | a158387eb367 | (3,2)-(19,14)   |  |
+|  4 | self blit, overlapping             | 1447f9279ab8 | (2,1)-(14,11)   |  |
+|  4 | 16 bit source into this depth      | 095621d7364c | (1,1)-(17,13)   |  |
+|  8 | whole source at 0,0                | 924b6aa3b1b7 | (0,0)-(16,12)   |  |
+|  8 | region 2,3-10,9 at 3,2             | b92ee72e1d1e | (3,2)-(11,8)    |  |
+|  8 | placed at -4,-3                    | ce55ccd4aed8 | (0,0)-(12,9)    |  |
+|  8 | placed at 15,10, clipped           | 8a211fbc443a | (15,10)-(20,14) |  |
+|  8 | fully off the right                | f4920d482191 | none            |  |
+|  8 | fully off the bottom               | f4920d482191 | none            |  |
+|  8 | fully off above left               | f4920d482191 | none            |  |
+|  8 | x1=-2                              | f4920d482191 | none            | ValueError: Index (-2, 0) is out of range |
+|  8 | y1=-2                              | f4920d482191 | none            | ValueError: Index (0, -2) is out of range |
+|  8 | x1=-2, placed at -5 so unread      | bb8f6133a136 | (0,0)-(13,12)   |  |
+|  8 | x1 past the source                 | f4920d482191 | none            |  |
+|  8 | reversed region 10,9-2,3           | 5149ac8ea9e9 | (1,1)-(9,7)     |  |
+|  8 | y2 past the source                 | 16b21b9dfde2 | (0,0)-(16,8)    |  |
+|  8 | one pixel                          | 654dd596f822 | (7,5)-(8,6)     |  |
+|  8 | skip_source_index                  | 57b4a9ef7bb4 | (2,1)-(18,13)   |  |
+|  8 | skip_dest_index                    | e35f39daa225 | (2,1)-(18,13)   |  |
+|  8 | both skips                         | 72ca71142dbe | (2,1)-(18,13)   |  |
+|  8 | skip_source_index, clipped         | e759460e3a19 | (0,8)-(13,14)   |  |
+|  8 | two blits, dirty unions            | ffe3e9b0b871 | (0,0)-(18,13)   |  |
+|  8 | read-only destination              | f4920d482191 | none            | RuntimeError: Read-only object |
+|  8 | subclass destination               | fb5d3436fad5 | (3,2)-(19,14)   |  |
+|  8 | subclass source                    | fb5d3436fad5 | (3,2)-(19,14)   |  |
+|  8 | self blit, overlapping             | e9af09de743f | (2,1)-(14,11)   |  |
+|  8 | 16 bit source into this depth      | 2b4eac67386d | (1,1)-(3,2)     | error: 'B' format requires 0 <= number <= 255 |
+| 16 | whole source at 0,0                | 924621334927 | (0,0)-(16,12)   |  |
+| 16 | region 2,3-10,9 at 3,2             | e6847b6821e2 | (3,2)-(11,8)    |  |
+| 16 | placed at -4,-3                    | 346cb3a20a83 | (0,0)-(12,9)    |  |
+| 16 | placed at 15,10, clipped           | 92c46e0b03dd | (15,10)-(20,14) |  |
+| 16 | fully off the right                | 0f5745ed29b7 | none            |  |
+| 16 | fully off the bottom               | 0f5745ed29b7 | none            |  |
+| 16 | fully off above left               | 0f5745ed29b7 | none            |  |
+| 16 | x1=-2                              | 0f5745ed29b7 | none            | ValueError: Index (-2, 0) is out of range |
+| 16 | y1=-2                              | 0f5745ed29b7 | none            | ValueError: Index (0, -2) is out of range |
+| 16 | x1=-2, placed at -5 so unread      | 2f768173f03d | (0,0)-(13,12)   |  |
+| 16 | x1 past the source                 | 0f5745ed29b7 | none            |  |
+| 16 | reversed region 10,9-2,3           | ce5a862ed725 | (1,1)-(9,7)     |  |
+| 16 | y2 past the source                 | 9d1460d2c4a1 | (0,0)-(16,8)    |  |
+| 16 | one pixel                          | 389e153ed332 | (7,5)-(8,6)     |  |
+| 16 | skip_source_index                  | 7ec3ab19f46c | (2,1)-(18,13)   |  |
+| 16 | skip_dest_index                    | 9efb048d73b8 | (2,1)-(18,13)   |  |
+| 16 | both skips                         | 8a18ad245cc7 | (2,1)-(18,13)   |  |
+| 16 | skip_source_index, clipped         | 8e95b70c92cd | (0,8)-(13,14)   |  |
+| 16 | two blits, dirty unions            | 0cf257715894 | (0,0)-(18,13)   |  |
+| 16 | read-only destination              | 0f5745ed29b7 | none            | RuntimeError: Read-only object |
+| 16 | subclass destination               | 69dfabc5e6dc | (3,2)-(19,14)   |  |
+| 16 | subclass source                    | 69dfabc5e6dc | (3,2)-(19,14)   |  |
+| 16 | self blit, overlapping             | d7abb0c8c701 | (2,1)-(14,11)   |  |
+| 16 | 16 bit source into this depth      | a7480d2b4089 | (1,1)-(17,13)   |  |
