@@ -1,0 +1,11 @@
+trial 1: screen differs from a full redraw after write add move write add write
+trial 8: screen differs from a full redraw after move write move move write pop
+trial 9: screen differs from a full redraw after add move pop move add pop
+trial 12: screen differs from a full redraw after add move pop pop move add
+trial 16: screen differs from a full redraw after pop write move write add add
+trial 20: screen differs from a full redraw after move move pop move write pop
+trial 22: screen differs from a full redraw after add move add add pop write
+trial 26: screen differs from a full redraw after write write pop pop write write
+trial 28: screen differs from a full redraw after write move move write move add
+trial 37: screen differs from a full redraw after move move move move write move
+# group race, 40 trials, 10 wrong, same root, actions move,pop,add,write, displayio from /home/pi/blinka-turbo/grouplock/displayio/__init__.py

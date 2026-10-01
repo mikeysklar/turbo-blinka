@@ -1,0 +1,4 @@
+# nested group removed mid-drain, displayio from /home/pi/blinka-turbo/grouplock/displayio/__init__.py
+drain paused after a pop: yes
+removal waited for the drain: yes, blocked
+stale pixels after refresh: 0 ok
