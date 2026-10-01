@@ -1,0 +1,4 @@
+# thread idle, Raspberry Pi Zero 2 W Rev 1.0, 10 s per phase, displayio from /home/pi/blinka-turbo/threadsleep/displayio/__init__.py
+idle: 9.9% of a core
+compute: 1.77 M iterations per second
+animate: 600 moves, 252 refreshes, 25.2 refreshes per second

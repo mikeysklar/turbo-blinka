@@ -1,0 +1,40 @@
+run 1 main248
+idle: 5.8% of a core
+compute: 19.09 M iterations per second
+animate: 600 moves, 546 refreshes, 54.6 refreshes per second
+run 1 threadsleep
+idle: 0.4% of a core
+compute: 19.08 M iterations per second
+animate: 600 moves, 520 refreshes, 52.0 refreshes per second
+run 2 main248
+idle: 5.8% of a core
+compute: 19.09 M iterations per second
+animate: 600 moves, 544 refreshes, 54.4 refreshes per second
+run 2 threadsleep
+idle: 0.4% of a core
+compute: 18.87 M iterations per second
+animate: 600 moves, 520 refreshes, 52.0 refreshes per second
+run 3 main248
+idle: 5.9% of a core
+compute: 19.08 M iterations per second
+animate: 600 moves, 546 refreshes, 54.6 refreshes per second
+run 3 threadsleep
+idle: 0.4% of a core
+compute: 19.11 M iterations per second
+animate: 600 moves, 520 refreshes, 52.0 refreshes per second
+run 4 main248
+idle: 5.8% of a core
+compute: 19.06 M iterations per second
+animate: 600 moves, 545 refreshes, 54.5 refreshes per second
+run 4 threadsleep
+idle: 0.4% of a core
+compute: 19.04 M iterations per second
+animate: 600 moves, 520 refreshes, 52.0 refreshes per second
+run 5 main248
+idle: 5.8% of a core
+compute: 19.09 M iterations per second
+animate: 600 moves, 547 refreshes, 54.7 refreshes per second
+run 5 threadsleep
+idle: 0.4% of a core
+compute: 19.11 M iterations per second
+animate: 600 moves, 520 refreshes, 52.0 refreshes per second
