@@ -1,0 +1,16 @@
+# blit into itself, 16x12, displayio from /home/pi/blinka-turbo/blitoverlap/displayio/__init__.py
+| case | Bitmap wrong px | subclass wrong px |
+|---|---|---|
+| shift -1,-1 | 0 | 0 |
+| shift +0,-1 | 0 | 0 |
+| shift +1,-1 | 0 | 0 |
+| shift -1,+0 | 0 | 0 |
+| shift +1,+0 | 0 | 0 |
+| shift -1,+1 | 0 | 0 |
+| shift +0,+1 | 0 | 0 |
+| shift +1,+1 | 0 | 0 |
+| whole bitmap right and down | 0 | 0 |
+| whole bitmap left and up | 0 | 0 |
+| right, skip source 20 | 0 | 0 |
+| down, skip dest 40 | 0 | 0 |
+total wrong pixels: 0

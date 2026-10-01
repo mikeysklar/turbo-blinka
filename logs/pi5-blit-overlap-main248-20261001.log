@@ -1,0 +1,16 @@
+# blit into itself, 16x12, displayio from /home/pi/blinka-turbo/main248/displayio/__init__.py
+| case | Bitmap wrong px | subclass wrong px |
+|---|---|---|
+| shift -1,-1 | 0 | 0 |
+| shift +0,-1 | 0 | 0 |
+| shift +1,-1 | 0 | 0 |
+| shift -1,+0 | 0 | 0 |
+| shift +1,+0 | 30 | 30 |
+| shift -1,+1 | 15 | 15 |
+| shift +0,+1 | 24 | 24 |
+| shift +1,+1 | 15 | 15 |
+| whole bitmap right and down | 60 | 60 |
+| whole bitmap left and up | 0 | 0 |
+| right, skip source 20 | 30 | 30 |
+| down, skip dest 40 | 24 | 24 |
+total wrong pixels: 396
