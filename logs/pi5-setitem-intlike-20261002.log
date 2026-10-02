@@ -1,0 +1,36 @@
+8 bit bitmap[x, y] = v, 240x240: median 136.6 ms, range 136.3-142.1, displayio from /home/pi/blinka-turbo/main249/displayio/__init__.py
+main249 | bitmap[x, y] = v, every pixel | 57600 | 127.8 | 2.22 | 4b5420481545 |
+main249 | fill_region, whole bitmap | 57600 | 36.9 | 0.64 | 6850147ad542 |
+main249 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 140.6 ms, range 140.2-141.0, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio/__init__.py
+bitmapvalues2 | bitmap[x, y] = v, every pixel | 57600 | 129.1 | 2.24 | 4b5420481545 |
+bitmapvalues2 | fill_region, whole bitmap | 57600 | 36.7 | 0.64 | 6850147ad542 |
+bitmapvalues2 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 142.8 ms, range 142.6-143.3, displayio from /home/pi/blinka-turbo/bitmapvalues3/displayio/__init__.py
+bitmapvalues3 | bitmap[x, y] = v, every pixel | 57600 | 130.1 | 2.26 | 4b5420481545 |
+bitmapvalues3 | fill_region, whole bitmap | 57600 | 36.9 | 0.64 | 6850147ad542 |
+bitmapvalues3 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 136.5 ms, range 136.2-136.8, displayio from /home/pi/blinka-turbo/main249/displayio/__init__.py
+main249 | bitmap[x, y] = v, every pixel | 57600 | 127.7 | 2.22 | 4b5420481545 |
+main249 | fill_region, whole bitmap | 57600 | 36.9 | 0.64 | 6850147ad542 |
+main249 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 141.1 ms, range 140.7-141.3, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio/__init__.py
+bitmapvalues2 | bitmap[x, y] = v, every pixel | 57600 | 128.8 | 2.24 | 4b5420481545 |
+bitmapvalues2 | fill_region, whole bitmap | 57600 | 36.8 | 0.64 | 6850147ad542 |
+bitmapvalues2 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 142.2 ms, range 141.8-142.8, displayio from /home/pi/blinka-turbo/bitmapvalues3/displayio/__init__.py
+bitmapvalues3 | bitmap[x, y] = v, every pixel | 57600 | 130.8 | 2.27 | 4b5420481545 |
+bitmapvalues3 | fill_region, whole bitmap | 57600 | 36.9 | 0.64 | 6850147ad542 |
+bitmapvalues3 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 138.1 ms, range 137.6-139.2, displayio from /home/pi/blinka-turbo/main249/displayio/__init__.py
+main249 | bitmap[x, y] = v, every pixel | 57600 | 127.7 | 2.22 | 4b5420481545 |
+main249 | fill_region, whole bitmap | 57600 | 36.8 | 0.64 | 6850147ad542 |
+main249 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 142.0 ms, range 141.7-142.6, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio/__init__.py
+bitmapvalues2 | bitmap[x, y] = v, every pixel | 57600 | 128.6 | 2.23 | 4b5420481545 |
+bitmapvalues2 | fill_region, whole bitmap | 57600 | 36.9 | 0.64 | 6850147ad542 |
+bitmapvalues2 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 143.6 ms, range 143.5-144.9, displayio from /home/pi/blinka-turbo/bitmapvalues3/displayio/__init__.py
+bitmapvalues3 | bitmap[x, y] = v, every pixel | 57600 | 130.1 | 2.26 | 4b5420481545 |
+bitmapvalues3 | fill_region, whole bitmap | 57600 | 36.6 | 0.63 | 6850147ad542 |
+bitmapvalues3 # fill_region checks: 156 cases, sha256 73da4fe869a2

@@ -1,0 +1,8 @@
+PASS test_bool_value
+FAIL test_copies_truncate: error: 'B' format requires 0 <= number <= 255 (line 196)
+FAIL test_float_refused: error: required argument is not an integer (line 196)
+FAIL test_int_and_index_values: TypeError: unsupported operand type(s) for &: 'Index' and 'int' (line 191)
+FAIL test_numpy_values: AssertionError:  (line 48)
+FAIL test_out_of_range_raises: error: 'B' format requires 0 <= number <= 255 (line 196)
+PASS test_under_8_bits_still_masks
+5 failed

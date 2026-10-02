@@ -1,0 +1,24 @@
+# integer-like values, numpy 2.2.4, displayio from /home/pi/blinka-turbo/bitmapvalues3/displayio/__init__.py
+| bits | value | `b[0, 0] = value` | `fill_region` |
+|---|---|---|---|
+| 4 | int | stored 12 (int) | stored 12 (int) |
+| 4 | np.uint8 | stored 12 (int) | stored 12 (int) |
+| 4 | np.uint16 | stored 12 (int) | stored 12 (int) |
+| 4 | np.int64 | stored 12 (int) | stored 12 (int) |
+| 4 | bool | stored 1 (int) | stored 1 (int) |
+| 4 | __index__ | stored 12 (int) | stored 12 (int) |
+| 4 | float | TypeError: 'float' object cannot be interpreted as an integer | TypeError: 'float' object cannot be interpreted as an integer |
+| 8 | int | stored 12 (int) | stored 12 (int) |
+| 8 | np.uint8 | stored 12 (int) | stored 12 (int) |
+| 8 | np.uint16 | stored 12 (int) | stored 12 (int) |
+| 8 | np.int64 | stored 12 (int) | stored 12 (int) |
+| 8 | bool | stored 1 (int) | stored 1 (int) |
+| 8 | __index__ | stored 12 (int) | stored 12 (int) |
+| 8 | float | TypeError: 'float' object cannot be interpreted as an integer | TypeError: 'float' object cannot be interpreted as an integer |
+| 16 | int | stored 12 (int) | stored 12 (int) |
+| 16 | np.uint8 | stored 12 (int) | stored 12 (int) |
+| 16 | np.uint16 | stored 12 (int) | stored 12 (int) |
+| 16 | np.int64 | stored 12 (int) | stored 12 (int) |
+| 16 | bool | stored 1 (int) | stored 1 (int) |
+| 16 | __index__ | stored 12 (int) | stored 12 (int) |
+| 16 | float | TypeError: 'float' object cannot be interpreted as an integer | TypeError: 'float' object cannot be interpreted as an integer |

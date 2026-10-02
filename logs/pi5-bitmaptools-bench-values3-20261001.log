@@ -1,0 +1,96 @@
+main249 # bitmaptools bench, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 4-bit, displayio from /home/pi/blinka-turbo/main249/displayio
+main249 | case | pixels | median ms | us per pixel | sha256 |
+main249 |---|---|---|---|---|
+main249 | bitmap[x, y] = v, every pixel | 57600 | 128.1 | 2.22 | 4b5420481545 |
+main249 | v = bitmap[x, y], every pixel | 57600 | 40.4 | 0.70 | 460a263aa241 |
+main249 | Bitmap.fill | 57600 | 0.4 | 0.01 | 6850147ad542 |
+main249 | fill_region, whole bitmap | 57600 | 36.7 | 0.64 | 6850147ad542 |
+main249 | blit, whole bitmap | 57600 | 66.3 | 1.15 | daebaf16a1d8 |
+main249 | blit 64x64, skip_source_index | 4096 | 4.6 | 1.13 | 5811232d7bc6 |
+main249 | rotozoom 64x64, 30 degrees, scale 2 | 16384 | 54.3 | 3.32 | 6a081ac4555a |
+main249 | draw_line x 20, corner to corner | 4800 | 11.0 | 2.28 | c557a2875931 |
+main249 | draw_circle x 20 |  | 14.8 |  | 7a5b84c1ec48 |
+main249 | boundary_fill inside a ring |  | 80.1 |  | 6d73c4f8bb54 |
+main249 # output sha256 8bed9684ccfb
+main249 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 138.6 ms, range 138.2-138.8, displayio from /home/pi/blinka-turbo/main249/displayio/__init__.py
+bitmapvalues2 # bitmaptools bench, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 4-bit, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio
+bitmapvalues2 | case | pixels | median ms | us per pixel | sha256 |
+bitmapvalues2 |---|---|---|---|---|
+bitmapvalues2 | bitmap[x, y] = v, every pixel | 57600 | 128.2 | 2.23 | 4b5420481545 |
+bitmapvalues2 | v = bitmap[x, y], every pixel | 57600 | 40.2 | 0.70 | 460a263aa241 |
+bitmapvalues2 | Bitmap.fill | 57600 | 0.4 | 0.01 | 6850147ad542 |
+bitmapvalues2 | fill_region, whole bitmap | 57600 | 36.7 | 0.64 | 6850147ad542 |
+bitmapvalues2 | blit, whole bitmap | 57600 | 66.5 | 1.16 | daebaf16a1d8 |
+bitmapvalues2 | blit 64x64, skip_source_index | 4096 | 4.6 | 1.13 | 5811232d7bc6 |
+bitmapvalues2 | rotozoom 64x64, 30 degrees, scale 2 | 16384 | 28.8 | 1.76 | 64a88ff785ab |
+bitmapvalues2 | draw_line x 20, corner to corner | 4800 | 11.2 | 2.33 | c557a2875931 |
+bitmapvalues2 | draw_circle x 20 |  | 14.9 |  | 7a5b84c1ec48 |
+bitmapvalues2 | boundary_fill inside a ring |  | 80.8 |  | 6d73c4f8bb54 |
+bitmapvalues2 # output sha256 bfe039f1d537
+bitmapvalues2 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 141.2 ms, range 141.1-141.6, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio/__init__.py
+main249 # bitmaptools bench, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 4-bit, displayio from /home/pi/blinka-turbo/main249/displayio
+main249 | case | pixels | median ms | us per pixel | sha256 |
+main249 |---|---|---|---|---|
+main249 | bitmap[x, y] = v, every pixel | 57600 | 127.9 | 2.22 | 4b5420481545 |
+main249 | v = bitmap[x, y], every pixel | 57600 | 40.5 | 0.70 | 460a263aa241 |
+main249 | Bitmap.fill | 57600 | 0.4 | 0.01 | 6850147ad542 |
+main249 | fill_region, whole bitmap | 57600 | 36.8 | 0.64 | 6850147ad542 |
+main249 | blit, whole bitmap | 57600 | 66.8 | 1.16 | daebaf16a1d8 |
+main249 | blit 64x64, skip_source_index | 4096 | 4.6 | 1.13 | 5811232d7bc6 |
+main249 | rotozoom 64x64, 30 degrees, scale 2 | 16384 | 54.5 | 3.33 | 6a081ac4555a |
+main249 | draw_line x 20, corner to corner | 4800 | 11.0 | 2.29 | c557a2875931 |
+main249 | draw_circle x 20 |  | 14.6 |  | 7a5b84c1ec48 |
+main249 | boundary_fill inside a ring |  | 80.0 |  | 6d73c4f8bb54 |
+main249 # output sha256 8bed9684ccfb
+main249 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 137.3 ms, range 137.0-137.9, displayio from /home/pi/blinka-turbo/main249/displayio/__init__.py
+bitmapvalues2 # bitmaptools bench, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 4-bit, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio
+bitmapvalues2 | case | pixels | median ms | us per pixel | sha256 |
+bitmapvalues2 |---|---|---|---|---|
+bitmapvalues2 | bitmap[x, y] = v, every pixel | 57600 | 128.7 | 2.23 | 4b5420481545 |
+bitmapvalues2 | v = bitmap[x, y], every pixel | 57600 | 40.5 | 0.70 | 460a263aa241 |
+bitmapvalues2 | Bitmap.fill | 57600 | 0.4 | 0.01 | 6850147ad542 |
+bitmapvalues2 | fill_region, whole bitmap | 57600 | 36.8 | 0.64 | 6850147ad542 |
+bitmapvalues2 | blit, whole bitmap | 57600 | 66.7 | 1.16 | daebaf16a1d8 |
+bitmapvalues2 | blit 64x64, skip_source_index | 4096 | 4.6 | 1.13 | 5811232d7bc6 |
+bitmapvalues2 | rotozoom 64x64, 30 degrees, scale 2 | 16384 | 29.0 | 1.77 | 64a88ff785ab |
+bitmapvalues2 | draw_line x 20, corner to corner | 4800 | 11.1 | 2.30 | c557a2875931 |
+bitmapvalues2 | draw_circle x 20 |  | 14.7 |  | 7a5b84c1ec48 |
+bitmapvalues2 | boundary_fill inside a ring |  | 80.3 |  | 6d73c4f8bb54 |
+bitmapvalues2 # output sha256 bfe039f1d537
+bitmapvalues2 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 140.5 ms, range 139.8-140.8, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio/__init__.py
+main249 # bitmaptools bench, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 4-bit, displayio from /home/pi/blinka-turbo/main249/displayio
+main249 | case | pixels | median ms | us per pixel | sha256 |
+main249 |---|---|---|---|---|
+main249 | bitmap[x, y] = v, every pixel | 57600 | 128.0 | 2.22 | 4b5420481545 |
+main249 | v = bitmap[x, y], every pixel | 57600 | 40.4 | 0.70 | 460a263aa241 |
+main249 | Bitmap.fill | 57600 | 0.4 | 0.01 | 6850147ad542 |
+main249 | fill_region, whole bitmap | 57600 | 36.9 | 0.64 | 6850147ad542 |
+main249 | blit, whole bitmap | 57600 | 66.7 | 1.16 | daebaf16a1d8 |
+main249 | blit 64x64, skip_source_index | 4096 | 4.5 | 1.10 | 5811232d7bc6 |
+main249 | rotozoom 64x64, 30 degrees, scale 2 | 16384 | 54.0 | 3.30 | 6a081ac4555a |
+main249 | draw_line x 20, corner to corner | 4800 | 11.1 | 2.32 | c557a2875931 |
+main249 | draw_circle x 20 |  | 14.6 |  | 7a5b84c1ec48 |
+main249 | boundary_fill inside a ring |  | 80.1 |  | 6d73c4f8bb54 |
+main249 # output sha256 8bed9684ccfb
+main249 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 137.6 ms, range 137.0-138.3, displayio from /home/pi/blinka-turbo/main249/displayio/__init__.py
+bitmapvalues2 # bitmaptools bench, Raspberry Pi 5 Model B Rev 1.0, Python 3.13.5, 240x240 4-bit, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio
+bitmapvalues2 | case | pixels | median ms | us per pixel | sha256 |
+bitmapvalues2 |---|---|---|---|---|
+bitmapvalues2 | bitmap[x, y] = v, every pixel | 57600 | 128.8 | 2.24 | 4b5420481545 |
+bitmapvalues2 | v = bitmap[x, y], every pixel | 57600 | 40.4 | 0.70 | 460a263aa241 |
+bitmapvalues2 | Bitmap.fill | 57600 | 0.4 | 0.01 | 6850147ad542 |
+bitmapvalues2 | fill_region, whole bitmap | 57600 | 36.7 | 0.64 | 6850147ad542 |
+bitmapvalues2 | blit, whole bitmap | 57600 | 66.7 | 1.16 | daebaf16a1d8 |
+bitmapvalues2 | blit 64x64, skip_source_index | 4096 | 4.6 | 1.13 | 5811232d7bc6 |
+bitmapvalues2 | rotozoom 64x64, 30 degrees, scale 2 | 16384 | 28.7 | 1.75 | 64a88ff785ab |
+bitmapvalues2 | draw_line x 20, corner to corner | 4800 | 11.0 | 2.30 | c557a2875931 |
+bitmapvalues2 | draw_circle x 20 |  | 14.8 |  | 7a5b84c1ec48 |
+bitmapvalues2 | boundary_fill inside a ring |  | 80.5 |  | 6d73c4f8bb54 |
+bitmapvalues2 # output sha256 bfe039f1d537
+bitmapvalues2 # fill_region checks: 156 cases, sha256 73da4fe869a2
+8 bit bitmap[x, y] = v, 240x240: median 141.9 ms, range 141.6-142.1, displayio from /home/pi/blinka-turbo/bitmapvalues2/displayio/__init__.py

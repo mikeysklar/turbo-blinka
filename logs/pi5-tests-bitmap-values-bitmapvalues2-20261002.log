@@ -1,0 +1,8 @@
+PASS test_bool_value
+PASS test_copies_truncate
+PASS test_float_refused
+FAIL test_int_and_index_values: TypeError: unsupported operand type(s) for &: 'Index' and 'int' (line 165)
+FAIL test_numpy_values: AssertionError:  (line 48)
+PASS test_out_of_range_raises
+PASS test_under_8_bits_still_masks
+2 failed

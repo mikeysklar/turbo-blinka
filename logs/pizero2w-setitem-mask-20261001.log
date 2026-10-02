@@ -1,0 +1,12 @@
+8 bit bitmap[x, y] = v, 240x240: median 1425.4 ms, range 1421.6-1428.5, displayio from /home/pi/blinka-turbo/main248/displayio/__init__.py
+4bit main248 | bitmap[x, y] = v, every pixel | 57600 | 1318.2 | 22.89 | 4b5420481545 |
+8 bit bitmap[x, y] = v, 240x240: median 1430.2 ms, range 1427.9-1433.3, displayio from /home/pi/blinka-turbo/bitmapvalues/displayio/__init__.py
+4bit bitmapvalues | bitmap[x, y] = v, every pixel | 57600 | 1354.8 | 23.52 | 4b5420481545 |
+8 bit bitmap[x, y] = v, 240x240: median 1402.3 ms, range 1401.2-1403.8, displayio from /home/pi/blinka-turbo/main248/displayio/__init__.py
+4bit main248 | bitmap[x, y] = v, every pixel | 57600 | 1308.3 | 22.71 | 4b5420481545 |
+8 bit bitmap[x, y] = v, 240x240: median 1463.8 ms, range 1463.1-1465.6, displayio from /home/pi/blinka-turbo/bitmapvalues/displayio/__init__.py
+4bit bitmapvalues | bitmap[x, y] = v, every pixel | 57600 | 1347.8 | 23.40 | 4b5420481545 |
+8 bit bitmap[x, y] = v, 240x240: median 1421.3 ms, range 1419.3-1422.1, displayio from /home/pi/blinka-turbo/main248/displayio/__init__.py
+4bit main248 | bitmap[x, y] = v, every pixel | 57600 | 1320.8 | 22.93 | 4b5420481545 |
+8 bit bitmap[x, y] = v, 240x240: median 1435.1 ms, range 1430.1-1437.3, displayio from /home/pi/blinka-turbo/bitmapvalues/displayio/__init__.py
+4bit bitmapvalues | bitmap[x, y] = v, every pixel | 57600 | 1354.2 | 23.51 | 4b5420481545 |

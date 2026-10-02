@@ -1,0 +1,8 @@
+# bitmap values, displayio from /home/pi/blinka-turbo/main248/displayio/__init__.py
+| bits | value | `b[0,0] = value` | `b[0,0] = -1` | `fill(value)` | `blit` from 16 bit |
+|---|---|---|---|---|---|
+| 1 | 2 | stored 0 | stored 1 | stored 0 | stored 0 |
+| 2 | 4 | stored 0 | stored 3 | stored 0 | stored 0 |
+| 4 | 16 | stored 0 | stored 15 | stored 0 | stored 0 |
+| 8 | 256 | error: 'B' format requires 0 <= number <= 255 | error: 'B' format requires 0 <= number <= 255 | stored 0 | error: 'B' format requires 0 <= number <= 255 |
+| 16 | 65536 | error: 'H' format requires 0 <= number <= 65535 | error: 'H' format requires 0 <= number <= 65535 | stored 0 | n/a |

@@ -1,0 +1,8 @@
+PASS test_bool_value
+PASS test_copies_truncate
+PASS test_float_refused
+PASS test_int_and_index_values
+PASS test_numpy_values
+PASS test_out_of_range_raises
+PASS test_under_8_bits_still_masks
+0 failed
